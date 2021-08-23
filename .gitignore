@@ -15,3 +15,9 @@ buildNumber.properties
 jobnight/.mvn/wrapper/
 
 jobnight/src/main/resources/application.properties
+
+.idea/
+
+src/main/resources/application.properties
+
+*.iml
