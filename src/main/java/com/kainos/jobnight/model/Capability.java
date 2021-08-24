@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="capability")
-public class CapabilityModel {
+public class Capability {
     @Id
     @GeneratedValue
 
@@ -13,13 +13,13 @@ public class CapabilityModel {
     @Column(name = "capability_name")
     private String name;
 
-    public CapabilityModel(short ID, String name) {
+    public Capability(short ID, String name) {
 
         this.ID = ID;
         this.name = name;
     }
 
-    public CapabilityModel(){
+    public Capability(){
     }
 
     public long getID() {
