@@ -8,5 +8,4 @@ public class JobnightApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JobnightApplication.class, args);
 	}
-
 }
