@@ -15,6 +15,7 @@ public class JobRole {
 	@Column(name = "role_name")
 	private String name;
 
+	@Column(name= "specification")
 	private String specification;
 
 	@ManyToOne
@@ -43,6 +44,7 @@ public class JobRole {
 
 	public short getId() { return id; }
 	public String getName() { return name; }
+	public String getSpecification() { return specification; }
 
 	public Capability getCapability() {
 		return capability;
