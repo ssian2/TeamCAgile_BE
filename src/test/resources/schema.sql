@@ -22,3 +22,14 @@ CREATE TABLE `capability` (
      `capability_name` varchar(60) DEFAULT NULL,
      PRIMARY KEY (`capability_id`)
 );
+
+CREATE TABLE IF NOT EXISTS `band`(
+    `band_id` smallint not null AUTO_INCREMENT,
+    `band_name` varchar(30),
+    PRIMARY KEY (band_id)
+);
+
+CREATE TABLE IF NOT EXISTS `responsibility`(
+    `responsibility_id` smallint not null PRIMARY KEY AUTO_INCREMENT,
+    `responsibility_name` varchar(30) 
+);

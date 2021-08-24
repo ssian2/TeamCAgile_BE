@@ -1,6 +1,8 @@
 package com.kainos.jobnight.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -52,4 +54,19 @@ public class JobRole {
 	public void setCapability(Capability capability) {
 		this.capability = capability;
 	}
+
+	public Band getBand_name() {
+		return band_name;
+	}
+	public void setBand_name(Band band_name) {
+		this.band_name = band_name;
+	}
+	@OneToOne
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JoinColumn(name="band_id", referencedColumnName = "band_id",
+			insertable = false, updatable = false,
+			foreignKey = @javax.persistence
+					.ForeignKey(value = ConstraintMode.CONSTRAINT))
+	private Band band_name;
+    
 }
