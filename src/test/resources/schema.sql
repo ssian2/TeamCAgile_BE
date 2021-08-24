@@ -16,3 +16,9 @@ CREATE TABLE IF NOT EXISTS `employee_role` (
 --  CONSTRAINT `employee_role_ibfk_2` FOREIGN KEY (`capability_id`) REFERENCES `capability` (`capability_id`),
 --  CONSTRAINT `employee_role_ibfk_3` FOREIGN KEY (`responsibility_id`) REFERENCES `responsibility` (`responsibility_id`)
 );
+
+CREATE TABLE `capability` (
+    `capability_id` smallint NOT NULL AUTO_INCREMENT,
+     `capability_name` varchar(60) DEFAULT NULL,
+     PRIMARY KEY (`capability_id`)
+);

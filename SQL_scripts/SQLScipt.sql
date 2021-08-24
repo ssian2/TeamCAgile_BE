@@ -10,12 +10,12 @@ CREATE TABLE responsibility(
 
 CREATE TABLE capability(
     capability_id smallint PRIMARY KEY NOT NULL,
-    capability_name varchar(20)
+    capability_name varchar(60) not null,
 );
 
 CREATE TABLE employee_role(
     role_id smallint not null,
-    role_name varchar(40) not null,
+    role_name varchar(60) not null,
     specification varchar(300),
     capability_id smallint,
     band_id smallint not null,

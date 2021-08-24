@@ -11,4 +11,5 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 {
 	//JobRole findById(short id);
 	List<JobRole> findAll();
+
 }
