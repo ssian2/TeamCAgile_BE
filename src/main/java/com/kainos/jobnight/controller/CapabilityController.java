@@ -1,6 +1,6 @@
 package com.kainos.jobnight.controller;
 
-import com.kainos.jobnight.model.Capability;
+import com.kainos.jobnight.entity.Capability;
 import com.kainos.jobnight.repository.CapabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
