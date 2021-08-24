@@ -16,8 +16,9 @@ public class CapabilityController {
     @Autowired
     CapabilityRepository CapabilityRepository;
 
-    @GetMapping("/allCapabilities")
+    @GetMapping("/all")
     public List<Capability> getAllCapabilities() {
         return CapabilityRepository.findAll();
     }
+
 }

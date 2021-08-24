@@ -1,4 +1,7 @@
 package com.kainos.jobnight.entity;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +19,7 @@ public class JobRole {
 
 	@ManyToOne
 	@JoinColumn(name = "capability_id", nullable = false)
+	@JsonBackReference
 	private Capability capability;
 
 	@Column(name = "band_id")
@@ -31,6 +35,10 @@ public class JobRole {
 		this.capability = capability;
 		this.band = band;
 		this.responsibility = responsibility;
+	}
+
+	public JobRole(){
+
 	}
 
 	public short getId() { return id; }

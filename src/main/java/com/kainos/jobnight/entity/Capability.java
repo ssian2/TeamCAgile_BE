@@ -1,6 +1,9 @@
 package com.kainos.jobnight.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="capability")
@@ -13,10 +16,22 @@ public class Capability {
     @Column(name = "capability_name")
     private String name;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "capability")
+    private List<JobRole> jobroles;
+
     public Capability(short ID, String name) {
 
         this.ID = ID;
         this.name = name;
+    }
+
+    public List<JobRole> getJobroles() {
+        return jobroles;
+    }
+
+    public void setJobroles(List<JobRole> jobroles) {
+        this.jobroles = jobroles;
     }
 
     public Capability(){
