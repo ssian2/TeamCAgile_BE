@@ -10,7 +10,6 @@ import java.util.List;
 public class Capability {
     @Id
     @GeneratedValue
-
     @Column(name = "capability_id")
     private short ID;
     @Column(name = "capability_name")
@@ -20,10 +19,27 @@ public class Capability {
     @OneToMany(mappedBy = "capability")
     private List<JobRole> jobroles;
 
-    public Capability(short ID, String name) {
+    @JsonManagedReference
+    @OneToMany(mappedBy = "capability")
+    private List<JobFamily> jobFamilies;
 
+    public Capability() {
+
+    }
+
+    public List<JobFamily> getJobFamilies() {
+        return jobFamilies;
+    }
+
+    public void setJobFamilies(List<JobFamily> jobFamilies) {
+        this.jobFamilies = jobFamilies;
+    }
+
+    public Capability(short ID, String name, List<JobRole> jobroles, List<JobFamily> jobFamilies) {
         this.ID = ID;
         this.name = name;
+        this.jobroles = jobroles;
+        this.jobFamilies = jobFamilies;
     }
 
     public List<JobRole> getJobroles() {
@@ -34,8 +50,6 @@ public class Capability {
         this.jobroles = jobroles;
     }
 
-    public Capability(){
-    }
 
     public long getID() {
         return ID;
