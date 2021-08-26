@@ -40,8 +40,8 @@ public class CapabilityAPITests {
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/all"), HttpMethod.GET, entity, String.class);
 
         String expected = """
-                    [{"name":"Engineering","jobroles":[{"id":1,"name":"Job Role 1"}],"id":1},{"name":"Artificial Intelligence","jobroles":[{"id":2,"name":"Job Role 2"}],"id":2}]""";
-
+                [{"name":"Engineering","jobroles":[{"id":1,"name":"Job Role 1","specification":"Role spec 1","url":null,"band_name":null}],"jobFamilies":[{"name":"Engineering Strategy and Planning","capability_name":"Engineering","id":1},{"name":"Engineering","capability_name":"Engineering","id":2}],"id":1},{"name":"Artificial Intelligence","jobroles":[{"id":2,"name":"Job Role 2","specification":"Role spec 2","url":null,"band_name":null}],"jobFamilies":[{"name":"Architecture","capability_name":"Artificial Intelligence","id":3}],"id":2}]""";
+        System.out.println("fdsfdsa" + response.getBody());
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {

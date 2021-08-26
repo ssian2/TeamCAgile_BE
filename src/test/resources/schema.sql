@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `employee_role` (
   `capability_id` smallint DEFAULT NULL,
   `band_id` smallint NOT NULL,
   `responsibility_id` smallint NOT NULL,
-  PRIMARY KEY (`role_id`)--,
+    PRIMARY KEY (`role_id`)
 --  Foreign keys aren't here?
 --  KEY `band_id` (`band_id`),
 --  KEY `capability_id` (`capability_id`),
