@@ -1,22 +1,5 @@
 package com.kainos.jobnight.entity;
 
-<<<<<<< HEAD
-import javax.persistence.*;
-
-@Entity
-@Table(name = "capability")
-public class Capability {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "capability_id")
-	private short id;
-
-	@Column(name = "capability_name")
-	private String name;
-
-	public Capability() {}
-}
-=======
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -84,4 +67,3 @@ public class Capability {
         this.name = name;
     }
 }
->>>>>>> 44a794b63817a5796884b3eb651c3e52f21d7dc0
