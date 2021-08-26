@@ -16,6 +16,17 @@ VALUES
 ('Engineering'),
 ('Artificial Intelligence');
 
+
+INSERT INTO `job_family` (
+    `job_family_name`,
+    `capability_id`
+)
+VALUES
+       ('Engineering Strategy and Planning', 1),
+       ('Engineering', 1),
+       ('Architecture', 2);
+
+
 INSERT INTO `band` (band_id, band_name) values (
     1, 'test_band_name'
 );
