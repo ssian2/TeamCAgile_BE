@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "band": {
+      "id": 2,
+      "name": "Apprentice"
+    },
+    "description": "Placeholder description for App. C.A",
+    "competency": {
+      "id": 1,
+      "name": "Commercial Awareness"
+    }
+  },
+  {
+    "id": 2,
+    "band": {
+      "id": 2,
+      "name": "Apprentice"
+    },
+    "description": "Placeholder description for App. P&O",
+    "competency": {
+      "id": 2,
+      "name": "Planning and Organising"
+    }
+  },
+  {
+    "id": 3,
+    "band": {
+      "id": 2,
+      "name": "Apprentice"
+    },
+    "description": "Placeholder description for App. I&C.I",
+    "competency": {
+      "id": 3,
+      "name": "Innovation and Continuous Inprovement"
+    }
+  },
+  {
+    "id": 4,
+    "band": {
+      "id": 2,
+      "name": "Apprentice"
+    },
+    "description": "Placeholder description for App. J.S.K",
+    "competency": {
+      "id": 4,
+      "name": "Job Specific Knowledge"
+    }
+  },
+  {
+    "id": 5,
+    "band": {
+      "id": 2,
+      "name": "Apprentice"
+    },
+    "description": "Placeholder description for App. D.Y&O",
+    "competency": {
+      "id": 5,
+      "name": "Developing Yourself and Others"
+    }
+  },
+  {
+    "id": 6,
+    "band": {
+      "id": 2,
+      "name": "Apprentice"
+    },
+    "description": "Placeholder description for App. C&T",
+    "competency": {
+      "id": 6,
+      "name": "Communicating & Teamwork"
+    }
+  },
+  {
+    "id": 7,
+    "band": {
+      "id": 2,
+      "name": "Apprentice"
+    },
+    "description": "Placeholder description for App. C.F",
+    "competency": {
+      "id": 7,
+      "name": "Customer Focus"
+    }
+  },
+  {
+    "id": 9,
+    "band": {
+      "id": 3,
+      "name": "Trainee"
+    },
+    "description": "Placeholder description for Train. C&T",
+    "competency": {
+      "id": 6,
+      "name": "Communicating & Teamwork"
+    }
+  },
+  {
+    "id": 8,
+    "band": {
+      "id": 3,
+      "name": "Trainee"
+    },
+    "description": "Placeholder description for Train. C.F",
+    "competency": {
+      "id": 7,
+      "name": "Customer Focus"
+    }
+  }
+]
