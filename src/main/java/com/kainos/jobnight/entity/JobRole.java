@@ -19,6 +19,13 @@ public class JobRole {
 
 	@Column(name= "specification")
 	private String specification;
+	
+	@Column(name = "spec_doc_url")
+	private String url;
+
+	public String getUrl(){
+		return url;
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "capability_id", nullable = false)

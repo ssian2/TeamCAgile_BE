@@ -17,6 +17,7 @@ CREATE TABLE employee_role(
     role_id smallint not null,
     role_name varchar(60) not null,
     specification varchar(300),
+    spec_doc_url varchar(300) DEFAULT NULL,
     capability_id smallint,
     band_id smallint not null,
     responsibility_id smallint not null,
