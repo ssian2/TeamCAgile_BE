@@ -17,8 +17,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.Buffer;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -41,23 +45,19 @@ class JobnightApplicationTests {
 	void contextLoads() {
 	}*/
 
+	// US001
 	@Test
 	void whenGetRequestIssuedToApiJobRoleAll_thenReturnCompleteJobRoleDataSet() {
-		final String baseUrl = "http://localhost:8080/api/job-role/all";
-
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
 		ResponseEntity<String> response = restTemplate.exchange(
 			createURLWithPort("/api/job-role/all"),
 			HttpMethod.GET, entity, String.class);
 
-		String expected = """
-[{"id":1,"name":"Job Role 1"},{"id":2,"name":"Job Role 2"}]""";
-
-		System.out.printf("\n\n%s\n\n", response.getBody());
+		String expected = loadResourceAsString("Test_US001_Expected.json");
 
 		try {
-			JSONAssert.assertEquals(expected, response.getBody(), false);
+			JSONAssert.assertEquals(expected, response.getBody(), true);
 		} catch (JSONException e) {
 			fail("Invalid JSON object");
 		}
@@ -66,7 +66,33 @@ class JobnightApplicationTests {
 		// Check for expected data in results set
 	}
 
+	// US005
+	@Test
+	void whenGetRequestIssuedToApiBandCompetencyAll_thenReturnCompleteCompetencyDataSetSortedByBand() {
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(
+			createURLWithPort("/api/band-competency/all"),
+			HttpMethod.GET, entity, String.class);
+
+		String expected = loadResourceAsString("Test_US005_Expected.json");
+
+		try {
+			JSONAssert.assertEquals(expected, response.getBody(), true);
+		} catch (JSONException e) {
+			fail("Invalid JSON object");;
+		}
+	}
+
 	private String createURLWithPort(String url) {
 		return "http://localhost:" + port + url;
+	}
+
+	private String loadResourceAsString(String resource) {
+		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+		InputStream is = classloader.getResourceAsStream(resource);
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader br = new BufferedReader(isr);
+		return br.lines().collect(Collectors.joining());
 	}
 }

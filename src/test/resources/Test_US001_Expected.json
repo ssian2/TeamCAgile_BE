@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "test role"
+  },
+  {
+    "id": 2,
+    "name": "Test Engineer"
+  },
+  {
+    "id": 5,
+    "name": "Software Engineer"
+  },
+  {
+    "id": 6,
+    "name": "Software Engineer"
+  },
+  {
+    "id": 7,
+    "name": "Product Specialist"
+  }
+]
