@@ -22,16 +22,23 @@ public class JobRoleController {
 	}
 
 	@GetMapping("/view-job-spec/{id}")
-	public JobRole viewJobSpec(@PathVariable("id") Short id){
+	public JobRole viewJobSpecById(@PathVariable("id") Short id) {
 		var specId = repo.findById(id);
 
-		if(specId.isPresent()) {
+		if (specId.isPresent()) {
 			return specId.get();
 		}
 		return null;
 	}
+
+	@GetMapping("/view-job-spec")
+	public List<JobRole> viewJobSpec(){
+		return repo.findAll();
+	}
+
+
 	@GetMapping("/view-band-level")
-	public  List<JobRole> viewBandLevel(){
+	public List<JobRole> viewBandLevel() {
 		return repo.viewBandLevel();
 	}
 }
