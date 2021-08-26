@@ -17,5 +17,4 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 //	List<JobRole> viewJobSpec();
 
 	Optional<JobRole> findById(Short id);
-
 }
