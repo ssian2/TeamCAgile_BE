@@ -3,7 +3,6 @@ package com.kainos.jobnight.controller;
 import com.kainos.jobnight.entity.JobRole;
 import com.kainos.jobnight.repo.JobRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
