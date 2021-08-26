@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Repository
 public interface JobRoleRepository extends CrudRepository<JobRole, Short>
-{
-	@Query("select c from JobRole c join c.band_name")
-	public List<JobRole> viewBandLevel();
+{/*
+	@Query("SELECT `job_name`, `band_name` FROM `job_role` JOIN `band` USING(`band_id`)")
+	List<JobRole> viewBandLevel();*/
 
 	List<JobRole> findAll();
     

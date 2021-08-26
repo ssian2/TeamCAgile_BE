@@ -39,6 +39,6 @@ public class JobRoleController {
 
 	@GetMapping("/view-band-level")
 	public List<JobRole> viewBandLevel() {
-		return repo.viewBandLevel();
+		return repo.findAll();
 	}
 }

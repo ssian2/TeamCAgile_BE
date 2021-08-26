@@ -19,6 +19,8 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import static com.kainos.jobnight.Util.createURLWithPort;
+import static com.kainos.jobnight.Util.loadResourceAsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -26,10 +28,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JobnightApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class JobSpecTests {
-
-    @Autowired
-    private JobRoleRepository jobRoleRepository;
-
     @LocalServerPort
     private int port;
 
@@ -37,25 +35,20 @@ class JobSpecTests {
 
     private final HttpHeaders headers = new HttpHeaders();
 
+    // US002
     @Test
-    void whenGetRequestIssuedToApiSpecificationById_thenReturnRequiredSpecificationDataSet() {
-        final String baseUrl = "http://localhost:8080/api/job-role/view-job-spec/1";
-
+    void whenGetRequestIssuedToApiJobRoleViewJobSpec1_thenReturnRequiredSpecificationDataSet() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-role/view-job-spec/1"), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-role/view-job-spec/1", port), HttpMethod.GET, entity, String.class);
 
-        String expected = """
-                    {"id":1,"name":"Job Role 1", "specification":"Role spec 1"}""";
+        String expected = loadResourceAsString("Test_US002_Expected.json");
+
         try {
             JSONAssert.assertEquals(expected.toString(), response.getBody(), false);
         } catch (JSONException e) {
             fail("Invalid JSON object");
         }
 
-    }
-
-    private String createURLWithPort(String url) {
-        return "http://localhost:" + port + url;
     }
 }

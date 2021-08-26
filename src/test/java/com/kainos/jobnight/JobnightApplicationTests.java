@@ -24,6 +24,8 @@ import java.net.URL;
 import java.nio.Buffer;
 import java.util.stream.Collectors;
 
+import static com.kainos.jobnight.Util.createURLWithPort;
+import static com.kainos.jobnight.Util.loadResourceAsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -40,31 +42,6 @@ class JobnightApplicationTests {
 	private final RestTemplate restTemplate = new RestTemplate();
 
 	private final HttpHeaders headers = new HttpHeaders();
-/*
-	@Test
-	void contextLoads() {
-	}*/
-
-	// US001
-	@Test
-	void whenGetRequestIssuedToApiJobRoleAll_thenReturnCompleteJobRoleDataSet() {
-		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-
-		ResponseEntity<String> response = restTemplate.exchange(
-			createURLWithPort("/api/job-role/all"),
-			HttpMethod.GET, entity, String.class);
-
-		String expected = loadResourceAsString("Test_US001_Expected.json");
-
-		try {
-			JSONAssert.assertEquals(expected, response.getBody(), true);
-		} catch (JSONException e) {
-			fail("Invalid JSON object");
-		}
-
-
-		// Check for expected data in results set
-	}
 
 	// US005
 	@Test
@@ -72,7 +49,7 @@ class JobnightApplicationTests {
 		HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
 		ResponseEntity<String> response = restTemplate.exchange(
-			createURLWithPort("/api/band-competency/all"),
+			createURLWithPort("/api/band-competency/all", port),
 			HttpMethod.GET, entity, String.class);
 
 		String expected = loadResourceAsString("Test_US005_Expected.json");
@@ -82,17 +59,5 @@ class JobnightApplicationTests {
 		} catch (JSONException e) {
 			fail("Invalid JSON object");;
 		}
-	}
-
-	private String createURLWithPort(String url) {
-		return "http://localhost:" + port + url;
-	}
-
-	private String loadResourceAsString(String resource) {
-		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-		InputStream is = classloader.getResourceAsStream(resource);
-		InputStreamReader isr = new InputStreamReader(is);
-		BufferedReader br = new BufferedReader(isr);
-		return br.lines().collect(Collectors.joining());
 	}
 }
