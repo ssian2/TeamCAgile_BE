@@ -18,4 +18,7 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 	List<JobRole> findAll();
     
 	Optional<JobRole> findById(Short id);
+
+	@Query("Select j from JobRole j JOIN j.responsibilities ")
+	public List<JobRole> testQuery();
 }
