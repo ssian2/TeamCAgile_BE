@@ -1,6 +1,6 @@
 package com.kainos.jobnight;
 
-import com.kainos.jobnight.repo.CapabilityRepository;
+import com.kainos.jobnight.repo.JobFamilyRepository;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -19,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JobnightApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CapabilityAPITests {
+public class JobFamilyAPITests {
 
     @Autowired
-    private CapabilityRepository capabilityRepository;
+    private JobFamilyRepository jobFamilyRepository;
 
     @LocalServerPort
     private int port;
@@ -32,16 +32,16 @@ public class CapabilityAPITests {
     private final HttpHeaders headers = new HttpHeaders();
 
     @Test
-    void whenGetRequestIssuedToApiCapabilityAll_thenReturnCompleteCapabilityDataSet() {
-        final String baseUrl = "http://localhost:8080/api/capability/all";
+    void whenGetRequestIssuedToApiJobFamilyAll_thenReturnCompleteJobFamilyDataSet() {
+        final String baseUrl = "http://localhost:8080/api/job-family/all";
 
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/all"), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-family/all"), HttpMethod.GET, entity, String.class);
 
         String expected = """
-                [{"name":"Engineering","jobroles":[{"id":1,"name":"Job Role 1","specification":"Role spec 1","url":null,"band_name":null}],"jobFamilies":[{"name":"Engineering Strategy and Planning","capability_name":"Engineering","id":1},{"name":"Engineering","capability_name":"Engineering","id":2}],"id":1},{"name":"Artificial Intelligence","jobroles":[{"id":2,"name":"Job Role 2","specification":"Role spec 2","url":null,"band_name":null}],"jobFamilies":[{"name":"Architecture","capability_name":"Artificial Intelligence","id":3}],"id":2}]""";
-        System.out.println("fdsfdsa" + response.getBody());
+                [{"name":"Engineering Strategy and Planning","capability_name":"Engineering","id":1},{"name":"Engineering","capability_name":"Engineering","id":2},{"name":"Architecture","capability_name":"Artificial Intelligence","id":3}] """;
+
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {

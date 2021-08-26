@@ -44,8 +44,6 @@ public class JobRoleAPITest {
         String expected = """
 [{"id":1,"name":"Job Role 1"},{"id":2,"name":"Job Role 2"}]""";
 
-        System.out.printf("\n\n%s\n\n", response.getBody());
-
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {
