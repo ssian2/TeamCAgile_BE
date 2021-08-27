@@ -1,6 +1,6 @@
 package com.kainos.jobnight;
 
-import com.kainos.jobnight.repo.CapabilityRepository;
+import com.kainos.jobnight.repo.JobFamilyRepository;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JobnightApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CapabilityAPITests {
+public class JobFamilyAPITests {
     @LocalServerPort
     private int port;
 
@@ -29,19 +29,22 @@ public class CapabilityAPITests {
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    // US003
+    // UC011
+    //TODO: I think this is Use case 11, someone please rename the expected test file if I'm wrong :)
     @Test
-    void whenGetRequestIssuedToApiCapabilityAll_thenReturnCompleteCapabilityDataSet() {
+    void whenGetRequestIssuedToApiJobFamilyAll_thenReturnCompleteJobFamilyDataSet() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/all", port), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-family/all", port), HttpMethod.GET, entity, String.class);
 
-        String expected = loadResourceAsString("Test_US003_Expected.json");
+        String expected = loadResourceAsString("Test_US011_Expected.json");
 
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {
             fail("Invalid JSON object");
         }
+
     }
+
 }
