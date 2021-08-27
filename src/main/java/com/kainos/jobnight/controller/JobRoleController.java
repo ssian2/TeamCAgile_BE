@@ -2,6 +2,7 @@ package com.kainos.jobnight.controller;
 
 import com.kainos.jobnight.entity.JobRole;
 import com.kainos.jobnight.entity.Responsibility;
+import com.kainos.jobnight.helper_classes.JobRoleNamesOnly;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
 import com.kainos.jobnight.repo.JobRoleRepository;
 
@@ -36,12 +37,6 @@ public class JobRoleController {
 		return null;
 	}
 
-	@GetMapping("/view-job-spec")
-	public List<JobRole> viewJobSpec(){
-		return repo.findAll();
-	}
-
-
 	@GetMapping("/view-band-level")
 	public List<JobRole> viewBandLevel() {
 		return repo.findAll();
@@ -64,5 +59,10 @@ public class JobRoleController {
 				}
 			}
 		return JoinedData;
+	}
+
+	@GetMapping("/test")
+	public List<JobRoleNamesOnly> test(){
+		return repo.queryTry();
 	}
 }

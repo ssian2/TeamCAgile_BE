@@ -1,6 +1,7 @@
 package com.kainos.jobnight.repo;
 
 import com.kainos.jobnight.entity.JobRole;
+import com.kainos.jobnight.helper_classes.JobRoleNamesOnly;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,9 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 
 	@Query("Select j from JobRole j JOIN j.responsibilities ")
 	public List<JobRole> testQuery();
+
+	@Query("Select j from JobRole j")
+	List<JobRoleNamesOnly> queryTry();
   
 
 }
