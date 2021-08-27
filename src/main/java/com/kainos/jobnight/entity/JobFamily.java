@@ -48,6 +48,9 @@ public class JobFamily {
     public Capability getCapability() {
         return capability;
     }
+    public String getCapabilityName() {
+        return getCapability().getName();
+    }
 
     public void setCapability(Capability capability) {
         this.capability = capability;

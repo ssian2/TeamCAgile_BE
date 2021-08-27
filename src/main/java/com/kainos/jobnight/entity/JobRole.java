@@ -77,6 +77,10 @@ public class JobRole {
 		return band;
 	}
 
+	public String getBandName() {
+		return getBand().getName();
+	}
+
 	public Set<Responsibility> getResponsibilities(){
 		return this.responsibilities;
 			}
@@ -95,5 +99,9 @@ public class JobRole {
 
 	public String getJobFamilyName(){
 		return this.getJobFamily().getName();
+	}
+
+	public String getCapability(){
+		return this.getJobFamily().getCapabilityName();
 	}
 }

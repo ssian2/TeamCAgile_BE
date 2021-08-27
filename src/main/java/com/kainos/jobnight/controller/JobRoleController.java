@@ -4,6 +4,7 @@ import com.kainos.jobnight.entity.JobRole;
 import com.kainos.jobnight.entity.Responsibility;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
 import com.kainos.jobnight.projections.JobRoleNameAndFamily;
+import com.kainos.jobnight.projections.JobRoleWithBandandFamily;
 import com.kainos.jobnight.repo.JobRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,8 +63,13 @@ public class JobRoleController {
 	}
 
 	@GetMapping("/jobRolesWithFamily")
-	public List<JobRoleNameAndFamily> test(){
+	public List<JobRoleNameAndFamily> jobRoleAndFamily(){
 		return repo.jobRoleWithFamily();
+	}
+
+	@GetMapping("/jobRolesWithBandAndFamily")
+	public List<JobRoleWithBandandFamily> jobRoleBandAndFamily(){
+		return repo.jobRoleWithBandAndFamily();
 	}
 	
 }
