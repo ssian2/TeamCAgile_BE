@@ -63,7 +63,7 @@ public class JobRoleAPITest {
                 HttpMethod.GET, entity, String.class);
         
         String expected = """
-        [{"role_name":"test role","resp_name":"test responsibility name"},{"role_name":"Test Engineer","resp_name":"developing high quality soluti"}]""";
+        [{"role_name":"test role","resps":["test responsibility name"]},{"role_name":"Test Engineer","resps":["developing high quality soluti"]}]""";
         
         System.out.printf("\n\n%s\n\n", response.getBody());
 
