@@ -5,16 +5,20 @@ import com.kainos.jobnight.entity.Responsibility;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
 import com.kainos.jobnight.projections.JobRoleNameAndFamily;
 import com.kainos.jobnight.projections.JobRoleWithBandandFamily;
+import com.kainos.jobnight.projections.JobRoleWithBrandFamilyUrlAndSpec;
 import com.kainos.jobnight.repo.JobRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 @RequestMapping("/api/job-role")
@@ -29,13 +33,11 @@ public class JobRoleController {
 	}
 	
 	@GetMapping("/view-job-spec/{id}")
-	public JobRole viewJobSpecById(@PathVariable("id") Short id) {
-		var specId = repo.findById(id);
-
-		if (specId.isPresent()) {
-			return specId.get();
+	public List<JobRoleWithBrandFamilyUrlAndSpec> viewJobSpecById(@PathVariable("id") Short id) {
+		if (repo.findById(id).isPresent()) {
+			return repo.getJobRoleDetailsById(id);
 		}
-		return null;
+		throw new ResponseStatusException(NOT_FOUND, "Job role does not exist");
 	}
 
 	@GetMapping("/view-band-level")

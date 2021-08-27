@@ -5,7 +5,9 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "employee_role")
@@ -33,9 +35,6 @@ public class JobRole {
 		return url;
 	}
 
-	@Column(name = "responsibility_id")
-	private short responsibility;
-
 	@OneToOne
 	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name="band_id", referencedColumnName = "band_id",
@@ -58,13 +57,12 @@ public class JobRole {
 	public JobRole(){}
 
 	public JobRole(short id, String name, String specification, String url, JobFamily jobFamily,
-				   short responsibility, Band band, Set<Responsibility> responsibilities) {
+				   Band band, Set<Responsibility> responsibilities) {
 		this.id = id;
 		this.name = name;
 		this.specification = specification;
 		this.url = url;
 		this.jobFamily = jobFamily;
-		this.responsibility = responsibility;
 		this.band = band;
 		this.responsibilities = responsibilities;
 	}
@@ -80,10 +78,6 @@ public class JobRole {
 	public String getBandName() {
 		return getBand().getName();
 	}
-
-	public Set<Responsibility> getResponsibilities(){
-		return this.responsibilities;
-			}
 
 	public void setId(short id) {
 		this.id = id;
@@ -104,4 +98,21 @@ public class JobRole {
 	public String getCapability(){
 		return this.getJobFamily().getCapabilityName();
 	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public void setResponsibilities(Set<Responsibility> responsibilities) {
+		this.responsibilities = responsibilities;
+	}
+
+	public Set<Responsibility> getResponsibilities(){
+		return this.responsibilities;
+	}
+
+	public List<String> getResponsibilitiesList(){
+		return getResponsibilities().stream().map(Responsibility::getName).collect(Collectors.toList());
+	}
+
 }
