@@ -1,5 +1,7 @@
 package com.kainos.jobnight.projections;
 
+import java.util.List;
+
 public interface JobRoleWithBrandFamilyUrlAndSpec {
     String getName();
     String getBandName();
@@ -7,5 +9,5 @@ public interface JobRoleWithBrandFamilyUrlAndSpec {
     String getCapability();
     String getUrl();
     String getSpecification();
-    String getResponsibilitiesList();
+    List<String> getResponsibilitiesList();
 }
