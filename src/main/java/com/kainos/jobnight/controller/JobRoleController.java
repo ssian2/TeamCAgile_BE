@@ -54,8 +54,12 @@ public class JobRoleController {
 		List<RoleResponsibility> JoinedData= new ArrayList<RoleResponsibility>();
 		for(JobRole j: roles){
 				Set<Responsibility> resps = j.getResponsibilities();
+				RoleResponsibility data = new RoleResponsibility(j.getName());
 				for(Responsibility r: resps){
-					RoleResponsibility data = new RoleResponsibility(j.getName(), r.getName());
+					
+					data.AddResponsibility(r.getName());
+				}
+				if (!data.resps.isEmpty()){
 					JoinedData.add(data);
 				}
 			}
