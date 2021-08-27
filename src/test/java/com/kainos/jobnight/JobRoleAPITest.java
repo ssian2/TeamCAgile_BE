@@ -36,7 +36,7 @@ public class JobRoleAPITest {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-            createURLWithPort("/api/job-role/all"),
+            createURLWithPort("/api/job-role/all", port),
             HttpMethod.GET, entity, String.class);
 
         String expected = loadResourceAsString("Test_US001_Expected.json");
@@ -46,41 +46,23 @@ public class JobRoleAPITest {
         } catch (JSONException e) {
             fail("Invalid JSON object");
         }
-
-
-
-        // Check for expected data in results set
     }
 
+    //US006
     @Test
     void whenGetRequestToViewResponsibilityForRole_thenExpectCorrectResults(){
-        
-
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        System.out.println("\n\n\n\nHEEEREEEE\n\n\n\n");
+
         ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/api/job-role/view-responsibilities-per-role"),
+                createURLWithPort("/api/job-role/view-responsibilities-per-role", port),
                 HttpMethod.GET, entity, String.class);
         
-        String expected = """
-        [{"role_name":"test role","resps":["test responsibility name"]},{"role_name":"Test Engineer","resps":["developing high quality soluti"]}]""";
-        
-        System.out.printf("\n\n%s\n\n", response.getBody());
+        String expected = loadResourceAsString("Test_US006_Expected.json");
 
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {
             fail("Invalid JSON object");
         }
-        }
-
-
-
-
-
-
-    private String createURLWithPort(String url) {
-        return "http://localhost:" + port + url;
-
     }
 }

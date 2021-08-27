@@ -23,5 +23,21 @@ public class Band implements Comparable<Band> {
 		else return getName().compareTo(o.getName());
 	}
 
+	// This checks for ID equality only
+	// Different names will not be accounted for
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Band) {
+			Band c = (Band) obj;
+			return getId() == c.getId();
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
 	public Band() {}
 }
