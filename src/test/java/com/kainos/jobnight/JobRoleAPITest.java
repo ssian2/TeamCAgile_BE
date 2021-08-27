@@ -36,7 +36,7 @@ public class JobRoleAPITest {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-            createURLWithPort("/api/job-role/all"),
+            createURLWithPort("/api/job-role/all", port),
             HttpMethod.GET, entity, String.class);
 
         String expected = loadResourceAsString("Test_US001_Expected.json");
@@ -54,7 +54,7 @@ public class JobRoleAPITest {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/api/job-role/view-responsibilities-per-role"),
+                createURLWithPort("/api/job-role/view-responsibilities-per-role", port),
                 HttpMethod.GET, entity, String.class);
         
         String expected = loadResourceAsString("Test_US006_Expected.json");
@@ -64,15 +64,5 @@ public class JobRoleAPITest {
         } catch (JSONException e) {
             fail("Invalid JSON object");
         }
-        }
-
-
-
-
-
-
-    private String createURLWithPort(String url) {
-        return "http://localhost:" + port + url;
-
     }
 }
