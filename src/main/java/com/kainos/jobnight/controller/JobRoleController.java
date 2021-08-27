@@ -2,18 +2,18 @@ package com.kainos.jobnight.controller;
 
 import com.kainos.jobnight.entity.JobRole;
 import com.kainos.jobnight.entity.Responsibility;
-import com.kainos.jobnight.helper_classes.JobRoleNamesOnly;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
+import com.kainos.jobnight.projections.JobRoleNameAndFamily;
 import com.kainos.jobnight.repo.JobRoleRepository;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/job-role")
@@ -61,8 +61,9 @@ public class JobRoleController {
 		return JoinedData;
 	}
 
-	@GetMapping("/test")
-	public List<JobRoleNamesOnly> test(){
-		return repo.queryTry();
+	@GetMapping("/jobRolesWithFamily")
+	public List<JobRoleNameAndFamily> test(){
+		return repo.jobRoleWithFamily();
 	}
+	
 }

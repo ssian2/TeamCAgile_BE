@@ -1,5 +1,6 @@
 package com.kainos.jobnight.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -23,8 +24,10 @@ public class JobRole {
 	@Column(name = "spec_doc_url")
 	private String url;
 
-	@Column(name = "job_family_id")
-	private String job_family_id;
+	@ManyToOne
+	@JoinColumn(name="job_family_id")
+	@JsonBackReference
+	private JobFamily jobFamily;
 
 	public String getUrl(){
 		return url;
@@ -50,14 +53,17 @@ public class JobRole {
 					@JoinColumn(name = "responsibility_id", referencedColumnName = "responsibility_id",
 							nullable = false, updatable = false)})
 	private Set<Responsibility> responsibilities;
+
+
 	public JobRole(){}
 
-	public JobRole(short id, String name, String specification, String url,
+	public JobRole(short id, String name, String specification, String url, JobFamily jobFamily,
 				   short responsibility, Band band, Set<Responsibility> responsibilities) {
 		this.id = id;
 		this.name = name;
 		this.specification = specification;
 		this.url = url;
+		this.jobFamily = jobFamily;
 		this.responsibility = responsibility;
 		this.band = band;
 		this.responsibilities = responsibilities;
@@ -75,11 +81,19 @@ public class JobRole {
 		return this.responsibilities;
 			}
 
-	public String getJob_family_id() {
-		return job_family_id;
+	public void setId(short id) {
+		this.id = id;
 	}
 
-	public void setJob_family_id(String job_family_id) {
-		this.job_family_id = job_family_id;
+	public JobFamily getJobFamily() {
+		return jobFamily;
+	}
+
+	public void setJobFamily(JobFamily jobFamily) {
+		this.jobFamily = jobFamily;
+	}
+
+	public String getJobFamilyName(){
+		return this.getJobFamily().getName();
 	}
 }
