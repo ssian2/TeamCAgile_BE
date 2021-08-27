@@ -1,5 +1,6 @@
 package com.kainos.jobnight.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -20,15 +21,20 @@ public class JobFamily {
     @OneToMany(mappedBy = "jobFamily")
     private List<JobRole> jobroles;
 
+    @ManyToOne
+    @JoinColumn(name="capability_id")
+    @JsonBackReference
+    private Capability capability;
 
     public JobFamily() {
 
     }
 
-    public JobFamily(short ID, String name, List<JobRole> jobroles) {
+    public JobFamily(short ID, String name, List<JobRole> jobroles, Capability capability) {
         this.ID = ID;
         this.name = name;
         this.jobroles = jobroles;
+        this.capability = capability;
     }
 
     public List<JobRole> getJobroles() {
@@ -37,6 +43,14 @@ public class JobFamily {
 
     public void setJobroles(List<JobRole> jobroles) {
         this.jobroles = jobroles;
+    }
+
+    public Capability getCapability() {
+        return capability;
+    }
+
+    public void setCapability(Capability capability) {
+        this.capability = capability;
     }
 
     public short getID() {

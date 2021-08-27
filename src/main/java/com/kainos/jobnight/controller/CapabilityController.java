@@ -1,6 +1,7 @@
 package com.kainos.jobnight.controller;
 
 import com.kainos.jobnight.entity.Capability;
+import com.kainos.jobnight.projections.CapabilityAndJobFamilies;
 import com.kainos.jobnight.repo.CapabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,11 @@ public class CapabilityController {
         }else{
             return null;
         }
+    }
+
+    @GetMapping("/getCapabilityWithFamilies")
+    public List<CapabilityAndJobFamilies> getCapabilityWithFamilies(){
+        return CapabilityRepository.listCapabilitiesAndJobFamilies();
     }
 
 }
