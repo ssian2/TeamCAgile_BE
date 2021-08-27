@@ -5,6 +5,7 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee_role")
@@ -68,4 +69,21 @@ public class JobRole {
 	public Band getBand() {
 		return band;
 	}
+
+
+
+	@ManyToMany
+    @JoinTable(name = "responsibility_employee_role",
+            joinColumns = {
+                    @JoinColumn(name = "role_id", referencedColumnName = "role_id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "responsibility_id", referencedColumnName = "responsibility_id",
+                            nullable = false, updatable = false)})
+    private Set<Responsibility> responsibilities;
+
+	public Set<Responsibility> getResponsibilities(){
+		return this.responsibilities;
+			}
+    
 }

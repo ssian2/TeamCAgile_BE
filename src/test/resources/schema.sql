@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS `competency_type`;
 DROP TABLE IF EXISTS `capability`;
 DROP TABLE IF EXISTS `band`;
 
+
 --
 -- Table structure for table `band`
 --
@@ -117,3 +118,4 @@ CREATE TABLE `responsibility_employee_role` (
 );
 
 -- Dump completed on 2021-08-26 13:41:42
+
