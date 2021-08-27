@@ -36,7 +36,7 @@ public class JobRoleAPITest {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-            createURLWithPort("/api/job-role/all", port),
+            createURLWithPort("/api/job-role/all"),
             HttpMethod.GET, entity, String.class);
 
         String expected = loadResourceAsString("Test_US001_Expected.json");
@@ -63,7 +63,7 @@ public class JobRoleAPITest {
                 HttpMethod.GET, entity, String.class);
         
         String expected = """
-        [{"role_name":"Job Role 1","resp_name":"test_responsibility_name"},{"role_name":"Job Role 2","resp_name":"another_test_resp"}]""";
+        [{"role_name":"test role","resp_name":"test responsibility name"},{"role_name":"Test Engineer","resp_name":"developing high quality soluti"}]""";
         
         System.out.printf("\n\n%s\n\n", response.getBody());
 
