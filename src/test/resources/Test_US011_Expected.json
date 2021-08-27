@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Corporate Security",
+    "capability_name": "Cyber Security",
+    "id": 1
+  },
+  {
+    "name": "Engineering Strategy and Planning",
+    "capability_name": "Engineering",
+    "id": 2
+  },
+  {
+    "name": "Engineering",
+    "capability_name": "Engineering",
+    "id": 3
+  },
+  {
+    "name": "Architecture",
+    "capability_name": "Engineering",
+    "id": 4
+  },
+  {
+    "name": "Testing and Quality Assurance",
+    "capability_name": "Engineering",
+    "id": 5
+  },
+  {
+    "name": "Product Specialist",
+    "capability_name": "Engineering",
+    "id": 6
+  },
+  {
+    "name": "Security Strategy and Planning",
+    "capability_name": "Cyber Security",
+    "id": 7
+  },
+  {
+    "name": "Test Job family",
+    "capability_name": "test cap name",
+    "id": 9
+  },
+  {
+    "name": "Platform Engineering",
+    "capability_name": "Applied Innovation",
+    "id": 10
+  },
+  {
+    "name": "Product Consultancy",
+    "capability_name": "Product",
+    "id": 11
+  },
+  {
+    "name": "Testing and Quality Assurance",
+    "capability_name": "Cyber Security",
+    "id": 12
+  }
+]

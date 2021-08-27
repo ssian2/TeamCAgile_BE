@@ -1,0 +1,170 @@
+[
+  {
+    "name": "test cap name",
+    "jobroles": [
+      {
+        "id": 1,
+        "name": "test role",
+        "specification": "test spec",
+        "url": "google.com",
+        "band": {
+          "id": 1,
+          "name": "test band name"
+        }
+      }
+    ],
+    "jobFamilies": [
+      {
+        "name": "Test Job family",
+        "capability_name": "test cap name",
+        "id": 9
+      }
+    ],
+    "id": 1
+  },
+  {
+    "name": "Applied Innovation",
+    "jobroles": [],
+    "jobFamilies": [
+      {
+        "name": "Platform Engineering",
+        "capability_name": "Applied Innovation",
+        "id": 10
+      }
+    ],
+    "id": 2
+  },
+  {
+    "name": "Business Development",
+    "jobroles": [],
+    "jobFamilies": [],
+    "id": 3
+  },
+  {
+    "name": "Product",
+    "jobroles": [
+      {
+        "id": 7,
+        "name": "Product Specialist",
+        "specification": "As a Product Specialist at Kainos you will be responsible for delivering high quality solutions which delight our customers and\\nimpact the lives of users worldwide.",
+        "url": null,
+        "band": {
+          "id": 8,
+          "name": "Principal"
+        }
+      }
+    ],
+    "jobFamilies": [
+      {
+        "name": "Product Consultancy",
+        "capability_name": "Product",
+        "id": 11
+      }
+    ],
+    "id": 4
+  },
+  {
+    "name": "Cyber Security",
+    "jobroles": [
+      {
+        "id": 2,
+        "name": "Test Engineer",
+        "specification": "As a Test Engineer (Associate) in Kainos, you’ll be responsible for good quality of the software",
+        "url": null,
+        "band": {
+          "id": 4,
+          "name": "Associate"
+        }
+      },
+      {
+        "id": 6,
+        "name": "Software Engineer",
+        "specification": "As a Software Engineer in Kainos, you’ll be responsible for\\n developing high quality solutions which delight our customers and impact the lives of users worldwide.",
+        "url": "https://kainossoftwareltd.sharepoint.com/people/Job%20Specifications/Forms/AllItems.aspx?id=%2Fpeople%2FJob%20Specifications%2FEngineering%2FJob%20profile%20%2D%20Software%20Engineer%20%28Associate%29%2Epdf&parent=%2Fpeople%2FJob%20Specifications%2FEngineering&p=true&originalPath=aHR0cHM6Ly9rYWlub3Nzb2Z0d2FyZWx0ZC5zaGFyZXBvaW50LmNvbS86YjovZy9wZW9wbGUvRVlUQ3Yxc3NsNnBPdUg1OXpYdG9GOVlCOHFOYUVNTlNrWklrQ3RoREFZNUtqZz9ydGltZT1sWEpNc29SbzJVZw",
+        "band": {
+          "id": 4,
+          "name": "Associate"
+        }
+      }
+    ],
+    "jobFamilies": [
+      {
+        "name": "Corporate Security",
+        "capability_name": "Cyber Security",
+        "id": 1
+      },
+      {
+        "name": "Security Strategy and Planning",
+        "capability_name": "Cyber Security",
+        "id": 7
+      },
+      {
+        "name": "Testing and Quality Assurance",
+        "capability_name": "Cyber Security",
+        "id": 12
+      }
+    ],
+    "id": 5
+  },
+  {
+    "name": "Data & Analytics",
+    "jobroles": [],
+    "jobFamilies": [],
+    "id": 6
+  },
+  {
+    "name": "Engineering",
+    "jobroles": [
+      {
+        "id": 5,
+        "name": "Software Engineer",
+        "specification": "As a Software Engineer in Kainos, you’ll be responsible for\\n developing high quality solutions which delight our customers and impact the lives of users worldwide.",
+        "url": null,
+        "band": {
+          "id": 3,
+          "name": "Trainee"
+        }
+      }
+    ],
+    "jobFamilies": [
+      {
+        "name": "Engineering Strategy and Planning",
+        "capability_name": "Engineering",
+        "id": 2
+      },
+      {
+        "name": "Engineering",
+        "capability_name": "Engineering",
+        "id": 3
+      },
+      {
+        "name": "Architecture",
+        "capability_name": "Engineering",
+        "id": 4
+      },
+      {
+        "name": "Testing and Quality Assurance",
+        "capability_name": "Engineering",
+        "id": 5
+      },
+      {
+        "name": "Product Specialist",
+        "capability_name": "Engineering",
+        "id": 6
+      }
+    ],
+    "id": 7
+  },
+  {
+    "name": "Delivery Management",
+    "jobroles": [],
+    "jobFamilies": [],
+    "id": 8
+  },
+  {
+    "name": "Platforms",
+    "jobroles": [],
+    "jobFamilies": [],
+    "id": 9
+  }
+]
