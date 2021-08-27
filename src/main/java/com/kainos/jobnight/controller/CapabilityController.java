@@ -2,6 +2,7 @@ package com.kainos.jobnight.controller;
 
 import com.kainos.jobnight.entity.Capability;
 import com.kainos.jobnight.projections.CapabilityAndJobFamilies;
+import com.kainos.jobnight.projections.CapabilityNameAndID;
 import com.kainos.jobnight.repo.CapabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +24,10 @@ public class CapabilityController {
         return CapabilityRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Capability getCapability(@PathVariable("id") short ID){
+    @GetMapping("get/{id}")
+    public List<CapabilityNameAndID> getCapability(@PathVariable("id") short ID){
         if(CapabilityRepository.findById(ID).isPresent()){
-            return CapabilityRepository.findById(ID).get();
+            return CapabilityRepository.getCapabilityByID(ID);
         }else{
             return null;
         }
