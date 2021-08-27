@@ -33,7 +33,6 @@ public class JobRoleAPITest {
 
     @Test
     void whenGetRequestIssuedToApiJobRoleAll_thenReturnCompleteJobRoleDataSet() {
-        final String baseUrl = "http://localhost:8080/api/job-role/all";
 
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
@@ -55,6 +54,33 @@ public class JobRoleAPITest {
 
         // Check for expected data in results set
     }
+
+    @Test
+    void whenGetRequestToViewResponsibilityForRole_thenExpectCorrectResults(){
+        
+
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        System.out.println("\n\n\n\nHEEEREEEE\n\n\n\n");
+        ResponseEntity<String> response = restTemplate.exchange(
+                createURLWithPort("/api/job-role/view-responsibilities-per-role"),
+                HttpMethod.GET, entity, String.class);
+        
+        String expected = """
+        [{"role_name":"Job Role 1","resp_name":"test_responsibility_name"},{"role_name":"Job Role 2","resp_name":"another_test_resp"}]""";
+        
+        System.out.printf("\n\n%s\n\n", response.getBody());
+
+        try {
+            JSONAssert.assertEquals(expected, response.getBody(), false);
+        } catch (JSONException e) {
+            fail("Invalid JSON object");
+        }
+        }
+
+
+
+
+
 
     private String createURLWithPort(String url) {
         return "http://localhost:" + port + url;

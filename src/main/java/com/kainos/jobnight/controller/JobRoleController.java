@@ -44,7 +44,7 @@ public class JobRoleController {
 	public List<RoleResponsibility>  getRespsPerRole()
 	{
 		List<JobRole> roles =  repo.testQuery();
-		List<RoleResponsibility> JoinedData= new ArrayList();
+		List<RoleResponsibility> JoinedData= new ArrayList<RoleResponsibility>();
 		for(JobRole j: roles){
 				Set<Responsibility> resps = j.getResponsibilities();
 				for(Responsibility r: resps){
