@@ -28,10 +28,10 @@ public class JobRole {
 		return url;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "capability_id", nullable = false)
-	@JsonBackReference
-	private Capability capability;
+	// @ManyToOne
+	// @JoinColumn(name = "capability_id", nullable = false)
+	// @JsonBackReference
+	// private Capability capability;
 
 	@Column(name = "responsibility_id")
 	private short responsibility;
