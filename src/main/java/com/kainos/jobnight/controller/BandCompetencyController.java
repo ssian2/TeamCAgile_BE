@@ -3,6 +3,7 @@ package com.kainos.jobnight.controller;
 import com.kainos.jobnight.entity.Band;
 import com.kainos.jobnight.entity.Competency;
 import com.kainos.jobnight.entity.CompetencyType;
+import com.kainos.jobnight.projections.BandWithCompetencies;
 import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.repo.CompetencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,19 +41,10 @@ public class BandCompetencyController {
 		}
 
 		return map;
-		/*
-		competencies.sort(new Comparator<Competency>() {
-			@Override
-			public int compare(Competency o1, Competency o2) {
-				int bandCmp = Short.compare(o1.getBand().getId(), o2.getBand().getId());
-				if (bandCmp == 0)
-				{
-					return Byte.compare(o1.getCompetency().getId(), o2.getCompetency().getId());
-				}
-				else return bandCmp;
-			}
-		});
-
-		return competencies;*/
 	}
+
+
+	@GetMapping("/bands-with-competencies")
+	List<BandWithCompetencies> getBandWithCompetencies(){ 
+		return competencyRepo.getBandWithCompetencies();}
 }
