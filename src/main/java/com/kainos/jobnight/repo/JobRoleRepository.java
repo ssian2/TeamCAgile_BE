@@ -1,7 +1,6 @@
 package com.kainos.jobnight.repo;
 
 import com.kainos.jobnight.entity.JobRole;
-import com.kainos.jobnight.projections.JobRole.JobRoleNameAndFamily;
 import com.kainos.jobnight.projections.JobRole.JobRoleWithBandandFamily;
 import com.kainos.jobnight.projections.JobRole.JobRoleWithBrandFamilyUrlAndSpec;
 import org.springframework.data.jpa.repository.Query;
@@ -24,9 +23,6 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 
 	@Query("Select j from JobRole j JOIN j.responsibilities ")
 	public List<JobRole> testQuery();
-
-	@Query("Select j from JobRole j")
-	List<JobRoleNameAndFamily> jobRoleWithFamily();
 
 	@Query("Select j from JobRole j")
 	List<JobRoleWithBandandFamily> jobRoleWithBandAndFamily();

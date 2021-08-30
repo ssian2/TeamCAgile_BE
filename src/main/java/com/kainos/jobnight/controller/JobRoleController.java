@@ -3,7 +3,6 @@ package com.kainos.jobnight.controller;
 import com.kainos.jobnight.entity.JobRole;
 import com.kainos.jobnight.entity.Responsibility;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
-import com.kainos.jobnight.projections.JobRole.JobRoleNameAndFamily;
 import com.kainos.jobnight.projections.JobRole.JobRoleWithBandandFamily;
 import com.kainos.jobnight.projections.JobRole.JobRoleWithBrandFamilyUrlAndSpec;
 import com.kainos.jobnight.repo.JobRoleRepository;
@@ -62,11 +61,6 @@ public class JobRoleController {
 				}
 			}
 		return JoinedData;
-	}
-
-	@GetMapping("/jobRolesWithFamily")
-	public List<JobRoleNameAndFamily> jobRoleAndFamily(){
-		return repo.jobRoleWithFamily();
 	}
 
 	@GetMapping("/jobRolesWithBandAndFamily")
