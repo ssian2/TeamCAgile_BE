@@ -9,6 +9,7 @@ import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.repo.CompetencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -69,6 +70,24 @@ public class BandCompetencyController {
 		}
 		return ListOfDataFrames;
 	}
-		
+	@GetMapping("/bands-with-competencies/{id}")
+	public CompetenciesOfEachBand getBandWithCompetenciesByID(@PathVariable("id") Short ID){
+        if(bandRepo.findById(ID).isPresent()){
+			try{
+			var resultSet = competencyRepo.getBandWithCompetenciesByID(ID);
+			var dataFrame = new CompetenciesOfEachBand(resultSet.get(0).getBandName());
+			for(BandWithCompetencies b : resultSet)
+			{
+				dataFrame.addCompetencyInfo(b.getCompetencyTypeName(), b.getDescription());
+			}
+			return dataFrame;
+		}catch(Exception e)
+		{
+			return new CompetenciesOfEachBand("");
+		}
+        }else{
+            return new CompetenciesOfEachBand("");
+        }
+    }
 
 }
