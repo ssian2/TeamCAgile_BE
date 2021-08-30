@@ -12,4 +12,7 @@ public interface BandRepository  extends CrudRepository<Band, Short> {
 
 	@Query("Select b from Band b JOIN b.trainings")
 	List<BandAndTrainings> getBandsAndTrainigs();
+
+	@Query("SELECT b from Band b JOIN b.trainings where b.id = ?1")
+    BandAndTrainings getBandsAndTrainingsByBandID(Short id);
 }

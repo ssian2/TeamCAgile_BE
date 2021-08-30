@@ -5,6 +5,7 @@ import com.kainos.jobnight.projections.BandAndTrainings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,15 @@ public class BandController {
     @GetMapping("/training")
     public  List<BandAndTrainings> getTrainingByBand(){
         return bandRepo.getBandsAndTrainigs();
+    }
+
+    @GetMapping("/training/{id}")
+    public  BandAndTrainings getTrainingByBandByID(@PathVariable("id") Short ID){
+        if (bandRepo.findById(ID).isPresent()){
+            return bandRepo.getBandsAndTrainingsByBandID(ID);
+        }else{
+        return null;
+        }
     }
     
 }
