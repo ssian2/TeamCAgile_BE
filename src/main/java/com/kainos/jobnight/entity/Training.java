@@ -16,6 +16,12 @@ public class Training {
 
     @Column(name = "type")
 	private String training_type;
+
+	@Column(name = "description")
+	private String description;
+
+	@Column(name = "training_url")
+	private String url;
 	
 	@ManyToMany(mappedBy = "trainings")
 	Set<Band> Bands;
@@ -26,5 +32,13 @@ public class Training {
 
 	public String getType(){
 		return this.training_type;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public String getUrl() {
+		return url;
 	}
 }
