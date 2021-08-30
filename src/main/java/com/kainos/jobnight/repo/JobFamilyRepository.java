@@ -3,7 +3,6 @@ package com.kainos.jobnight.repo;
 
 import com.kainos.jobnight.entity.JobFamily;
 import com.kainos.jobnight.projections.jobFamily.JobFamilyNames;
-import com.kainos.jobnight.projections.jobFamily.JobFamilyNamesWithRolesAndBands;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -16,7 +15,5 @@ public interface JobFamilyRepository extends CrudRepository<JobFamily, Short> {
     @Query("Select family from JobFamily family where family.capability.name = ?1")
     List<JobFamilyNames> findAllByCapability(String name);
 
-    @Query("Select family from JobFamily family where family.capability.name = ?1")
-    List<JobFamilyNamesWithRolesAndBands> findAllAndRolesByCapability(String name);
 
 }

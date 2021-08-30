@@ -1,7 +1,6 @@
 package com.kainos.jobnight.controller;
 
 import com.kainos.jobnight.projections.jobFamily.JobFamilyNames;
-import com.kainos.jobnight.projections.jobFamily.JobFamilyNamesWithRolesAndBands;
 import com.kainos.jobnight.repo.JobFamilyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +29,4 @@ public class JobFamilyController {
         }
     }
 
-    @GetMapping("withRoles/byCapability/{name}")
-    List<JobFamilyNamesWithRolesAndBands> findAllAndRolesByCapability(@PathVariable("name") String name) {
-        if (jobFamilyRepository.findAllAndRolesByCapability(name).isEmpty()) {
-            throw new ResponseStatusException(NOT_FOUND, "Capability does not exist");
-        } else {
-            return jobFamilyRepository.findAllAndRolesByCapability(name);
-        }
-    }
 }

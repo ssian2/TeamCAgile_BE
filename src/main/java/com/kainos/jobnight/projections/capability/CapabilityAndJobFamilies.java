@@ -1,4 +1,4 @@
-package com.kainos.jobnight.projections;
+package com.kainos.jobnight.projections.capability;
 
 import java.util.List;
 
