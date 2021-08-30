@@ -3,6 +3,7 @@ package com.kainos.jobnight.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,18 @@ public class Capability {
     }
 
     public List<String> getJobFamiliesNames(){
-        return getJobFamilies().stream().map(x -> getName()).collect(Collectors.toList());
+        return getJobFamilies().stream().map(JobFamily::getName).collect(Collectors.toList());
     }
+
+    public HashMap<String, List<String>> getJobRolesWithFamilies(){
+        //get the roles in a particular job family
+        HashMap<String, List<String>> roles = new HashMap<>();
+
+        getJobFamilies().forEach(family -> {
+            roles.put(family.getName(), family.getJobRoleNames());
+        });
+
+        return roles;
+    }
+
 }

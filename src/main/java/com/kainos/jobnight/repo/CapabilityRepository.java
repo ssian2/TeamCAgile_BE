@@ -4,6 +4,7 @@ package com.kainos.jobnight.repo;
 import com.kainos.jobnight.entity.Capability;
 import com.kainos.jobnight.projections.CapabilityAndJobFamilies;
 import com.kainos.jobnight.projections.CapabilityNameAndID;
+import com.kainos.jobnight.projections.CapabilityWithJobRoleInfo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,10 @@ public interface CapabilityRepository extends CrudRepository<Capability, Short> 
     @Query("SELECT c from Capability c where c.ID = ?1")
     List<CapabilityNameAndID> getCapabilityByID(Short id);
 
+    @Query("SELECT c from Capability c where c.name = ?1")
+    List<CapabilityAndJobFamilies> getCapabilityFamiliesByName(String name);
+
+    @Query("SELECT c from Capability c where c.name = ?1")
+    List<CapabilityWithJobRoleInfo> getCapabilityByName(String name);
 
 }

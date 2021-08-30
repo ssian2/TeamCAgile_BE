@@ -33,6 +33,7 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 
 	@Query("Select role from JobRole role where role.id = ?1")
 	List<JobRoleWithBrandFamilyUrlAndSpec> getJobRoleDetailsById(short id);
+	
 
 }
 
