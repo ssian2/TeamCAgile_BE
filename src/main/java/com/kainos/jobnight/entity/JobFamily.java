@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name="job_family")
@@ -73,8 +74,17 @@ public class JobFamily {
         this.name = name;
     }
 
-    public List<String> getJobRoleNames(){
-        return getJobroles().stream().map(JobRole::getName).collect(Collectors.toList());
+    public List< HashMap<String, String>>  getJobRoleNamesAndBands(){
+        List< HashMap<String, String>>  roles = new ArrayList<>();
+
+        getJobroles().forEach(role ->{
+           HashMap<String, String> roleList = new HashMap<>();
+            roleList.put("role_name", role.getName());
+            roleList.put("role_band", role.getBandName());
+            roles.add(roleList);
+        });
+
+        return roles;
     }
 
 

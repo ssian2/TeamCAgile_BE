@@ -3,7 +3,6 @@ package com.kainos.jobnight.controller;
 import com.kainos.jobnight.entity.Capability;
 import com.kainos.jobnight.projections.CapabilityAndJobFamilies;
 import com.kainos.jobnight.projections.CapabilityNameAndID;
-import com.kainos.jobnight.projections.CapabilityWithJobRoleInfo;
 import com.kainos.jobnight.repo.CapabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,15 +42,6 @@ public class CapabilityController {
             throw new ResponseStatusException(NOT_FOUND, "Capability does not exist");
         }else{
             return CapabilityRepository.getCapabilityFamiliesByName(name);
-        }
-    }
-
-    @GetMapping("/{name}")
-    public List<CapabilityWithJobRoleInfo> getAllCapabilityInfo(@PathVariable("name") String name){
-        if(CapabilityRepository.getCapabilityByName(name).isEmpty()){
-            throw new ResponseStatusException(NOT_FOUND, "Capability does not exist");
-        }else{
-            return CapabilityRepository.getCapabilityByName(name);
         }
     }
 
