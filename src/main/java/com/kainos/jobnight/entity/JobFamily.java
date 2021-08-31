@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="job_family")
@@ -21,15 +22,10 @@ public class JobFamily {
     @JsonBackReference
     private Capability capability;
 
-    @Transient
-    @JsonSerialize
-    private String capability_name;
-
     public JobFamily(short ID, String name, Capability capability) {
         this.ID = ID;
         this.name = name;
         this.capability = capability;
-        this.capability_name = capability.getName();
     }
 
     public JobFamily() {
@@ -58,13 +54,5 @@ public class JobFamily {
 
     public Capability getCapability() {
         return capability;
-    }
-
-    public String getCapability_name() {
-        return getCapability().getName();
-    }
-
-    public void setCapability_name(String capability_name) {
-         this.capability_name = this.getCapability().getName();
     }
 }

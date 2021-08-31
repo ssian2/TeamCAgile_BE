@@ -11,7 +11,7 @@ import java.util.Set;
 @Table(name = "employee_role")
 public class JobRole {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "role_id")
 	private short id;
 
@@ -24,66 +24,55 @@ public class JobRole {
 	@Column(name = "spec_doc_url")
 	private String url;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "band_id")
+	private Band band;
+
+	//TODO: Apparently using @JoinTable on entities is bad practice,
+	//TODO: Consider using @JoinColumn instead?
+	@ManyToMany
+	@JoinTable(name = "responsibility_employee_role",
+		joinColumns = {
+			@JoinColumn(name = "role_id", referencedColumnName = "role_id",
+				nullable = false, updatable = false)},
+		inverseJoinColumns = {
+			@JoinColumn(name = "responsibility_id", referencedColumnName = "responsibility_id",
+				nullable = false, updatable = false)})
+	private Set<Responsibility> responsibilities;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="job_family_id")
+	private JobFamily jobFamily;
+
+	public JobRole(){}
+
+	public JobRole(short id, String name, String specification, Band band) {
+		this.id = id;
+		this.name = name;
+		this.specification = specification;
+		this.band = band;
+	}
+
+	public short getId() { return id; }
+	// id is auto-generated, no setter needed/allowed
+
+	public String getName() { return name; }
+	public void setName(String name) { this.name = name; }
+
+	public String getSpecification() { return specification; }
+	public void setSpecification(String specification) { this.specification = specification; }
+
 	public String getUrl(){
 		return url;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "capability_id", nullable = false)
-	@JsonBackReference
-	private Capability capability;
+	public Band getBand() { return band; }
+	public void setBand(Band band) { this.band = band; }
 
-	@Column(name = "responsibility_id")
-	private short responsibility;
-
-	@OneToOne
-	@NotFound(action = NotFoundAction.IGNORE)
-	@JoinColumn(name="band_id", referencedColumnName = "band_id",
-		insertable = false, updatable = false,
-		foreignKey = @javax.persistence
-			.ForeignKey(value = ConstraintMode.CONSTRAINT))
-	private Band band;
-
-	public JobRole(){}
-
-	public JobRole(short id, String name, String specification, Capability capability, Band band, short responsibility) {
-		this.id = id;
-		this.name = name;
-		this.specification = specification;
-		this.capability = capability;
-		this.band = band;
-		this.responsibility = responsibility;
-	}
-
-	public short getId() { return id; }
-	public String getName() { return name; }
-	public String getSpecification() { return specification; }
-
-	public Capability getCapability() {
-		return capability;
-	}
-	public void setCapability(Capability capability) {
-		this.capability = capability;
-	}
-
-	public Band getBand() {
-		return band;
-	}
-
-
-
-	@ManyToMany
-    @JoinTable(name = "responsibility_employee_role",
-            joinColumns = {
-                    @JoinColumn(name = "role_id", referencedColumnName = "role_id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "responsibility_id", referencedColumnName = "responsibility_id",
-                            nullable = false, updatable = false)})
-    private Set<Responsibility> responsibilities;
+	public JobFamily getJobFamily() { return jobFamily; }
+	public void setJobFamily(JobFamily family) { this.jobFamily = family; }
 
 	public Set<Responsibility> getResponsibilities(){
 		return this.responsibilities;
-			}
-    
+	}
 }

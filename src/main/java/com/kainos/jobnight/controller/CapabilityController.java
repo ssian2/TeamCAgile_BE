@@ -17,7 +17,7 @@ public class CapabilityController {
     @Autowired
     CapabilityRepository CapabilityRepository;
 
-    @GetMapping("/all")
+    @GetMapping({"/", ""})
     public List<Capability> getAllCapabilities() {
         return CapabilityRepository.findAll();
     }
@@ -30,5 +30,4 @@ public class CapabilityController {
             return null;
         }
     }
-
 }
