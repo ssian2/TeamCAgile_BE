@@ -1,6 +1,7 @@
 package com.kainos.jobnight.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "band")
@@ -14,11 +15,31 @@ public class Band implements Comparable<Band> {
 	@Column(name = "band_name", length = 30)
 	private String name;
 
-	@Column(name = "band_level", length = 30)
-	private int band_level;
+
+	@ManyToMany
+	@JoinTable(name = "band_training",
+			joinColumns = {
+					@JoinColumn(name = "band_id", referencedColumnName = "band_id",
+							nullable = false, updatable = true)},
+			inverseJoinColumns = {
+					@JoinColumn(name = "training_id", referencedColumnName = "training_id",
+							nullable = false, updatable = true)})				
+	private Set<Training> trainings;
+
+
 
 	public short getId() { return id; }
 	public String getName() { return name; }
+	public Set<Training> getTrainings(){
+		return this.trainings;
+	}
+	
+	
+
+	@Column(name = "band_level", length = 30)
+	private int band_level;
+
+	
 	public void setName(String name) {this.name = name;}
 	public Band(String name){
 		this.name = name;
