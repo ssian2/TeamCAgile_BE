@@ -24,6 +24,7 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 	@Query("Select j from JobRole j JOIN j.responsibilities ")
 	public List<JobRole> testQuery();
 
+
 	@Query("Select j from JobRole j")
 	List<JobRoleWithBandandFamily> jobRoleWithBandAndFamily();
 
@@ -33,7 +34,9 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 	@Query("Select role from JobRole role JOIN role.jobFamily JOIN role.jobFamily.capability where role.jobFamily.capability.name = ?1")
 	List<JobRoleWithBandandFamily> getJobRoleDetailsByCapabilityName(String name);
 
-	
+  
+	@Query("SELECT j from JobRole j JOIN j.responsibilities where j.id = ?1")
+    JobRole getRoleWithRespById(Short id);
 
 }
 

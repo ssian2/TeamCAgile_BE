@@ -63,6 +63,7 @@ public class JobRoleController {
 		return JoinedData;
 	}
 
+
 	@GetMapping("/jobRolesWithBandAndFamily")
 	public List<JobRoleWithBandandFamily> jobRoleBandAndFamily(){
 		return repo.jobRoleWithBandAndFamily();
@@ -75,6 +76,21 @@ public class JobRoleController {
 			throw new ResponseStatusException(NOT_FOUND, "No Job roles in this capability");
 		} else {
 			return repo.getJobRoleDetailsByCapabilityName(name);
+
+	@GetMapping("/view-responsibilities-per-role/{id}")
+	public RoleResponsibility getRespsPerRoleByID(@PathVariable("id") Short ID)
+	{
+		if(repo.findById(ID).isPresent()){
+			var result = repo.getRoleWithRespById(ID);
+			var resps = result.getResponsibilities();
+			RoleResponsibility data = new RoleResponsibility(result.getName());
+			for (Responsibility r: resps){
+				data.AddResponsibility(r.getName());
+			}
+			return data;
+		}else{
+			return null;
+
 		}
 	}
 }

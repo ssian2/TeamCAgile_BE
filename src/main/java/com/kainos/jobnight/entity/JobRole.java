@@ -26,10 +26,12 @@ public class JobRole {
 	@Column(name = "spec_doc_url")
 	private String url;
 
+
 	@ManyToOne
 	@JoinColumn(name="job_family_id")
 	@JsonBackReference
 	private JobFamily jobFamily;
+
 
 	public String getUrl(){
 		return url;
