@@ -3,9 +3,8 @@ package com.kainos.jobnight.controller;
 import com.kainos.jobnight.entity.JobRole;
 import com.kainos.jobnight.entity.Responsibility;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
-import com.kainos.jobnight.projections.JobRoleNameAndFamily;
-import com.kainos.jobnight.projections.JobRoleWithBandandFamily;
-import com.kainos.jobnight.projections.JobRoleWithBrandFamilyUrlAndSpec;
+import com.kainos.jobnight.projections.JobRole.JobRoleWithBandandFamily;
+import com.kainos.jobnight.projections.JobRole.JobRoleWithBrandFamilyUrlAndSpec;
 import com.kainos.jobnight.repo.JobRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,14 +63,37 @@ public class JobRoleController {
 		return JoinedData;
 	}
 
-	@GetMapping("/jobRolesWithFamily")
-	public List<JobRoleNameAndFamily> jobRoleAndFamily(){
-		return repo.jobRoleWithFamily();
-	}
 
 	@GetMapping("/jobRolesWithBandAndFamily")
 	public List<JobRoleWithBandandFamily> jobRoleBandAndFamily(){
 		return repo.jobRoleWithBandAndFamily();
 	}
-	
+
+
+	@GetMapping("/byCapability/{name}")
+	public List<JobRoleWithBandandFamily> jobRoleBandAndFamilyByCapability(@PathVariable("name") String name) {
+		if (repo.getJobRoleDetailsByCapabilityName(name).isEmpty()) {
+			throw new ResponseStatusException(NOT_FOUND, "No Job roles in this capability");
+		} else {
+			return repo.getJobRoleDetailsByCapabilityName(name);}}
+
+		}
+	}
+
+	@GetMapping("/view-responsibilities-per-role/{id}")
+	public RoleResponsibility getRespsPerRoleByID(@PathVariable("id") Short ID)
+	{
+		if(repo.findById(ID).isPresent()){
+			var result = repo.getRoleWithRespById(ID);
+			var resps = result.getResponsibilities();
+			RoleResponsibility data = new RoleResponsibility(result.getName());
+			for (Responsibility r: resps){
+				data.AddResponsibility(r.getName());
+			}
+			return data;
+		}else{
+			return null;
+
+		}
+	}
 }
