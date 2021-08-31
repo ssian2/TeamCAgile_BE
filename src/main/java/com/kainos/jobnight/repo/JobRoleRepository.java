@@ -18,10 +18,9 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
     
 	Optional<JobRole> findById(Short id);
 
-
 	@Query("Select j from JobRole j JOIN j.responsibilities ")
 	public List<JobRole> testQuery();
   
-
+	<S extends JobRole> S save(S entity);
 }
 

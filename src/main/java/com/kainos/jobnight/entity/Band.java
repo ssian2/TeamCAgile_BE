@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Band implements Comparable<Band> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "band_id")
 	private short id;
 

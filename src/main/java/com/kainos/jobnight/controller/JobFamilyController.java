@@ -20,7 +20,4 @@ public class JobFamilyController {
     public List<JobFamily> getAllJobFamilies() {
         return jobFamilyRepository.findAll();
     }
-
-
-
 }
