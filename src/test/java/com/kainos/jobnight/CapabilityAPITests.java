@@ -1,11 +1,8 @@
 package com.kainos.jobnight;
-
-import com.kainos.jobnight.repo.CapabilityRepository;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
@@ -29,14 +26,14 @@ public class CapabilityAPITests {
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    // US003
+    // US011
     @Test
     void whenGetRequestIssuedToApiCapabilityAll_thenReturnCompleteCapabilityDataSet() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/all", port), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/getCapability/Product", port), HttpMethod.GET, entity, String.class);
 
-        String expected = loadResourceAsString("Test_US003_Expected.json");
+        String expected = loadResourceAsString("Test_US011_Expected.json");
 
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);

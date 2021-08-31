@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="capability")
@@ -17,40 +18,17 @@ public class Capability {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "capability")
-    private List<JobRole> jobroles;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "capability")
     private List<JobFamily> jobFamilies;
 
     public Capability() {
 
     }
 
-    public List<JobFamily> getJobFamilies() {
-        return jobFamilies;
-    }
-
-    public void setJobFamilies(List<JobFamily> jobFamilies) {
-        this.jobFamilies = jobFamilies;
-    }
-
-    public Capability(short ID, String name, List<JobRole> jobroles, List<JobFamily> jobFamilies) {
+    public Capability(short ID, String name, List<JobFamily> jobFamilies) {
         this.ID = ID;
         this.name = name;
-        this.jobroles = jobroles;
         this.jobFamilies = jobFamilies;
     }
-
-    public List<JobRole> getJobroles() {
-        return jobroles;
-    }
-
-    public void setJobroles(List<JobRole> jobroles) {
-        this.jobroles = jobroles;
-    }
-
-
     public long getID() {
         return ID;
     }
@@ -66,4 +44,17 @@ public class Capability {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<JobFamily> getJobFamilies() {
+        return jobFamilies;
+    }
+
+    public void setJobFamilies(List<JobFamily> jobFamilies) {
+        this.jobFamilies = jobFamilies;
+    }
+
+    public List<String> getJobFamiliesNames(){
+        return getJobFamilies().stream().map(JobFamily::getName).collect(Collectors.toList());
+    }
+
 }
