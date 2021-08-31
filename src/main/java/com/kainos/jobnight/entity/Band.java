@@ -39,11 +39,7 @@ public class Band implements Comparable<Band> {
 	@Column(name = "band_level", length = 30)
 	private int band_level;
 
-	
-	public void setName(String name) {this.name = name;}
-	public Band(String name){
-		this.name = name;
-	}
+
 
 	@Override
 	public int compareTo(Band o) {

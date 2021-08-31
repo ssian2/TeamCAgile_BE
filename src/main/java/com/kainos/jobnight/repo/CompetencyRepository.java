@@ -1,6 +1,5 @@
 package com.kainos.jobnight.repo;
 
-import com.kainos.jobnight.entity.Band;
 import com.kainos.jobnight.entity.Competency;
 import com.kainos.jobnight.projections.BandWithCompetencies;
 

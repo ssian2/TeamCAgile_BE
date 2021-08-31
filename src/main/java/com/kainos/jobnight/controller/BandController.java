@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.kainos.jobnight.entity.Band;
 import com.kainos.jobnight.projections.band.BandNames;
-import com.kainos.jobnight.repo.BandRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,12 +25,12 @@ public class BandController {
   
       @GetMapping("/all")
     public List<Band> getAllBands() {
-      return repository.findAll();
+      return bandRepo.findAll();
     }
 
     @GetMapping("/order")
     public List<BandNames> getBandNamesSorted() {
-        return repository.findAllOrderByBandLevel();
+        return bandRepo.findAllOrderByBandLevel();
     }
 
     @GetMapping("/training")
