@@ -44,6 +44,11 @@ public class Band implements Comparable<Band> {
 
 	public Band() {}
 
+	public Band(String name, Short id) {
+		this.name = name;
+		this.id = id;
+	}
+
 	public void setId(short id) {
 		this.id = id;
 	}

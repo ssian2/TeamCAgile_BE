@@ -75,7 +75,7 @@ public class JobRoleController {
 		if (repo.getJobRoleDetailsByCapabilityName(name).isEmpty()) {
 			throw new ResponseStatusException(NOT_FOUND, "No Job roles in this capability");
 		} else {
-			return repo.getJobRoleDetailsByCapabilityName(name);
+			return repo.getJobRoleDetailsByCapabilityName(name);}}
 
 	@GetMapping("/view-responsibilities-per-role/{id}")
 	public RoleResponsibility getRespsPerRoleByID(@PathVariable("id") Short ID)

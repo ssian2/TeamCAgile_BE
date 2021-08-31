@@ -29,6 +29,11 @@ public class Capability {
         this.name = name;
         this.jobFamilies = jobFamilies;
     }
+
+    public Capability(short ID, String name) {
+        this.ID = ID;
+        this.name = name;
+    }
     public long getID() {
         return ID;
     }

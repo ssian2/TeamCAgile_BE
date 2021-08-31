@@ -1,5 +1,6 @@
 package com.kainos.jobnight.controller;
 
+import com.kainos.jobnight.entity.Band;
 import com.kainos.jobnight.projections.band.BandNames;
 import com.kainos.jobnight.repo.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ public class BandController {
 
     @Autowired
     BandRepository repository;
+
+    @GetMapping("/all")
+	public List<Band> getAllBands() {
+		return repository.findAll();
+	}
 
     @GetMapping("/order")
     public List<BandNames> getBandNamesSorted() {
