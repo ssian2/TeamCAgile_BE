@@ -1,5 +1,6 @@
 package com.kainos.jobnight.controller;
 
+import com.kainos.jobnight.entity.Capability;
 import com.kainos.jobnight.projections.capability.CapabilityAndJobFamilies;
 import com.kainos.jobnight.repo.CapabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class CapabilityController {
 
     @Autowired
     CapabilityRepository CapabilityRepository;
+
+    @GetMapping("/")
+	public List<Capability> getAllCapabilities() {
+		return CapabilityRepository.findAll();
+	}
 
     @GetMapping("getCapability/{name}")
     public List<CapabilityAndJobFamilies> getCapability(@PathVariable("name") String name){

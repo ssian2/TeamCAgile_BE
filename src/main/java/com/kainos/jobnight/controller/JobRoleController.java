@@ -75,7 +75,7 @@ public class JobRoleController {
 		if (repo.getJobRoleDetailsByCapabilityName(name).isEmpty()) {
 			throw new ResponseStatusException(NOT_FOUND, "No Job roles in this capability");
 		} else {
-			return repo.getJobRoleDetailsByCapabilityName(name);
+			return repo.getJobRoleDetailsByCapabilityName(name);}}
 
 		}
 	}
