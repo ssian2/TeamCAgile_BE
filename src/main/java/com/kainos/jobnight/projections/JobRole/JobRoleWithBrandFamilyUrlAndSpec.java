@@ -1,4 +1,4 @@
-package com.kainos.jobnight.projections;
+package com.kainos.jobnight.projections.JobRole;
 
 import java.util.List;
 

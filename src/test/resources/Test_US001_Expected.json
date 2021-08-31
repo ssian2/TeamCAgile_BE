@@ -1,22 +1,96 @@
 [
   {
     "id": 1,
-    "name": "test role"
+    "name": "test role",
+    "specification": "test spec",
+    "url": "google.com",
+    "band": {
+      "id": 1,
+      "name": "test band name",
+      "band_level": 8
+    },
+    "responsibilities": [
+      {
+        "id": 1,
+        "name": "test responsibility name"
+      }
+    ],
+    "capability": "test cap name",
+    "bandName": "test band name",
+    "jobFamilyName": "Test Job family",
+    "responsibilitiesList": [
+      "test responsibility name"
+    ]
   },
   {
     "id": 2,
-    "name": "Test Engineer"
+    "name": "Test Engineer",
+    "specification": "As a Test Engineer (Associate) in Kainos, you’ll be responsible for good quality of the software",
+    "url": null,
+    "band": {
+      "id": 4,
+      "name": "Associate",
+      "band_level": 5
+    },
+    "responsibilities": [
+      {
+        "id": 2,
+        "name": "developing high quality soluti"
+      }
+    ],
+    "capability": "Cyber Security",
+    "bandName": "Associate",
+    "jobFamilyName": "Testing and Quality Assurance",
+    "responsibilitiesList": [
+      "developing high quality soluti"
+    ]
   },
   {
     "id": 5,
-    "name": "Software Engineer"
+    "name": "Software Engineer",
+    "specification": "As a Software Engineer in Kainos, you’ll be responsible for\\n developing high quality solutions which delight our customers and impact the lives of users worldwide.",
+    "url": null,
+    "band": {
+      "id": 3,
+      "name": "Trainee",
+      "band_level": 6
+    },
+    "responsibilities": [],
+    "capability": "Engineering",
+    "bandName": "Trainee",
+    "jobFamilyName": "Engineering",
+    "responsibilitiesList": []
   },
   {
     "id": 6,
-    "name": "Software Engineer"
+    "name": "Software Engineer",
+    "specification": "As a Software Engineer in Kainos, you’ll be responsible for\\n developing high quality solutions which delight our customers and impact the lives of users worldwide.",
+    "url": "https://kainossoftwareltd.sharepoint.com/people/Job%20Specifications/Forms/AllItems.aspx?id=%2Fpeople%2FJob%20Specifications%2FEngineering%2FJob%20profile%20%2D%20Software%20Engineer%20%28Associate%29%2Epdf&parent=%2Fpeople%2FJob%20Specifications%2FEngineering&p=true&originalPath=aHR0cHM6Ly9rYWlub3Nzb2Z0d2FyZWx0ZC5zaGFyZXBvaW50LmNvbS86YjovZy9wZW9wbGUvRVlUQ3Yxc3NsNnBPdUg1OXpYdG9GOVlCOHFOYUVNTlNrWklrQ3RoREFZNUtqZz9ydGltZT1sWEpNc29SbzJVZw",
+    "band": {
+      "id": 4,
+      "name": "Associate",
+      "band_level": 5
+    },
+    "responsibilities": [],
+    "capability": "Cyber Security",
+    "bandName": "Associate",
+    "jobFamilyName": "Security Strategy and Planning",
+    "responsibilitiesList": []
   },
   {
     "id": 7,
-    "name": "Product Specialist"
+    "name": "Product Specialist",
+    "specification": "As a Product Specialist at Kainos you will be responsible for delivering high quality solutions which delight our customers and\\nimpact the lives of users worldwide.",
+    "url": null,
+    "band": {
+      "id": 8,
+      "name": "Principal",
+      "band_level": 1
+    },
+    "responsibilities": [],
+    "capability": "Product",
+    "bandName": "Principal",
+    "jobFamilyName": "Product Consultancy",
+    "responsibilitiesList": []
   }
 ]

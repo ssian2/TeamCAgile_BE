@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name="job_family")
@@ -71,10 +70,6 @@ public class JobFamily {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<String> getJobRoleNames(){
-        return getJobroles().stream().map(JobRole::getName).collect(Collectors.toList());
     }
 
 

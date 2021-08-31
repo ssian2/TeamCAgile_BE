@@ -1,11 +1,9 @@
-package com.kainos.jobnight.projections;
-
-import java.util.List;
+package com.kainos.jobnight.projections.JobRole;
 
 public interface JobRoleWithBandandFamily {
     String getId();
     String getName();
     String getBandName();
-    List<String> getJobFamilyName();
+    String getJobFamilyName();
     String getCapability();
 }

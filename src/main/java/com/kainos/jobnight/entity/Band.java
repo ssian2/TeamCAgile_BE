@@ -14,6 +14,9 @@ public class Band implements Comparable<Band> {
 	@Column(name = "band_name", length = 30)
 	private String name;
 
+	@Column(name = "band_level", length = 30)
+	private int band_level;
+
 	public short getId() { return id; }
 	public String getName() { return name; }
 	public void setName(String name) {this.name = name;}
@@ -44,4 +47,25 @@ public class Band implements Comparable<Band> {
 	}
 
 	public Band() {}
+
+	public Band(String name, Short id) {
+		this.name = name;
+		this.id = id;
+	}
+
+	public void setId(short id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getBand_level() {
+		return band_level;
+	}
+
+	public void setBand_level(int band_level) {
+		this.band_level = band_level;
+	}
 }

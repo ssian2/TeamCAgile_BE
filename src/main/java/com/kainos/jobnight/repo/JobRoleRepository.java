@@ -1,9 +1,8 @@
 package com.kainos.jobnight.repo;
 
 import com.kainos.jobnight.entity.JobRole;
-import com.kainos.jobnight.projections.JobRoleNameAndFamily;
-import com.kainos.jobnight.projections.JobRoleWithBandandFamily;
-import com.kainos.jobnight.projections.JobRoleWithBrandFamilyUrlAndSpec;
+import com.kainos.jobnight.projections.JobRole.JobRoleWithBandandFamily;
+import com.kainos.jobnight.projections.JobRole.JobRoleWithBrandFamilyUrlAndSpec;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -25,15 +24,19 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 	@Query("Select j from JobRole j JOIN j.responsibilities ")
 	public List<JobRole> testQuery();
 
-	@Query("Select j from JobRole j")
-	List<JobRoleNameAndFamily> jobRoleWithFamily();
 
 	@Query("Select j from JobRole j")
 	List<JobRoleWithBandandFamily> jobRoleWithBandAndFamily();
 
 	@Query("Select role from JobRole role where role.id = ?1")
 	List<JobRoleWithBrandFamilyUrlAndSpec> getJobRoleDetailsById(short id);
-	
+
+	@Query("Select role from JobRole role JOIN role.jobFamily JOIN role.jobFamily.capability where role.jobFamily.capability.name = ?1")
+	List<JobRoleWithBandandFamily> getJobRoleDetailsByCapabilityName(String name);
+
+  
+	@Query("SELECT j from JobRole j JOIN j.responsibilities where j.id = ?1")
+    JobRole getRoleWithRespById(Short id);
 
 }
 
