@@ -19,6 +19,10 @@ public class Band implements Comparable<Band> {
 
 	public short getId() { return id; }
 	public String getName() { return name; }
+	public void setName(String name) {this.name = name;}
+	public Band(String name){
+		this.name = name;
+	}
 
 	@Override
 	public int compareTo(Band o) {
