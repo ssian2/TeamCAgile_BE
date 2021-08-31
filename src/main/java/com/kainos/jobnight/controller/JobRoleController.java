@@ -77,6 +77,9 @@ public class JobRoleController {
 		} else {
 			return repo.getJobRoleDetailsByCapabilityName(name);
 
+		}
+	}
+
 	@GetMapping("/view-responsibilities-per-role/{id}")
 	public RoleResponsibility getRespsPerRoleByID(@PathVariable("id") Short ID)
 	{
