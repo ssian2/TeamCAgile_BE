@@ -69,6 +69,13 @@ public class JobRole {
 		this.responsibilities = responsibilities;
 	}
 
+	public JobRole(short id, String name, String spec, String url)	
+	{
+		this.id = id;
+		this.name = name;
+		this.specification = specification;
+		this.url = url;
+	}
 	public short getId() { return id; }
 	public String getName() { return name; }
 	public String getSpecification() { return specification; }

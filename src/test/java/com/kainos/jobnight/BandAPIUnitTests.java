@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = BandController.class)
 
-public class BandAPIUnitTest {
+public class BandAPIUnitTests {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -39,15 +39,13 @@ public class BandAPIUnitTest {
 				bandRepo.findAll()).thenReturn(Arrays.asList(new Band("Test Band 1",Short.parseShort("1")),new Band("Test Band 2",Short.parseShort("2"))));
 
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				"http://localhost:8080/api/band/all").accept(
+				"http://localhost:8080/api/bands/all").accept(
 				MediaType.APPLICATION_JSON);
 
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-		//System.out.println(result.getResponse().getContentAsString());
-
-        String expected = "[{\"id\":1,\"name\":\"Test Band 1\",\"band_level\":0},{\"id\":2,\"name\":\"Test Band 2\",\"band_level\":0}]";
-        assertEquals(expected, result.getResponse().getContentAsString());
+        String expected = "[{\"id\":1,\"name\":\"Test Band 1\",\"trainings\":null,\"band_level\":0},{\"id\":2,\"name\":\"Test Band 2\",\"trainings\":null,\"band_level\":0}]";
+		assertEquals(expected, result.getResponse().getContentAsString());
 		
     }
 }

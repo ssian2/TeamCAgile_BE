@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import springfox.documentation.oas.mappers.StyleEnumMapper;
+
 import static com.kainos.jobnight.Util.loadResourceAsString;
 import static org.junit.jupiter.api.Assertions.fail;
 import static com.kainos.jobnight.Util.createURLWithPort;
@@ -36,7 +38,7 @@ public class JobRoleAPITest {
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/api/job-role/all", port),
                 HttpMethod.GET, entity, String.class);
-
+        
         String expected = loadResourceAsString("Test_US001_Expected.json");
 
         try {
@@ -91,15 +93,12 @@ public class JobRoleAPITest {
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/api/job-role/view-responsibilities-per-role", port),
                 HttpMethod.GET, entity, String.class);
-
         String expected = loadResourceAsString("Test_US006_Expected.json");
 
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {
             fail("Invalid JSON object");
-
-
         }
     }
 
@@ -110,6 +109,7 @@ public class JobRoleAPITest {
 
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-role/byCapability/Product", port), HttpMethod.GET, entity, String.class);
 
+        
         String expected = loadResourceAsString("Test_US007_Expected.json");
 
         try {

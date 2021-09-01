@@ -1,9 +1,10 @@
 [
   {
-    "name": "Product",
-    "id": "4",
-    "jobFamiliesNames": [
-      "Product Consultancy"
-    ]
-  }
+    "name":"Product",
+    "id":"4",
+    "jobFamiliesNames":
+      ["Product Consultancy",
+        "Digital Advisory Consultancy",
+        "Specialist Consultancy"]
+    }
 ]

@@ -53,4 +53,21 @@ class JobnightApplicationTests {
 			fail("Invalid JSON object");;
 		}
 	}
+	@Test
+	void whenGetRequestIssuedToApiBandCompetencyID_thenReturnCompleteCompetencyDataForBand() {
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(
+			createURLWithPort("/api/band-competency/bands-with-competencies/2", port),
+			HttpMethod.GET, entity, String.class);
+		
+
+		String expected = loadResourceAsString("Test_US005_SECOND_Expected.json");
+
+		try {
+			JSONAssert.assertEquals(expected, response.getBody(), true);
+		} catch (JSONException e) {
+			fail("Invalid JSON object");;
+		}
+	}
 }

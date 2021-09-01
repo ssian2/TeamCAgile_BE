@@ -2,8 +2,36 @@
   {
     "name": "Product Specialist",
     "id": "7",
-    "capability": "Product",
     "bandName": "Principal",
-    "jobFamilyName": "Product Consultancy"
+    "jobFamilyName": "Product Consultancy",
+    "capability": "Product"
+  },
+  {
+    "name": "Digital Advisory Consultant",
+    "id": "8",
+    "bandName": "Principal",
+    "jobFamilyName": "Digital Advisory Consultancy",
+    "capability": "Product"
+  },
+  {
+    "name": "Specialist Consultant",
+    "id": "9",
+    "bandName": "Principal",
+    "jobFamilyName": "Specialist Consultancy",
+    "capability": "Product"
+  },
+  {
+    "name": "Digital Advisory Consultant",
+    "id": "10",
+    "bandName": "Manager",
+    "jobFamilyName": "Digital Advisory Consultancy",
+    "capability": "Product"
+  },
+  {
+    "name": "Specialist Consultant",
+    "id": "11",
+    "bandName": "Manager",
+    "jobFamilyName": "Specialist Consultancy",
+    "capability": "Product"
   }
 ]

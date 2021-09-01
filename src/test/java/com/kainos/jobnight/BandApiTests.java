@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JobnightApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CapabilityAPITests {
+public class BandApiTests {
     @LocalServerPort
     private int port;
 
@@ -26,19 +26,40 @@ public class CapabilityAPITests {
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    // US011
+    // US009
     @Test
-    void whenGetRequestIssuedToApiCapabilityAll_thenReturnCompleteCapabilityDataSet() {
+    void whenGetRequestIssuedToApiBandTrainings_thenReturnAllBandWithTrainings() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/getCapability/Product", port), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/bands/training", port), HttpMethod.GET, entity, String.class);
 
-        String expected = loadResourceAsString("Test_US011_Expected.json");
-
+        String expected = loadResourceAsString("Test_US009_First_Expected.json");
+        
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {
             fail("Invalid JSON object");
         }
-     }
+    }
+
+    @Test
+    void whenGetRequestIssuedToApiBandTrainingsPerID_thenReturnTrainginsForBand() {
+
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/bands/training/1", port), HttpMethod.GET, entity, String.class);
+
+
+        
+        String expected = loadResourceAsString("Test_US009_Second_Expected.json");
+        
+        try {
+            JSONAssert.assertEquals(expected, response.getBody(), false);
+        } catch (JSONException e) {
+            fail("Invalid JSON object");
+        }
+    
+    }
+    
+    
 }
