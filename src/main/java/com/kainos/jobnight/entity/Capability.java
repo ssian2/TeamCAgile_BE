@@ -61,5 +61,7 @@ public class Capability {
     public List<String> getJobFamiliesNames(){
         return getJobFamilies().stream().map(JobFamily::getName).collect(Collectors.toList());
     }
-
+    public List<List<String>> getJobRolesInCapability(){
+        return getJobFamilies().stream().map(JobFamily::getJobRolesNames).filter(x -> !x.isEmpty()).collect(Collectors.toList());
+    }
 }
