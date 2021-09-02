@@ -2,12 +2,14 @@ package com.kainos.jobnight.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name="job_family")
+@AllArgsConstructor
 public class JobFamily {
     @Id
     @GeneratedValue
@@ -22,11 +24,11 @@ public class JobFamily {
     @JsonBackReference
     private Capability capability;
 
-    public JobFamily(short ID, String name, Capability capability) {
-        this.ID = ID;
-        this.name = name;
-        this.capability = capability;
-    }
+//    public JobFamily(short ID, String name, Capability capability) {
+//        this.ID = ID;
+//        this.name = name;
+//        this.capability = capability;
+//    }
 
     public JobFamily() {
 

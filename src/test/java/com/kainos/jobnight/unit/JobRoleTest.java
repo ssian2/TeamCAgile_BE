@@ -2,9 +2,10 @@ package com.kainos.jobnight.unit;
 
 import com.kainos.jobnight.JobnightApplication;
 import com.kainos.jobnight.controller.JobRoleController;
-import com.kainos.jobnight.entity.JobRole;
-import com.kainos.jobnight.entity.Responsibility;
+import com.kainos.jobnight.entity.*;
+import com.kainos.jobnight.helper_classes.Validator;
 import com.kainos.jobnight.repo.BandRepository;
+import com.kainos.jobnight.repo.CapabilityRepository;
 import com.kainos.jobnight.repo.JobFamilyRepository;
 import com.kainos.jobnight.repo.JobRoleRepository;
 import org.json.JSONException;
@@ -50,6 +51,9 @@ public class JobRoleTest {
     @Mock
     private JobFamilyRepository jobFamilyRepo;
 
+    @Mock
+    private CapabilityRepository capRepo;
+
     @InjectMocks
     private JobRoleController jobRoleController;
 
@@ -67,7 +71,7 @@ public class JobRoleTest {
 
         List<JobRole> jobRoles = jobRoleController.getAllJobRoles();
 
-        verify(jobRoleRepo, times(1)).findAll();
+       verify(jobRoleRepo, times(1)).findAll();
     }
 
     @Test // US001
@@ -116,40 +120,151 @@ public class JobRoleTest {
 
     @Test // US006
     void whenJobRoleControllerGetResponsibilitiesPerRoleInvoked_thenReturnListOfRoleResponsibilities() {
-        List<JobRole> input = Arrays.asList(
-        	new JobRole(
-        		(short) 1,"name1","","",null,
-                new HashSet<>(Arrays.asList(
-                    new Responsibility((short) 1,"resp 1",null),
-                    new Responsibility((short) 2,"resp 2",null),
-                    new Responsibility((short) 3,"resp 3",null)
-				)),null
-            ),
-            new JobRole(
-                (short) 2,"name2","","",null,
-                new HashSet<>(Arrays.asList(
-                    new Responsibility((short) 4,"resp 4",null),
-                    new Responsibility((short) 5,"resp 5",null)
-				)),null
-            ),
-			new JobRole(
-				(short) 3,"name3","","",null,
-				new HashSet<>(Arrays.asList(
-					new Responsibility((short) 6,"resp 6",null),
-					new Responsibility((short) 7,"resp 7",null),
-					new Responsibility((short) 8,"resp 8",null),
-					new Responsibility((short) 9,"resp 9",null)
-				)),null
-			),
-			new JobRole(
-				(short) 4,"name3","","",null,
-				new HashSet<>(
+         List<JobRole> input = Arrays.asList(
+         	new JobRole(
+         		(short) 1,"name1","","",null,
+                 new HashSet<>(Arrays.asList(
+                     new Responsibility((short) 1,"resp 1",null),
+                     new Responsibility((short) 2,"resp 2",null),
+                     new Responsibility((short) 3,"resp 3",null)
+		 		)),null
+             ),
+             new JobRole(
+                 (short) 2,"name2","","",null,
+                 new HashSet<>(Arrays.asList(
+                     new Responsibility((short) 4,"resp 4",null),
+                     new Responsibility((short) 5,"resp 5",null)
+		 		)),null
+             ),
+		 	new JobRole(
+		 		(short) 3,"name3","","",null,
+		 		new HashSet<>(Arrays.asList(
+		 			new Responsibility((short) 6,"resp 6",null),
+		 			new Responsibility((short) 7,"resp 7",null),
+		 			new Responsibility((short) 8,"resp 8",null),
+		 			new Responsibility((short) 9,"resp 9",null)
+		 		)),null
+		 	),
+		 	new JobRole(
+		 		(short) 4,"name3","","",null,
+		 		new HashSet<>(
 
-				),null
-			)
-        );
+		 		),null
+		 	)
+         );
         when(jobRoleRepo.testQuery()).thenReturn(input);
+        assertEquals(true,true);
     }
+
+    @Test // US012
+    void whenJobRoleControllerPostJobRoleInvokedWithHappyPath_thenExpectSucces() {
+        String request = "{\"name\": \"name\",\"summary\": \"test summary\", \"band\": \"2\",\"job_family\":\"1\"}";
+        String new_request  = "name=name&summary=summ&band=2&job_family=3";
+
+
+
+        List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+        when(bandRepo.findAll()).thenReturn(bands_returned);
+        List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+        when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+        ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+        assertEquals("200 OK", response.getStatusCode().toString());
+    }
+
+    @Test // US012
+    void whenJobRoleControllerPostJobRoleInvokedWithWrongBand_thenExpectError() {
+        String request = "{\"name\": \"name\",\"summary\": \"test summary\", \"band\": \"3\",\"job_family\":\"1\"}";
+        String new_request  = "name=name&summary=summ&band=2&job_family=3";
+
+        List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+        when(bandRepo.findAll()).thenReturn(bands_returned);
+        List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+        when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+        ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+        assertEquals("400 BAD_REQUEST", response.getStatusCode().toString());
+    }
+    @Test // US012
+    void whenJobRoleControllerPostJobRoleInvokedWithWrongJobFamily_thenExpectError() {
+        String request = "{\"name\": \"name\",\"summary\": \"test summary\", \"band\": \"1\",\"job_family\":\"3\"}";
+        String new_request  = "name=name&summary=summ&band=2&job_family=3";
+
+        List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+        when(bandRepo.findAll()).thenReturn(bands_returned);
+        List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+        when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+        ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+        assertEquals("400 BAD_REQUEST", response.getStatusCode().toString());
+    }
+
+    @Test // US012
+    void whenJobRoleControllerPostJobRoleInvokedWithNoName_thenExpectNameMustNotBeNullErrorMessage() {
+        String request = "{\"name\": \"\",\"summary\": \"test summary\", \"band\": \"1\",\"job_family\":\"1\"}";
+        String new_request  = "name=name&summary=summ&band=2&job_family=3";
+
+        List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+        when(bandRepo.findAll()).thenReturn(bands_returned);
+        List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+        when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+        ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+        assertEquals("Value must not be empty",response.getBody().getSources().get("name"));
+        assertEquals("400 BAD_REQUEST", response.getStatusCode().toString());
+    }
+
+    @Test // US012
+    void whenJobRoleControllerPostJobRoleInvokedWithNoSummary_thenExpectSummaryMustNotBeNullErrorMessage() {
+        String request = "{\"name\": \"name\",\"summary\": \"\", \"band\": \"1\",\"job_family\":\"1\"}";
+        String new_request  = "name=name&summary=summ&band=2&job_family=3";
+
+        List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+        when(bandRepo.findAll()).thenReturn(bands_returned);
+        List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+        when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+        ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+        assertEquals("Value must not be empty",response.getBody().getSources().get("summary"));
+        assertEquals("400 BAD_REQUEST", response.getStatusCode().toString());
+    }
+
+    @Test // US012
+    void whenJobRoleControllerPostJobRoleInvokedWithTooLongName_thenExpectNameTooLongErrorMessage() {
+        String request = "{\"name\": \"namenamenamenamenamenamenamenamenamenamenamenamename\",\"summary\": \"\", \"band\": \"1\",\"job_family\":\"1\"}";
+        String new_request  = "name=name&summary=summ&band=2&job_family=3";
+
+        List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+        when(bandRepo.findAll()).thenReturn(bands_returned);
+        List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+        when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+        ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+        assertEquals("Value is too long.",response.getBody().getSources().get("name"));
+        assertEquals("400 BAD_REQUEST", response.getStatusCode().toString());
+    }
+    @Test // US012
+    void whenJobRoleControllerPostJobRoleInvokedWithTooLongSummary_thenExpectSummaryTooLongErrorMessage() {
+        String request = "{\"name\": \"name\",\"summary\": \"namenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamenamename\", \"band\": \"1\",\"job_family\":\"1\"}";
+        String new_request  = "name=name&summary=summ&band=2&job_family=3";
+
+        List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+        when(bandRepo.findAll()).thenReturn(bands_returned);
+        List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+        when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+        ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+        assertEquals("Value is too long.",response.getBody().getSources().get("summary"));
+        assertEquals("400 BAD_REQUEST", response.getStatusCode().toString());
+    }
+
 
 /*
 
