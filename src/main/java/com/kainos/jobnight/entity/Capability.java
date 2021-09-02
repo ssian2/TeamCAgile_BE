@@ -15,6 +15,12 @@ public class Capability {
     private short ID;
     @Column(name = "capability_name")
     private String name;
+    @Column(name = "lead_name")
+    private String leadName;
+    @Column(name = "lead_photo")
+    private String leadPhoto;
+    @Column(name = "lead_message")
+    private String leadMessage;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "capability")
@@ -50,6 +56,31 @@ public class Capability {
         this.name = name;
     }
 
+
+    public String getLeadName() {
+        return leadName;
+    }
+
+    public void setLeadName(String leadName) {
+        this.leadName = leadName;
+    }
+
+    public String getLeadPhoto() {
+        return leadPhoto;
+    }
+
+    public void setLeadPhoto(String leadPhoto) {
+        this.leadPhoto = leadPhoto;
+    }
+
+    public String getLeadMessage() {
+        return leadMessage;
+    }
+
+    public void setLeadMessage(String leadMessage) {
+        this.leadMessage = leadMessage;
+    }
+
     public List<JobFamily> getJobFamilies() {
         return jobFamilies;
     }
@@ -61,5 +92,4 @@ public class Capability {
     public List<String> getJobFamiliesNames(){
         return getJobFamilies().stream().map(JobFamily::getName).collect(Collectors.toList());
     }
-
 }
