@@ -7,6 +7,7 @@ import com.kainos.jobnight.entity.Responsibility;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
 import com.kainos.jobnight.helper_classes.Validator;
 import com.kainos.jobnight.repo.BandRepository;
+import com.kainos.jobnight.repo.CapabilityRepository;
 import com.kainos.jobnight.repo.JobFamilyRepository;
 import com.kainos.jobnight.repo.JobRoleRepository;
 import org.json.JSONException;
@@ -49,6 +50,9 @@ public class JobRoleTest {
 
     @Mock
     private JobFamilyRepository jobFamilyRepo;
+
+    @Mock
+    private CapabilityRepository capRepo;
 
     @InjectMocks
     private JobRoleController jobRoleController;
