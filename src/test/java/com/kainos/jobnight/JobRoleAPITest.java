@@ -13,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import springfox.documentation.oas.mappers.StyleEnumMapper;
+//import springfox.documentation.oas.mappers.StyleEnumMapper;
 
 import static com.kainos.jobnight.Util.loadResourceAsString;
 import static org.junit.jupiter.api.Assertions.fail;
