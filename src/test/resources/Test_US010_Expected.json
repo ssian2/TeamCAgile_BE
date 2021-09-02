@@ -1,0 +1,56 @@
+[
+  {
+    "name": "test cap name",
+    "leadName": "test lead",
+    "leadPhoto": "https://previews.123rf.com/images/kurhan/kurhan1103/kurhan110300100/9050894-happy-man.jpg",
+    "leadMessage": "test message"
+  },
+  {
+    "name": "Applied Innovation",
+    "leadName": "Thomas Gray",
+    "leadPhoto": "https://kainossoftwareltd.sharepoint.com/_layouts/15/userphoto.aspx?size=L&accountname=t.gray%40kainos.com",
+    "leadMessage": "Our customers are increasingly asking what technologies will disrupt their business? The answer of course isn't simple - often a combination of technology, tools, techniques, business models, skills and culture executed at just the right time. This is a (broader) question that we need to ask ourselves and that our customers expect from us."
+  },
+  {
+    "name": "Business Development",
+    "leadName": "Paul Lemon",
+    "leadPhoto": "https://previews.123rf.com/images/kurhan/kurhan1103/kurhan110300100/9050894-happy-man.jpg",
+    "leadMessage": "To create an holistic world-class business development and marketing capability for Kainos Group,  fuelled by a diverse range of highly talented and motivated professionals working collaboratively and innovatively,  propelling us to our next financial milestone (half a billion pounds in annual sales orders"
+  },
+  {
+    "name": "Product",
+    "leadName": "Charlene McDonald",
+    "leadPhoto": "https://previews.123rf.com/images/zoomteam/zoomteam1210/zoomteam121000294/15918538-happy-smiling-business-woman-with-ok-hand-sign.jpg",
+    "leadMessage": "We work with clients to identify and remove friction from their digital delivery initiatives.  Identifying where processes, practices and people can be developed further."
+  },
+  {
+    "name": "Cyber Security",
+    "leadName": "Peter Gallagher",
+    "leadPhoto": "https://previews.123rf.com/images/kurhan/kurhan1103/kurhan110300100/9050894-happy-man.jpg",
+    "leadMessage": "We embed cyber security experts in our teams to help deliver the right level of security for our customers.   Security is important and we think every team should have an expert who is 100% dedicated to promoting, designing and assuring  security best practices. Our security team is well qualified.  We have GCHQ accredited master's degrees in Cyber Security,  industry recognised professional qualifications (CISSP), penetration testing qualifications (OSCP, OSCE) and cloud security  specialist qualifications in Amazon and Microsoft Azure environment"
+  },
+  {
+    "name": "Data & Analytics",
+    "leadName": "Andy Burnage",
+    "leadPhoto": "https://previews.123rf.com/images/kurhan/kurhan1103/kurhan110300100/9050894-happy-man.jpg",
+    "leadMessage": "Our vision is for data and analytics to be an integral part of all our  engagements as our clients realise that understanding and exploiting data is a key enabler and differentiator for them."
+  },
+  {
+    "name": "Engineering",
+    "leadName": "Will Hamill",
+    "leadPhoto": "https://previews.123rf.com/images/kurhan/kurhan1103/kurhan110300100/9050894-happy-man.jpg",
+    "leadMessage": "To support the scale of the Engineering capability, we have split ourselves into 8 working groups.  Each working group is 3 or 4 people who collectively own that area while pulling in other capability members for support on the  execution of their plans.  If you’ve a question or a request from any of these areas, please either"
+  },
+  {
+    "name": "Delivery Management",
+    "leadName": "Jakub Stempnik",
+    "leadPhoto": "https://previews.123rf.com/images/kurhan/kurhan1103/kurhan110300100/9050894-happy-man.jpg",
+    "leadMessage": "Members of the capability (Agile Specialists, Agile Team Leads, Delivery Managers,  Client Service Managers and Service Delivery Managers) manage the delivery of customer-facing Kainos teams, projects and services. The vision for the capability is to be recognised by our people, our customers,  our peers and the market as having world-class management and leadership underpinning our projects."
+  },
+  {
+    "name": "Platforms",
+    "leadName": "Matthew Downing",
+    "leadPhoto": "https://previews.123rf.com/images/kurhan/kurhan1103/kurhan110300100/9050894-happy-man.jpg",
+    "leadMessage": "Ultimately accountable for delivery of the capability plan and point of escalation across all matters within Capability."
+  }
+]

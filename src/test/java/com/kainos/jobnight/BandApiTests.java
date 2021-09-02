@@ -34,7 +34,7 @@ public class BandApiTests {
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/bands/training", port), HttpMethod.GET, entity, String.class);
 
         String expected = loadResourceAsString("Test_US009_First_Expected.json");
-        
+
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {
@@ -43,13 +43,13 @@ public class BandApiTests {
     }
 
     @Test
-    void whenGetRequestIssuedToApiBandTrainingsPerID_thenReturnTrainginsForBand() {
+    void whenGetRequestIssuedToApiBandTrainingsPerID_thenReturnTrainingsForBand() {
 
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/bands/training/1", port), HttpMethod.GET, entity, String.class);
-
-
+        ResponseEntity<String> response = restTemplate.exchange(
+                createURLWithPort("/api/bands/training/1", port),
+                HttpMethod.GET, entity, String.class);
         
         String expected = loadResourceAsString("Test_US009_Second_Expected.json");
         

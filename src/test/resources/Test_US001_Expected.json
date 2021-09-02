@@ -9,16 +9,16 @@
       "name": "test band name",
       "trainings": [
         {
-          "name": "Effective Time Management",
-          "description": "Identify what effective time management looks like\\n",
-          "url": "https://kainossoftwareltd.sharepoint.com/L%26D/SitePages/Time-Management.aspx",
-          "type": "Professional Skills"
-        },
-        {
           "name": "Some Technical Training",
           "description": "Learn more about how to improve your tehcnical skills",
           "url": "https://kainossoftwareltd.sharepoint.com/L%26D/SitePages/Time-Management.aspx",
           "type": "Technical Skills"
+        },
+        {
+          "name": "Effective Time Management",
+          "description": "Identify what effective time management looks like ",
+          "url": "https://kainossoftwareltd.sharepoint.com/L%26D/SitePages/Time-Management.aspx",
+          "type": "Professional Skills"
         }
       ],
       "band_level": 9
@@ -29,12 +29,12 @@
         "name": "test responsibility name"
       }
     ],
+    "bandName": "test band name",
+    "capability": "test cap name",
     "jobFamilyName": "Test Job family",
     "responsibilitiesList": [
       "test responsibility name"
-    ],
-    "bandName": "test band name",
-    "capability": "test cap name"
+    ]
   },
   {
     "id": 2,
@@ -64,18 +64,18 @@
         "name": "developing high quality soluti"
       }
     ],
+    "bandName": "Associate",
+    "capability": "Cyber Security",
     "jobFamilyName": "Testing and Quality Assurance",
     "responsibilitiesList": [
       "test responsibility name",
       "developing high quality soluti"
-    ],
-    "bandName": "Associate",
-    "capability": "Cyber Security"
+    ]
   },
   {
     "id": 5,
     "name": "Software Engineer",
-    "specification": "As a Software Engineer in Kainos, you’ll be responsible for\\n developing high quality solutions which delight our customers and impact the lives of users worldwide.",
+    "specification": "As a Software Engineer in Kainos, you’ll be responsible for  developing high quality solutions which delight our customers and impact the lives of users worldwide.",
     "url": null,
     "band": {
       "id": 3,
@@ -84,15 +84,15 @@
       "band_level": 7
     },
     "responsibilities": [],
-    "jobFamilyName": "Engineering",
-    "responsibilitiesList": [],
     "bandName": "Trainee",
-    "capability": "Engineering"
+    "capability": "Engineering",
+    "jobFamilyName": "Engineering",
+    "responsibilitiesList": []
   },
   {
     "id": 6,
     "name": "Software Engineer",
-    "specification": "As a Software Engineer in Kainos, you’ll be responsible for\\n developing high quality solutions which delight our customers and impact the lives of users worldwide.",
+    "specification": "As a Software Engineer in Kainos, you’ll be responsible for  developing high quality solutions which delight our customers and impact the lives of users worldwide.",
     "url": "https://kainossoftwareltd.sharepoint.com/people/Job%20Specifications/Forms/AllItems.aspx?id=%2Fpeople%2FJob%20Specifications%2FEngineering%2FJob%20profile%20%2D%20Software%20Engineer%20%28Associate%29%2Epdf&parent=%2Fpeople%2FJob%20Specifications%2FEngineering&p=true&originalPath=aHR0cHM6Ly9rYWlub3Nzb2Z0d2FyZWx0ZC5zaGFyZXBvaW50LmNvbS86YjovZy9wZW9wbGUvRVlUQ3Yxc3NsNnBPdUg1OXpYdG9GOVlCOHFOYUVNTlNrWklrQ3RoREFZNUtqZz9ydGltZT1sWEpNc29SbzJVZw",
     "band": {
       "id": 4,
@@ -108,15 +108,15 @@
       "band_level": 6
     },
     "responsibilities": [],
-    "jobFamilyName": "Security Strategy and Planning",
-    "responsibilitiesList": [],
     "bandName": "Associate",
-    "capability": "Cyber Security"
+    "capability": "Cyber Security",
+    "jobFamilyName": "Security Strategy and Planning",
+    "responsibilitiesList": []
   },
   {
     "id": 7,
     "name": "Product Specialist",
-    "specification": "As a Product Specialist at Kainos you will be responsible for delivering high quality solutions which delight our customers and\\nimpact the lives of users worldwide.",
+    "specification": "As a Product Specialist at Kainos you will be responsible for delivering high quality solutions which delight our customers and impact the lives of users worldwide.",
     "url": null,
     "band": {
       "id": 8,
@@ -125,10 +125,10 @@
       "band_level": 2
     },
     "responsibilities": [],
-    "jobFamilyName": "Product Consultancy",
-    "responsibilitiesList": [],
     "bandName": "Principal",
-    "capability": "Product"
+    "capability": "Product",
+    "jobFamilyName": "Product Consultancy",
+    "responsibilitiesList": []
   },
   {
     "id": 8,
@@ -142,10 +142,10 @@
       "band_level": 2
     },
     "responsibilities": [],
-    "jobFamilyName": "Digital Advisory Consultancy",
-    "responsibilitiesList": [],
     "bandName": "Principal",
-    "capability": "Product"
+    "capability": "Product",
+    "jobFamilyName": "Digital Advisory Consultancy",
+    "responsibilitiesList": []
   },
   {
     "id": 9,
@@ -159,10 +159,10 @@
       "band_level": 2
     },
     "responsibilities": [],
-    "jobFamilyName": "Specialist Consultancy",
-    "responsibilitiesList": [],
     "bandName": "Principal",
-    "capability": "Product"
+    "capability": "Product",
+    "jobFamilyName": "Specialist Consultancy",
+    "responsibilitiesList": []
   },
   {
     "id": 10,
@@ -176,10 +176,10 @@
       "band_level": 3
     },
     "responsibilities": [],
-    "jobFamilyName": "Digital Advisory Consultancy",
-    "responsibilitiesList": [],
     "bandName": "Manager",
-    "capability": "Product"
+    "capability": "Product",
+    "jobFamilyName": "Digital Advisory Consultancy",
+    "responsibilitiesList": []
   },
   {
     "id": 11,
@@ -193,9 +193,9 @@
       "band_level": 3
     },
     "responsibilities": [],
-    "jobFamilyName": "Specialist Consultancy",
-    "responsibilitiesList": [],
     "bandName": "Manager",
-    "capability": "Product"
+    "capability": "Product",
+    "jobFamilyName": "Specialist Consultancy",
+    "responsibilitiesList": []
   }
 ]

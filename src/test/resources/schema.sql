@@ -27,6 +27,9 @@ CREATE TABLE `band` (
 CREATE TABLE `capability` (
   `capability_id` smallint NOT NULL AUTO_INCREMENT,
   `capability_name` varchar(20) DEFAULT NULL,
+  `lead_name` varchar(100) DEFAULT NULL,
+  `lead_photo` varchar(700) DEFAULT NULL,
+  `lead_message` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`capability_id`)
 ) ;
 
