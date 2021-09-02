@@ -3,6 +3,7 @@ package com.kainos.jobnight.controller;
 import com.kainos.jobnight.entity.Capability;
 import com.kainos.jobnight.projections.capability.CapabilityAndJobFamilies;
 import com.kainos.jobnight.projections.capability.CapabilityLeadInfo;
+import com.kainos.jobnight.projections.capability.CapabilityWithRolesAndID;
 import com.kainos.jobnight.repo.CapabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,7 @@ public class CapabilityController {
 		return CapabilityRepository.findAll();
 	}
 
+
     @GetMapping("getCapability/{name}")
     public List<CapabilityAndJobFamilies> getCapability(@PathVariable("name") String name){
         if(CapabilityRepository.getCapabilityFamiliesByName(name).isEmpty()){
@@ -40,5 +42,10 @@ public class CapabilityController {
     public List<CapabilityLeadInfo> getAllCapabilityLeads() {
 
         return CapabilityRepository.getCapabilityLeadInfo();
+    }
+  
+    @GetMapping("/withRoles")
+    public List<CapabilityWithRolesAndID> getAllCapabilitiesWithRoles() {
+        return CapabilityRepository.getAllRolesWithCapability();
     }
 }

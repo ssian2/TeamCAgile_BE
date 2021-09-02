@@ -6,6 +6,7 @@ import com.kainos.jobnight.projections.BandAndTrainings;
 import com.kainos.jobnight.projections.capability.CapabilityAndJobFamilies;
 import com.kainos.jobnight.projections.capability.CapabilityLeadInfo;
 import com.kainos.jobnight.projections.capability.CapabilityNameAndID;
+import com.kainos.jobnight.projections.capability.CapabilityWithRolesAndID;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -28,4 +29,7 @@ public interface CapabilityRepository extends CrudRepository<Capability, Short> 
 
     @Query("Select c from Capability c")
     List<CapabilityLeadInfo> getCapabilityLeadInfo();
+  
+    @Query("SELECT DISTINCT c from Capability c")
+    List<CapabilityWithRolesAndID> getAllRolesWithCapability();
 }
