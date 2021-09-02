@@ -1,6 +1,7 @@
 package com.kainos.jobnight.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -9,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employee_role")
+@AllArgsConstructor
 public class JobRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,13 +47,6 @@ public class JobRole {
 	private JobFamily jobFamily;
 
 	public JobRole(){}
-
-	public JobRole(short id, String name, String specification, Band band) {
-		this.id = id;
-		this.name = name;
-		this.specification = specification;
-		this.band = band;
-	}
 
 	public short getId() { return id; }
 	// id is auto-generated, no setter needed/allowed

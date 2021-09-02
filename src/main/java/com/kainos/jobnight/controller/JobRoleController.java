@@ -8,8 +8,8 @@ import com.kainos.jobnight.repo.CapabilityRepository;
 import com.kainos.jobnight.repo.JobFamilyRepository;
 import com.kainos.jobnight.repo.JobRoleRepository;
 
+import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +21,13 @@ import static com.kainos.jobnight.helper_classes.Util.safeGetJSONString;
 
 @RestController
 @RequestMapping("/api/job-role")
+@RequiredArgsConstructor
 public class JobRoleController {
-	@Autowired
-	private JobRoleRepository roleRepo;
 
-	@Autowired
-	private BandRepository bandRepo;
-
-	@Autowired
-	private JobFamilyRepository familyRepo;
+	// Don't use @Autowired on controllers so we can test them better
+	private final JobRoleRepository roleRepo;
+	private final BandRepository bandRepo;
+	private final JobFamilyRepository familyRepo;
 
 	@GetMapping("/all")
 	public List<JobRole> getAllJobRoles() {
@@ -57,22 +55,23 @@ public class JobRoleController {
 	}
 
 	@GetMapping("/view-responsibilities-per-role")
-	public List<RoleResponsibility>  getRespsPerRole()
-	{
+	public List<RoleResponsibility> getResponsibilitiesPerRole() {
 		List<JobRole> roles =  roleRepo.testQuery();
-		List<RoleResponsibility> JoinedData= new ArrayList<RoleResponsibility>();
-		for(JobRole j: roles){
-				Set<Responsibility> resps = j.getResponsibilities();
-				RoleResponsibility data = new RoleResponsibility(j.getName());
-				for(Responsibility r: resps){
-					
-					data.AddResponsibility(r.getName());
-				}
-				if (!data.resps.isEmpty()){
-					JoinedData.add(data);
-				}
+		List<RoleResponsibility> joinedData= new ArrayList<RoleResponsibility>();
+
+		for (JobRole j: roles){
+			Set<Responsibility> responsibilities = j.getResponsibilities();
+			RoleResponsibility data = new RoleResponsibility(j.getName());
+
+			for (Responsibility r: responsibilities){
+				data.AddResponsibility(r.getName());
 			}
-		return JoinedData;
+
+			if (!data.resps.isEmpty()){
+				joinedData.add(data);
+			}
+		}
+		return joinedData;
 	}
 
 	@PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
