@@ -2,6 +2,7 @@ package com.kainos.jobnight.controller;
 
 import com.kainos.jobnight.entity.Capability;
 import com.kainos.jobnight.projections.capability.CapabilityAndJobFamilies;
+import com.kainos.jobnight.projections.capability.CapabilityLeadInfo;
 import com.kainos.jobnight.projections.capability.CapabilityWithRolesAndID;
 import com.kainos.jobnight.repo.CapabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,14 @@ public class CapabilityController {
         }
     }
 
+    @GetMapping("/leads")
+    public List<CapabilityLeadInfo> getAllCapabilityLeads() {
+
+        return CapabilityRepository.getCapabilityLeadInfo();
+    }
+  
     @GetMapping("/withRoles")
     public List<CapabilityWithRolesAndID> getAllCapabilitiesWithRoles() {
         return CapabilityRepository.getAllRolesWithCapability();
     }
-
 }
