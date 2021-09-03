@@ -1,8 +1,14 @@
 package com.kainos.jobnight.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.json.JSONPropertyName;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -10,6 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name="job_family")
 @AllArgsConstructor
+@NoArgsConstructor
 public class JobFamily {
     @Id
     @GeneratedValue
@@ -19,28 +26,18 @@ public class JobFamily {
     @Column(name = "job_family_name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "capability_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "capability_id")
     private Capability capability;
 
-//    public JobFamily(short ID, String name, Capability capability) {
-//        this.ID = ID;
-//        this.name = name;
-//        this.capability = capability;
-//    }
+    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobFamily", fetch = FetchType.EAGER)
+    private Set<JobRole> jobRoles;
 
-    public JobFamily() {
+    public short getID() { return ID; }
 
-    }
-
-    public short getID() {
-        return ID;
-    }
-
-    public void setID(short ID) {
-        this.ID = ID;
-    }
+    public void setID(short ID) { this.ID = ID; }
 
     public String getName() {
         return name;
@@ -54,7 +51,12 @@ public class JobFamily {
         this.capability = capability;
     }
 
+    @JsonProperty("capability_name")
+    public String getCapabilityName() { return this.capability.getName(); }
+
     public Capability getCapability() {
         return capability;
     }
+
+    public Set<JobRole> getJobRoles() { return jobRoles; }
 }

@@ -1,5 +1,6 @@
 package com.kainos.jobnight;
 
+import com.kainos.jobnight.JobnightApplication;
 import com.kainos.jobnight.repo.CapabilityRepository;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
@@ -31,12 +32,14 @@ public class CapabilityAPITests {
 
     // US003
     @Test
-    void whenGetRequestIssuedToApiCapabilityAll_thenReturnCompleteCapabilityDataSet() {
+    void whenGetRequestIssuedToApiCapability_thenReturnCompleteCapabilityDataSet() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/all", port), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability", port), HttpMethod.GET, entity, String.class);
 
         String expected = loadResourceAsString("Test_US003_Expected.json");
+
+        System.out.println(response.getBody());
 
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);

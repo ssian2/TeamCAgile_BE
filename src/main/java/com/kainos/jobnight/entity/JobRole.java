@@ -1,6 +1,7 @@
 package com.kainos.jobnight.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
@@ -26,7 +27,8 @@ public class JobRole {
 	@Column(name = "spec_doc_url")
 	private String url;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonManagedReference
+	@ManyToOne/*(fetch = FetchType.LAZY)*/
 	@JoinColumn(name = "band_id")
 	private Band band;
 
@@ -42,6 +44,7 @@ public class JobRole {
 				nullable = false, updatable = false)})
 	private Set<Responsibility> responsibilities;
 
+	@JsonManagedReference
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="job_family_id")
 	private JobFamily jobFamily;
