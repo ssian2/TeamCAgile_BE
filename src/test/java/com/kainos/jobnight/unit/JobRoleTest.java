@@ -4,6 +4,8 @@ import com.kainos.jobnight.JobnightApplication;
 import com.kainos.jobnight.controller.JobRoleController;
 import com.kainos.jobnight.entity.JobRole;
 import com.kainos.jobnight.entity.Responsibility;
+import com.kainos.jobnight.helper_classes.RoleResponsibility;
+import com.kainos.jobnight.helper_classes.Validator;
 import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.repo.JobFamilyRepository;
 import com.kainos.jobnight.repo.JobRoleRepository;
@@ -14,15 +16,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
@@ -115,63 +115,164 @@ public class JobRoleTest {
     }
 
     @Test // US006
+	void whenJobRoleControllerGetResponsibilitiesPerRoleInvoked_thenInvokeJobRoleRepositoryTestQueryOnce() {
+    	when(jobRoleRepo.testQuery()).thenReturn(List.of());
+
+    	jobRoleController.getResponsibilitiesPerRole();
+
+    	verify(jobRoleRepo, times(1)).testQuery();
+	}
+
+    @Test // US006
     void whenJobRoleControllerGetResponsibilitiesPerRoleInvoked_thenReturnListOfRoleResponsibilities() {
-        List<JobRole> input = Arrays.asList(
+        List<JobRole> input = List.of(
         	new JobRole(
         		(short) 1,"name1","","",null,
-                new HashSet<>(Arrays.asList(
+                Set.of(
                     new Responsibility((short) 1,"resp 1",null),
                     new Responsibility((short) 2,"resp 2",null),
                     new Responsibility((short) 3,"resp 3",null)
-				)),null
+				),null
             ),
             new JobRole(
                 (short) 2,"name2","","",null,
-                new HashSet<>(Arrays.asList(
+                Set.of(
                     new Responsibility((short) 4,"resp 4",null),
                     new Responsibility((short) 5,"resp 5",null)
-				)),null
+				),null
             ),
 			new JobRole(
 				(short) 3,"name3","","",null,
-				new HashSet<>(Arrays.asList(
+				Set.of(
 					new Responsibility((short) 6,"resp 6",null),
 					new Responsibility((short) 7,"resp 7",null),
 					new Responsibility((short) 8,"resp 8",null),
 					new Responsibility((short) 9,"resp 9",null)
-				)),null
+				),null
 			),
+			// This should be excluded in the results set
 			new JobRole(
 				(short) 4,"name3","","",null,
-				new HashSet<>(
-
-				),null
+				Set.of(),null
 			)
         );
+
+        List<RoleResponsibility> expected = List.of(
+        	new RoleResponsibility(
+        		"name1",
+				List.of(
+					"resp 1",
+					"resp 2",
+					"resp 3"
+				)
+			),
+			new RoleResponsibility(
+				"name2",
+				List.of(
+					"resp 4",
+					"resp 5"
+				)
+			),
+			new RoleResponsibility(
+				"name3",
+				List.of(
+					"resp 6",
+					"resp 7",
+					"resp 8",
+					"resp 9"
+				)
+			)
+		);
         when(jobRoleRepo.testQuery()).thenReturn(input);
+
+        List<RoleResponsibility> actual = jobRoleController.getResponsibilitiesPerRole();
+
+        assertEquals(expected, actual);
     }
 
-/*
+    @Test // US012
+	void whenJobRoleControllerAddJobRoleInvokedAndBodyIsNull_thenReturnBadRequest() {
+    	when(bandRepo.findAll()).thenReturn(List.of());
+    	when(jobFamilyRepo.findAll()).thenReturn(List.of());
 
-    //US006
-    @Test
-    void whenGetRequestToViewResponsibilityForRole_thenExpectCorrectResults(){
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+    	ResponseEntity<Validator> response = jobRoleController.addJobRole(null);
 
-        ResponseEntity<String> response = restTemplate.exchange(
-                createURLWithPort("/api/job-role/view-responsibilities-per-role", port),
-                HttpMethod.GET, entity, String.class);
-        
-        String expected = loadResourceAsString("Test_US006_Expected.json");
+    	assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+	}
 
-        try {
-            JSONAssert.assertEquals(expected, response.getBody(), false);
-        } catch (JSONException e) {
-            fail("Invalid JSON object");
-        }
-    }
+	@Test // US012
+	void whenJobRoleControllerAddJobRoleInvokedAndBodyIsNull_thenJobRoleRepositorySaveNotInvoked() {
+		when(bandRepo.findAll()).thenReturn(List.of());
+		when(jobFamilyRepo.findAll()).thenReturn(List.of());
+
+		jobRoleController.addJobRole(null);
+
+		verify(jobRoleRepo, times(0)).save(any());
+	}
+
+	@Test // US012
+	void whenJobRoleControllerAddJobRoleInvokedAndBodyIsNull_thenProvideValueMustExistMessageOnAllFields() {
+		when(bandRepo.findAll()).thenReturn(List.of());
+		when(jobFamilyRepo.findAll()).thenReturn(List.of());
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole(null);
+		Validator validator = response.getBody();
+
+		Map<String, String> sources = validator.getSources();
+
+		assertEquals(sources.get("name"), "Value must exist.");
+		assertEquals(sources.get("summary"), "Value must exist.");
+		assertEquals(sources.get("band"), "Value must exist.");
+		assertEquals(sources.get("job_family"), "Value must exist.");
+	}
+
+	@Test // US012
+	void whenJobRoleControllerAddJobRoleInvokedAndNameIsEmpty_thenProvideValueMustNotBeEmptyMessageOnName() {
+		when(bandRepo.findAll()).thenReturn(List.of());
+		when(jobFamilyRepo.findAll()).thenReturn(List.of());
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole("""
+  {"name":""}
+  """);
+		Validator validator = response.getBody();
+
+		Map<String, String> sources = validator.getSources();
+
+		assertEquals(sources.get("name"), "Value must not be empty.");
+	}
+
+	@Test // US012
+	void whenJobRoleControllerAddJobRoleInvokedAndNameIsTooLong_thenProvideValueTooLongMessageOnName() {
+		when(bandRepo.findAll()).thenReturn(List.of());
+		when(jobFamilyRepo.findAll()).thenReturn(List.of());
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole("""
+  {"name":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}
+  """);
+		Validator validator = response.getBody();
+
+		Map<String, String> sources = validator.getSources();
+
+		assertEquals(sources.get("name"), "Value is too long.");
+	}
+
+	@Test // US012
+	void whenJobRoleControllerAddJobRoleInvokedAndSummaryIsEmpty_thenProvideValueMustNotBeEmptyOnSummary() {
+		when(bandRepo.findAll()).thenReturn(List.of());
+		when(jobFamilyRepo.findAll()).thenReturn(List.of());
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole("""
+  {"summary":""}
+  """);
+		Validator validator = response.getBody();
+
+		Map<String, String> sources = validator.getSources();
+
+		assertEquals(sources.get("summary"), "Value must be present.");
+	}
 
     //US012_A
+	/*
     @Test
     void whenPostRequestIssuedToApiJobRoleAdd_thenJobRoleControllerAddJobRoleInvoked() {
         //TODO: put PUT request here

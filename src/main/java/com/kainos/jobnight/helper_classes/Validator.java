@@ -34,7 +34,7 @@ public class Validator {
 			int i = Integer.parseInt(value);
 			return Optional.of(i);
 		} catch(NumberFormatException ex) {
-			setSource(source, "Value is not a number");
+			setSource(source, "Value is not a number.");
 			return Optional.empty();
 		}
 	}
@@ -69,7 +69,7 @@ public class Validator {
 
 	public boolean validateStringNotEmpty(String source, String value) {
 		if (value.length() == 0) {
-			setSource(source, "Value must not be empty");
+			setSource(source, "Value must not be empty.");
 			return false;
 		}
 
@@ -96,7 +96,7 @@ public class Validator {
 
 	public boolean validateStringRegex(String source, String value, String regex) {
 		if (!Pattern.compile(regex).matcher(value).find()) {
-			setSource(source, "Value does not meet the expected format");
+			setSource(source, "Value does not meet the expected format.");
 			return false;
 		}
 

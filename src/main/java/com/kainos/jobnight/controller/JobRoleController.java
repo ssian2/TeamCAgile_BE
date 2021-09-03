@@ -76,6 +76,7 @@ public class JobRoleController {
 
 	@PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Validator> addJobRole(@RequestBody String obj) {
+		if (obj == null || obj.equals("")) obj = "{}";
 		JSONObject json = new JSONObject(obj);
 		Validator validator = new Validator();
 
@@ -117,7 +118,7 @@ public class JobRoleController {
 						.collect(Collectors.toList()));
 			}
 		} else {
-			validator.setSource("band", "Value must exist");
+			validator.setSource("band", "Value must exist.");
 		}
 
 		List<JobFamily> families = familyRepo.findAll();
@@ -125,19 +126,19 @@ public class JobRoleController {
 		// Validate if capability exists, SQL will do this for us,
 		// but this will generate a nicer error message
 		if (family.isPresent()) {
-			Optional<Integer> capabilityId = validator.validateIsNumber("capability", family.get());
+			Optional<Integer> jobFamilyId = validator.validateIsNumber("job_family", family.get());
 
-			if (capabilityId.isPresent()) {
+			if (jobFamilyId.isPresent()) {
 				validator.validateNumberIn(
-					"capability",
-					capabilityId.get(),
+					"job_family",
+					jobFamilyId.get(),
 					families.stream()
 						.map(JobFamily::getID)
 						.map(Short::intValue)
 						.collect(Collectors.toList()));
 			}
 		} else {
-			validator.setSource("capability", "Value must exist");
+			validator.setSource("job_family", "Value must exist.");
 		}
 
 		if (validator.isOkay()) {
