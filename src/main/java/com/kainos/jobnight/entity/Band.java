@@ -1,9 +1,11 @@
 package com.kainos.jobnight.entity;
 
 import javax.persistence.*;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "band")
+@AllArgsConstructor
 public class Band implements Comparable<Band> {
 
 	@Id

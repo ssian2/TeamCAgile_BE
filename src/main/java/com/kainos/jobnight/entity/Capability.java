@@ -1,12 +1,13 @@
 package com.kainos.jobnight.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.List;
+import lombok.AllArgsConstructor;
+
 
 @Entity
 @Table(name="capability")
+@AllArgsConstructor
 public class Capability {
     @Id
     @GeneratedValue

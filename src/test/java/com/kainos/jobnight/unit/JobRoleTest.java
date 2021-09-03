@@ -2,11 +2,14 @@ package com.kainos.jobnight.unit;
 
 import com.kainos.jobnight.JobnightApplication;
 import com.kainos.jobnight.controller.JobRoleController;
+import com.kainos.jobnight.entity.Band;
+import com.kainos.jobnight.entity.JobFamily;
 import com.kainos.jobnight.entity.JobRole;
 import com.kainos.jobnight.entity.Responsibility;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
 import com.kainos.jobnight.helper_classes.Validator;
 import com.kainos.jobnight.repo.BandRepository;
+import com.kainos.jobnight.repo.CapabilityRepository;
 import com.kainos.jobnight.repo.JobFamilyRepository;
 import com.kainos.jobnight.repo.JobRoleRepository;
 import org.json.JSONException;
@@ -50,6 +53,9 @@ public class JobRoleTest {
     @Mock
     private JobFamilyRepository jobFamilyRepo;
 
+    @Mock
+    private CapabilityRepository capRepo;
+
     @InjectMocks
     private JobRoleController jobRoleController;
 
@@ -67,7 +73,7 @@ public class JobRoleTest {
 
         List<JobRole> jobRoles = jobRoleController.getAllJobRoles();
 
-        verify(jobRoleRepo, times(1)).findAll();
+       verify(jobRoleRepo, times(1)).findAll();
     }
 
     @Test // US001
@@ -218,13 +224,20 @@ public class JobRoleTest {
 		ResponseEntity<Validator> response = jobRoleController.addJobRole(null);
 		Validator validator = response.getBody();
 
+		assertNotNull(validator);
+
 		Map<String, String> sources = validator.getSources();
 
 		assertEquals(sources.get("name"), "Value must exist.");
 		assertEquals(sources.get("summary"), "Value must exist.");
 		assertEquals(sources.get("band"), "Value must exist.");
 		assertEquals(sources.get("job_family"), "Value must exist.");
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
+
+	///////////////////////////////////
+	/////////// US012 NAME ////////////
+	///////////////////////////////////
 
 	@Test // US012
 	void whenJobRoleControllerAddJobRoleInvokedAndNameIsEmpty_thenProvideValueMustNotBeEmptyMessageOnName() {
@@ -239,6 +252,7 @@ public class JobRoleTest {
 		Map<String, String> sources = validator.getSources();
 
 		assertEquals(sources.get("name"), "Value must not be empty.");
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
 
 	@Test // US012
@@ -251,24 +265,113 @@ public class JobRoleTest {
   """);
 		Validator validator = response.getBody();
 
-		Map<String, String> sources = validator.getSources();
-
-		assertEquals(sources.get("name"), "Value is too long.");
+		assertNotNull(validator);
+		assertEquals(validator.getSources().get("name"), "Value is too long.");
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
 
+	///////////////////////////////////
+	////////// US012 SUMMARY //////////
+	///////////////////////////////////
+
 	@Test // US012
-	void whenJobRoleControllerAddJobRoleInvokedAndSummaryIsEmpty_thenProvideValueMustNotBeEmptyOnSummary() {
+	void whenJobRoleControllerPostJobRoleInvokedAndSummaryIsTooLong_thenProvideValueTooLongMessageOnSummary() {
+		String request = """
+  {"summary": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}
+  """;
 		when(bandRepo.findAll()).thenReturn(List.of());
 		when(jobFamilyRepo.findAll()).thenReturn(List.of());
 
-		ResponseEntity<Validator> response = jobRoleController.addJobRole("""
-  {"summary":""}
-  """);
+		ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
 		Validator validator = response.getBody();
 
-		Map<String, String> sources = validator.getSources();
+		assertNotNull(response.getBody());
+		assertEquals("Value is too long.",validator.getSources().get("summary"));
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+	}
 
-		assertEquals(sources.get("summary"), "Value must be present.");
+	@Test // US012
+	void whenJobRoleControllerPostJobRoleInvokedWithWrongBand_thenExpectError() {
+		String request = "{\"name\": \"name\",\"summary\": \"test summary\", \"band\": \"3\",\"job_family\":\"1\"}";
+
+		List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+		when(bandRepo.findAll()).thenReturn(bands_returned);
+		List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+		when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+	}
+
+	@Test // US012
+	void whenJobRoleControllerPostJobRoleInvokedWithWrongJobFamily_thenExpectError() {
+		String request = "{\"name\": \"name\",\"summary\": \"test summary\", \"band\": \"1\",\"job_family\":\"3\"}";
+
+		List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+		when(bandRepo.findAll()).thenReturn(bands_returned);
+		List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+		when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode().toString());
+	}
+
+	@Test // US012
+	void whenJobRoleControllerPostJobRoleInvokedWithNoSummary_thenExpectSummaryMustNotBeNullErrorMessage() {
+		String request = "{\"name\": \"name\",\"summary\": \"\", \"band\": \"1\",\"job_family\":\"1\"}";
+
+		List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+		when(bandRepo.findAll()).thenReturn(bands_returned);
+		List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+		when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+		assertEquals("Value must not be empty.",response.getBody().getSources().get("summary"));
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode().toString());
+	}
+
+	@Test // US012
+	void whenJobRoleControllerPostJobRoleInvokedWithTooLongName_thenExpectNameTooLongErrorMessage() {
+		String request = "{\"name\": \"namenamenamenamenamenamenamenamenamenamenamenamename\",\"summary\": \"\", \"band\": \"1\",\"job_family\":\"1\"}";
+
+		List<Band> bands_returned  = List.of(new Band((short)1, "test band"),new Band((short)2,"test"));
+		when(bandRepo.findAll()).thenReturn(bands_returned);
+		List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
+		when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
+
+		assertEquals("Value is too long.",response.getBody().getSources().get("name"));
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode().toString());
+	}
+
+	@Test // US012
+	void whenJobRoleControllerPostJobRoleInvokedWithValidBody_thenInvokeJobRoleRepositorySave() {
+		List<Band> bands_returned  = List.of(
+			new Band((short)1,"test band 1"),
+			new Band((short)2,"test band 2"));
+
+		List<JobFamily> families_returned  = List.of(
+			new JobFamily((short)1,"test family 1",null),
+			new JobFamily((short)2,"test family 2",null));
+
+		when(bandRepo.findAll()).thenReturn(bands_returned);
+		when(jobFamilyRepo.findAll()).thenReturn(families_returned);
+		when(jobRoleRepo.save(any())).thenReturn(null);
+
+		ResponseEntity<Validator> response = jobRoleController.addJobRole("""
+  {
+  "name": "name",
+  "summary": "test summary",
+  "band": "2",
+  "job_family": "1"
+  }""");
+
+		verify(jobFamilyRepo, times(1)).save(any());
+		assertEquals(HttpStatus.OK, response.getStatusCode());
 	}
 
     //US012_A
