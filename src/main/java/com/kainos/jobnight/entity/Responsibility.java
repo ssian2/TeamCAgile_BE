@@ -1,5 +1,6 @@
 package com.kainos.jobnight.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
@@ -16,7 +17,8 @@ public class Responsibility {
 
 	@Column(name = "responsibility_name")
 	private String name;
-	
+
+	@JsonBackReference
 	@ManyToMany(mappedBy = "responsibilities")
 	Set<JobRole> jobRoles;
 
