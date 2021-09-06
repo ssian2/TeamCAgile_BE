@@ -94,10 +94,13 @@ public class JobRoleController {
 		}
 	}
 
-	@DeleteMapping(value = "/delete-jobrole/{id}")
+	@DeleteMapping(value = "/delete/{id}")
 	public String deleteJobRoleByObject(@PathVariable("id") Short ID)
 	{
-		repo.deleteById(ID);
+		System.out.println("API IN");
+		if(repo.findById(ID).isPresent()) {
+			repo.deleteById(ID);
+		}
 		return "Deleted";
 	}
 }
