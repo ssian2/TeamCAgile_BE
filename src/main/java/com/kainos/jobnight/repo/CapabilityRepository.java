@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CapabilityRepository extends JpaRepository<Capability, Short> {
+public interface CapabilityRepository extends CrudRepository<Capability, Short> {
 
     @Query("SELECT c from Capability c join c.jobFamilies")
     List<CapabilityNameAndID> findAllCapabilities();

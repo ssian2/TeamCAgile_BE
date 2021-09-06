@@ -1,11 +1,10 @@
 package com.kainos.jobnight.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import java.util.Set;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "band")
