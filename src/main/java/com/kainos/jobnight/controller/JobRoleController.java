@@ -134,7 +134,7 @@ public class JobRoleController {
 					jobFamilyId.get(),
 					families.stream()
 						.map(JobFamily::getID)
-						.map(Short::intValue)
+						.map(Long::intValue)
 						.collect(Collectors.toList()));
 			}
 		} else {

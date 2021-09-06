@@ -5,6 +5,7 @@ import javax.persistence.*;
 import javax.websocket.OnError;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -24,7 +25,7 @@ public class Capability {
     private String name;
 
     @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "capability", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "capability", fetch = FetchType.EAGER)
     private Set<JobFamily> jobFamilies;
 
     public long getID() {
@@ -44,4 +45,10 @@ public class Capability {
     }
 
     public Set<JobFamily> getJobFamilies() { return this.jobFamilies; }
+    public void setJobFamilies(Set<JobFamily> families) { this.jobFamilies = families; }
+
+    @Override
+    public String toString() {
+        return String.format("{ID:%d, name:\"%s\", jobFamilies:%s}", ID, name, jobFamilies);
+    }
 }

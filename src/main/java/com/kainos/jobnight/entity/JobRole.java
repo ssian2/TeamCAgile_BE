@@ -44,8 +44,12 @@ public class JobRole {
 				nullable = false, updatable = false)})
 	private Set<Responsibility> responsibilities;
 
-	@JsonManagedReference
-	@ManyToOne(fetch = FetchType.EAGER)
+	@JsonBackReference
+	@ManyToOne(
+		fetch = FetchType.EAGER,
+		optional = false,
+		targetEntity = JobFamily.class
+	)
 	@JoinColumn(name="job_family_id")
 	private JobFamily jobFamily;
 

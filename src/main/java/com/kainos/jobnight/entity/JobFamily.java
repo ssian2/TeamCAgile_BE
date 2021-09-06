@@ -1,14 +1,12 @@
 package com.kainos.jobnight.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.json.JSONPropertyName;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -21,7 +19,7 @@ public class JobFamily {
     @Id
     @GeneratedValue
     @Column(name = "job_family_id")
-    private short ID;
+    private long ID;
 
     @Column(name = "job_family_name")
     private String name;
@@ -31,13 +29,17 @@ public class JobFamily {
     @JoinColumn(name = "capability_id")
     private Capability capability;
 
-    @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "jobFamily", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        mappedBy = "jobFamily",
+        fetch = FetchType.EAGER,
+        targetEntity = JobRole.class)
     private Set<JobRole> jobRoles;
 
-    public short getID() { return ID; }
+    public long getID() { return ID; }
 
-    public void setID(short ID) { this.ID = ID; }
+    public void setID(long ID) { this.ID = ID; }
 
     public String getName() {
         return name;
@@ -58,5 +60,13 @@ public class JobFamily {
         return capability;
     }
 
+    @JsonGetter(value="jobRoles")
     public Set<JobRole> getJobRoles() { return jobRoles; }
+
+    public void setJobRoles(Set<JobRole> roles) { this.jobRoles = roles; }
+
+    @Override
+    public String toString() {
+        return String.format("ID:%d, name:\"%s\", capability:%s", ID, name, capability.getName());
+    }
 }
