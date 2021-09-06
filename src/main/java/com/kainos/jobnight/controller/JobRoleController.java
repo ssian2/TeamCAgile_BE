@@ -18,6 +18,21 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.kainos.jobnight.helper_classes.Util.safeGetJSONString;
+import com.kainos.jobnight.projections.JobRole.JobRoleWithBandandFamily;
+import com.kainos.jobnight.projections.JobRole.JobRoleWithBrandFamilyUrlAndSpec;
+import com.kainos.jobnight.repo.JobRoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 @RequestMapping("/api/job-role")
@@ -35,13 +50,11 @@ public class JobRoleController {
 	}
 	
 	@GetMapping("/view-job-spec/{id}")
-	public JobRole viewJobSpecById(@PathVariable("id") Short id) {
-		var specId = roleRepo.findById(id);
-
-		if (specId.isPresent()) {
-			return specId.get();
+	public List<JobRoleWithBrandFamilyUrlAndSpec> viewJobSpecById(@PathVariable("id") Short id) {
+		if (roleRepo.findById(id).isPresent()) {
+			return roleRepo.getJobRoleDetailsById(id);
 		}
-		return null;
+		throw new ResponseStatusException(NOT_FOUND, "Job role does not exist");
 	}
 
 	@GetMapping("/view-job-spec")
@@ -176,5 +189,39 @@ public class JobRoleController {
 		//TODO: Validate administrator permissions somehow
 
 		return new ResponseEntity<>(validator, (validator.isOkay()) ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+
+
+	@GetMapping("/jobRolesWithBandAndFamily")
+	public List<JobRoleWithBandandFamily> jobRoleBandAndFamily(){
+		return roleRepo.jobRoleWithBandAndFamily();
+	}
+
+
+	@GetMapping("/byCapability/{name}")
+	public List<JobRoleWithBandandFamily> jobRoleBandAndFamilyByCapability(@PathVariable("name") String name) {
+		if (roleRepo.getJobRoleDetailsByCapabilityName(name).isEmpty()) {
+			throw new ResponseStatusException(NOT_FOUND, "No Job roles in this capability");
+		} else {
+			return roleRepo.getJobRoleDetailsByCapabilityName(name);
+
+		}
+	}
+
+	@GetMapping("/view-responsibilities-per-role/{id}")
+	public RoleResponsibility getRespsPerRoleByID(@PathVariable("id") Short ID)
+	{
+		if(roleRepo.findById(ID).isPresent()){
+			var result = roleRepo.getRoleWithRespById(ID);
+			var resps = result.getResponsibilities();
+			RoleResponsibility data = new RoleResponsibility(result.getName());
+			for (Responsibility r: resps){
+				data.AddResponsibility(r.getName());
+			}
+			return data;
+		}else{
+			return null;
+
+		}
 	}
 }

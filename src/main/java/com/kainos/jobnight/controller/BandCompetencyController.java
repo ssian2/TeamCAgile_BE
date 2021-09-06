@@ -3,10 +3,13 @@ package com.kainos.jobnight.controller;
 import com.kainos.jobnight.entity.Band;
 import com.kainos.jobnight.entity.Competency;
 import com.kainos.jobnight.entity.CompetencyType;
+import com.kainos.jobnight.helper_classes.CompetenciesOfEachBand;
+import com.kainos.jobnight.projections.BandWithCompetencies;
 import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.repo.CompetencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,19 +43,51 @@ public class BandCompetencyController {
 		}
 
 		return map;
-		/*
-		competencies.sort(new Comparator<Competency>() {
-			@Override
-			public int compare(Competency o1, Competency o2) {
-				int bandCmp = Short.compare(o1.getBand().getId(), o2.getBand().getId());
-				if (bandCmp == 0)
-				{
-					return Byte.compare(o1.getCompetency().getId(), o2.getCompetency().getId());
-				}
-				else return bandCmp;
-			}
-		});
-
-		return competencies;*/
 	}
+
+
+	@GetMapping("/bands-with-competencies")
+	List<CompetenciesOfEachBand> getBandWithCompetencies(){ 
+		var  allInfo = competencyRepo.getBandWithCompetencies();
+		List<CompetenciesOfEachBand> ListOfDataFrames  = new ArrayList<CompetenciesOfEachBand>();
+		Set<String> bandNames = new HashSet<String>();
+		for(BandWithCompetencies b: allInfo) {
+			bandNames.add(b.getBandName());
+		}
+		for(String name: bandNames)
+		{
+			var dataFrame = new CompetenciesOfEachBand(name);
+			ListOfDataFrames.add(dataFrame);
+		}
+		for(BandWithCompetencies b: allInfo) {
+			for(CompetenciesOfEachBand c : ListOfDataFrames)
+			{
+				if(c.getName().equals(b.getBandName()))
+				{
+					c.addCompetencyInfo(b.getCompetencyTypeName(), b.getDescription());
+				}
+			}
+		}
+		return ListOfDataFrames;
+	}
+	@GetMapping("/bands-with-competencies/{id}")
+	public CompetenciesOfEachBand getBandWithCompetenciesByID(@PathVariable("id") Short ID){
+        if(bandRepo.findById(ID).isPresent()){
+			try{
+			var resultSet = competencyRepo.getBandWithCompetenciesByID(ID);
+			var dataFrame = new CompetenciesOfEachBand(resultSet.get(0).getBandName());
+			for(BandWithCompetencies b : resultSet)
+			{
+				dataFrame.addCompetencyInfo(b.getCompetencyTypeName(), b.getDescription());
+			}
+			return dataFrame;
+		}catch(Exception e)
+		{
+			return new CompetenciesOfEachBand("");
+		}
+        }else{
+            return new CompetenciesOfEachBand("");
+        }
+    }
+
 }

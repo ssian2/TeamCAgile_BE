@@ -13,6 +13,11 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="job_family")
@@ -27,6 +32,10 @@ public class JobFamily {
     @Column(name = "job_family_name")
     private String name;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "jobFamily")
+    private List<JobRole> jobroles;
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "capability_id")
@@ -40,9 +49,28 @@ public class JobFamily {
         targetEntity = JobRole.class)
     private Set<JobRole> jobRoles;
 
-    public long getID() { return ID; }
+    public JobFamily(short ID, String name, List<JobRole> jobroles, Capability capability) {
+        this.ID = ID;
+        this.name = name;
+        this.jobroles = jobroles;
+        this.capability = capability;
+    }
 
-    public void setID(long ID) { this.ID = ID; }
+    public List<JobRole> getJobroles() {
+        return jobroles;
+    }
+
+    public void setJobroles(List<JobRole> jobroles) {
+        this.jobroles = jobroles;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(short ID) {
+        this.ID = ID;
+    }
 
     public String getName() {
         return name;
@@ -70,5 +98,9 @@ public class JobFamily {
     @Override
     public String toString() {
         return String.format("ID:%d, name:\"%s\", capability:%s", ID, name, capability.getName());
+    }
+
+    public List<String> getJobRolesNames(){
+        return getJobroles().stream().map(JobRole::getName).distinct().collect(Collectors.toList());
     }
 }

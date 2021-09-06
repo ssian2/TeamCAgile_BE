@@ -37,17 +37,16 @@ public class CapabilityAPITests {
     CapabilityRepository capabilityRepository;
 
     // US003
+    // US011
     @Test
     void whenGetRequestIssuedToApiCapability_thenReturnCompleteCapabilityDataSet() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability", port), HttpMethod.GET, entity, String.class);
+        //ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability", port), HttpMethod.GET, entity, String.class);
 
-        List<Capability> caps = capabilityRepository.findAll();
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/getCapability/Product", port), HttpMethod.GET, entity, String.class);
 
-        System.out.printf("\n\n\n%s\n\n\n", caps);
-
-        String expected = loadResourceAsString("Test_US003_Expected.json");
+        String expected = loadResourceAsString("Test_US011_Expected.json");
 
         System.out.println(response.getBody());
 
@@ -56,5 +55,5 @@ public class CapabilityAPITests {
         } catch (JSONException e) {
             fail("Invalid JSON object");
         }
-    }
+     }
 }

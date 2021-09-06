@@ -1,5 +1,13 @@
-{
-  "id": 1,
-  "name": "test role",
-  "specification": "test spec"
-}
+[
+  {
+    "name": "test role",
+    "capability": "test cap name",
+    "specification": "test spec",
+    "bandName": "test band name",
+    "jobFamilyName": "Test Job family",
+    "responsibilitiesList": [
+      "test responsibility name"
+    ],
+    "url": "google.com"
+  }
+]

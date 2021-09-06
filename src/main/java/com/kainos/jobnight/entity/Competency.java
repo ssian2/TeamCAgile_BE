@@ -28,5 +28,10 @@ public class Competency {
 	public short getId() { return id; }
 	public CompetencyType getCompetency() { return competencyType; }
 	public Band getBand() { return band; }
+	public String getBandName(){
+		return this.band.getName();
+	}
+	
 	public String getDescription() { return description; }
+	public String getCompetencyTypeName(){return this.competencyType.getName();}
 }

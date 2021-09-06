@@ -1,11 +1,8 @@
 package com.kainos.jobnight;
-
-import com.kainos.jobnight.repo.JobFamilyRepository;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
@@ -21,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JobnightApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class JobFamilyAPITests {
+public class BandApiTests {
     @LocalServerPort
     private int port;
 
@@ -29,22 +26,40 @@ public class JobFamilyAPITests {
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    // UC011
-    //TODO: I think this is Use case 11, someone please rename the expected test file if I'm wrong :)
+    // US009
     @Test
-    void whenGetRequestIssuedToApiJobFamilyAll_thenReturnCompleteJobFamilyDataSet() {
+    void whenGetRequestIssuedToApiBandTrainings_thenReturnAllBandWithTrainings() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-family/all", port), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/bands/training", port), HttpMethod.GET, entity, String.class);
 
-        String expected = loadResourceAsString("Test_US011_Expected.json");
-
+        String expected = loadResourceAsString("Test_US009_First_Expected.json");
+        
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {
             fail("Invalid JSON object");
         }
-
     }
 
+    @Test
+    void whenGetRequestIssuedToApiBandTrainingsPerID_thenReturnTrainginsForBand() {
+
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/bands/training/1", port), HttpMethod.GET, entity, String.class);
+
+
+        
+        String expected = loadResourceAsString("Test_US009_Second_Expected.json");
+        
+        try {
+            JSONAssert.assertEquals(expected, response.getBody(), false);
+        } catch (JSONException e) {
+            fail("Invalid JSON object");
+        }
+    
+    }
+    
+    
 }

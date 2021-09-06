@@ -1,8 +1,7 @@
 package com.kainos.jobnight;
 
-import com.kainos.jobnight.entity.JobRole;
+
 import com.kainos.jobnight.repo.JobRoleRepository;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,16 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.Buffer;
-import java.util.stream.Collectors;
+
 
 import static com.kainos.jobnight.Util.createURLWithPort;
 import static com.kainos.jobnight.Util.loadResourceAsString;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @RunWith(SpringRunner.class)
@@ -53,6 +46,23 @@ class JobnightApplicationTests {
 			HttpMethod.GET, entity, String.class);
 
 		String expected = loadResourceAsString("Test_US005_Expected.json");
+
+		try {
+			JSONAssert.assertEquals(expected, response.getBody(), true);
+		} catch (JSONException e) {
+			fail("Invalid JSON object");;
+		}
+	}
+	@Test
+	void whenGetRequestIssuedToApiBandCompetencyID_thenReturnCompleteCompetencyDataForBand() {
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(
+			createURLWithPort("/api/band-competency/bands-with-competencies/2", port),
+			HttpMethod.GET, entity, String.class);
+		
+
+		String expected = loadResourceAsString("Test_US005_SECOND_Expected.json");
 
 		try {
 			JSONAssert.assertEquals(expected, response.getBody(), true);
