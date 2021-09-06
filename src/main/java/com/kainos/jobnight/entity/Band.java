@@ -1,8 +1,11 @@
 package com.kainos.jobnight.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "band")
@@ -16,6 +19,11 @@ public class Band implements Comparable<Band> {
 
 	@Column(name = "band_name", length = 30)
 	private String name;
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "band")
+	private List<Competency> competencyList;
+
 
 	@ManyToMany
 	@JoinTable(name = "band_training",
@@ -58,12 +66,23 @@ public class Band implements Comparable<Band> {
 		return name;
 	}
 
-	public Band() {}
+
+	public Band(String name, Short id, List<Competency> competencyList) {
+		this.name = name;
+		this.id = id;
+		this.competencyList = competencyList;
+	}
 
 	public Band(String name, Short id) {
 		this.name = name;
 		this.id = id;
+		this.competencyList =null;
 	}
+
+	public Band(){
+
+	}
+
 
 	public void setId(short id) {
 		this.id = id;
@@ -79,5 +98,36 @@ public class Band implements Comparable<Band> {
 
 	public void setBand_level(int band_level) {
 		this.band_level = band_level;
+	}
+
+
+	public List<Competency> getCompetencyList() {
+		return competencyList;
+	}
+
+	public void setCompetencyList(List<Competency> competencyList) {
+		this.competencyList = competencyList;
+	}
+
+	public void setTrainings(Set<Training> trainings) {
+		this.trainings = trainings;
+	}
+
+	public Map<String, List<String>> getCompetenciesInfo(){
+		Map<String, List<String>> map = new HashMap<>();
+
+		getCompetencyList().forEach(competency -> {
+			List<String> temp = new ArrayList<>();
+			if(map.containsKey(competency.getCompetencyTypeName())){
+				temp = map.get(competency.getCompetencyTypeName());
+				temp.add(competency.getDescription());
+				map.put(competency.getCompetencyTypeName(), temp);
+			}else{
+
+				temp.add(competency.getDescription());
+				map.put(competency.getCompetencyTypeName(),temp);
+			}
+		});
+		return map;
 	}
 }

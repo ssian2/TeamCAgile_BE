@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.kainos.jobnight.projections.band.BandAndCompetency;
 import com.kainos.jobnight.repo.BandRepository;
-import com.kainos.jobnight.projections.BandAndTrainings;
+import com.kainos.jobnight.projections.band.BandAndTrainings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,12 @@ public class BandController {
     public  List<BandAndTrainings> getTrainingByBand(){
         return bandRepo.getBandsAndTrainigs();
     }
+
+    @GetMapping("/withCompetency")
+    public List<BandAndCompetency> getBandsWithC(){
+          return bandRepo.findBandsGroupByType();
+    }
+
 
     @GetMapping("/training/{id}")
     public  BandAndTrainings getTrainingByBandByID(@PathVariable("id") Short ID){

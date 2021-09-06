@@ -4,7 +4,7 @@ import com.kainos.jobnight.entity.Band;
 import com.kainos.jobnight.entity.Competency;
 import com.kainos.jobnight.entity.CompetencyType;
 import com.kainos.jobnight.helper_classes.CompetenciesOfEachBand;
-import com.kainos.jobnight.projections.BandWithCompetencies;
+import com.kainos.jobnight.projections.band.BandWithCompetencies;
 import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.repo.CompetencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,31 +45,6 @@ public class BandCompetencyController {
 		return map;
 	}
 
-
-	@GetMapping("/bands-with-competencies")
-	List<CompetenciesOfEachBand> getBandWithCompetencies(){ 
-		var  allInfo = competencyRepo.getBandWithCompetencies();
-		List<CompetenciesOfEachBand> ListOfDataFrames  = new ArrayList<CompetenciesOfEachBand>();
-		Set<String> bandNames = new HashSet<String>();
-		for(BandWithCompetencies b: allInfo) {
-			bandNames.add(b.getBandName());
-		}
-		for(String name: bandNames)
-		{
-			var dataFrame = new CompetenciesOfEachBand(name);
-			ListOfDataFrames.add(dataFrame);
-		}
-		for(BandWithCompetencies b: allInfo) {
-			for(CompetenciesOfEachBand c : ListOfDataFrames)
-			{
-				if(c.getName().equals(b.getBandName()))
-				{
-					c.addCompetencyInfo(b.getCompetencyTypeName(), b.getDescription());
-				}
-			}
-		}
-		return ListOfDataFrames;
-	}
 	@GetMapping("/bands-with-competencies/{id}")
 	public CompetenciesOfEachBand getBandWithCompetenciesByID(@PathVariable("id") Short ID){
         if(bandRepo.findById(ID).isPresent()){

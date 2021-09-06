@@ -1,7 +1,7 @@
 package com.kainos.jobnight.repo;
 
 import com.kainos.jobnight.entity.Competency;
-import com.kainos.jobnight.projections.BandWithCompetencies;
+import com.kainos.jobnight.projections.band.BandWithCompetencies;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

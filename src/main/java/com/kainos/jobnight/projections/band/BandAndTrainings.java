@@ -1,4 +1,4 @@
-package com.kainos.jobnight.projections;
+package com.kainos.jobnight.projections.band;
 import com.kainos.jobnight.entity.Training;
 
 import java.util.Set;

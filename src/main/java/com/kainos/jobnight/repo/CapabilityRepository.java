@@ -2,9 +2,6 @@ package com.kainos.jobnight.repo;
 
 
 import com.kainos.jobnight.entity.Capability;
-import com.kainos.jobnight.entity.Competency;
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.kainos.jobnight.projections.BandAndTrainings;
 import com.kainos.jobnight.projections.capability.CapabilityAndJobFamilies;
 import com.kainos.jobnight.projections.capability.CapabilityLeadInfo;
 import com.kainos.jobnight.projections.capability.CapabilityNameAndID;
@@ -18,7 +15,8 @@ import java.util.List;
 @Repository
 public interface CapabilityRepository extends JpaRepository<Capability, Short> {
 
-    List<Capability> findAll();
+    @Query("SELECT c from Capability c join c.jobFamilies")
+    List<CapabilityNameAndID> findAllCapabilities();
 
     @Query("SELECT c from Capability c join c.jobFamilies")
     List<CapabilityAndJobFamilies> listCapabilitiesAndJobFamilies();
