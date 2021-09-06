@@ -225,8 +225,8 @@ public class JobRoleController {
 	@DeleteMapping(value = "/delete/{id}")
 	public String deleteJobRoleByObject(@PathVariable("id") Short ID)
 	{
-		if(repo.findById(ID).isPresent()) {
-			repo.deleteById(ID);
+		if(roleRepo.findById(ID).isPresent()) {
+			roleRepo.deleteById(ID);
 			return "Deleted";
 		}
 		return "Not deleted";
