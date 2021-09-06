@@ -5,10 +5,12 @@ import javax.persistence.*;
 import javax.websocket.OnError;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -24,7 +26,7 @@ public class Capability {
     @Column(name = "capability_name")
     private String name;
 
-    @JsonBackReference
+    //@JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "capability", fetch = FetchType.EAGER)
     private Set<JobFamily> jobFamilies;
 
@@ -45,7 +47,17 @@ public class Capability {
     }
 
     public Set<JobFamily> getJobFamilies() { return this.jobFamilies; }
-    public void setJobFamilies(Set<JobFamily> families) { this.jobFamilies = families; }
+
+    @JsonGetter("jobroles")
+    public Set<JobRole> getJobRoles() {
+        Set<JobRole> s = new HashSet<>();
+
+        for (JobFamily family : jobFamilies) {
+            s.addAll(family.getJobRoles());
+        }
+
+        return s;
+    }
 
     @Override
     public String toString() {

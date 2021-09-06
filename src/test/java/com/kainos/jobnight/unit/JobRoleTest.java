@@ -301,7 +301,6 @@ public class JobRoleTest {
 			new JobFamily((short)1,"test family 1",null, null),
 			new JobFamily((short)2,"test family 2",null, null));
 		when(bandRepo.findAll()).thenReturn(bands_returned);
-		List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
 		when(jobFamilyRepo.findAll()).thenReturn(families_returned);
 
 		ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
@@ -324,7 +323,7 @@ public class JobRoleTest {
 
 		ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
 
-		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode().toString());
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
 
 	@Test // US012
@@ -338,13 +337,12 @@ public class JobRoleTest {
 			new JobFamily((short)1,"test family 1",null, null),
 			new JobFamily((short)2,"test family 2",null, null));
 		when(bandRepo.findAll()).thenReturn(bands_returned);
-		List<JobFamily> families_returned  = List.of(new JobFamily((short)1, "test band",null),new JobFamily((short)2,"test",null));
 		when(jobFamilyRepo.findAll()).thenReturn(families_returned);
 
 		ResponseEntity<Validator> response = jobRoleController.addJobRole(request);
 
 		assertEquals("Value must not be empty.",response.getBody().getSources().get("summary"));
-		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode().toString());
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 	}
 
 	@Test // US012

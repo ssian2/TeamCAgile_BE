@@ -24,7 +24,7 @@ public class JobFamily {
     @Column(name = "job_family_name")
     private String name;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "capability_id")
     private Capability capability;

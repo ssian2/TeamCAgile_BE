@@ -45,6 +45,8 @@ public class CapabilityAPITests {
 
         List<Capability> caps = capabilityRepository.findAll();
 
+        System.out.printf("\n\n\n%s\n\n\n", caps);
+
         String expected = loadResourceAsString("Test_US003_Expected.json");
 
         try {
