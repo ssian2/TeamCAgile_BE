@@ -49,6 +49,8 @@ public class CapabilityAPITests {
 
         String expected = loadResourceAsString("Test_US003_Expected.json");
 
+        System.out.println(response.getBody());
+
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {

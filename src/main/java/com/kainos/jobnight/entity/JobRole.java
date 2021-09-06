@@ -43,7 +43,7 @@ public class JobRole {
 			@JoinColumn(name = "responsibility_id", referencedColumnName = "responsibility_id",
 				nullable = false, updatable = false)})
 	private Set<Responsibility> responsibilities;
-
+	
 	@JsonBackReference
 	@ManyToOne(
 		fetch = FetchType.EAGER,

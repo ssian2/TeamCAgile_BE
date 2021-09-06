@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.json.JSONPropertyName;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -62,7 +65,6 @@ public class JobFamily {
 
     @JsonGetter(value="jobRoles")
     public Set<JobRole> getJobRoles() { return jobRoles; }
-
     public void setJobRoles(Set<JobRole> roles) { this.jobRoles = roles; }
 
     @Override

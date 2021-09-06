@@ -29,7 +29,6 @@ public class Capability {
     //@JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "capability", fetch = FetchType.EAGER)
     private Set<JobFamily> jobFamilies;
-
     public long getID() {
         return ID;
     }
@@ -46,8 +45,6 @@ public class Capability {
         this.name = name;
     }
 
-    public Set<JobFamily> getJobFamilies() { return this.jobFamilies; }
-
     @JsonGetter("jobroles")
     public Set<JobRole> getJobRoles() {
         Set<JobRole> s = new HashSet<>();
@@ -63,4 +60,6 @@ public class Capability {
     public String toString() {
         return String.format("{ID:%d, name:\"%s\", jobFamilies:%s}", ID, name, jobFamilies);
     }
+
+    public Set<JobFamily> getJobFamilies() { return this.jobFamilies; }
 }
