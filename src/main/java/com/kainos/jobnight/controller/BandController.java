@@ -1,5 +1,12 @@
 package com.kainos.jobnight.controller;
 
+import com.kainos.jobnight.entity.Band;
+import com.kainos.jobnight.entity.Capability;
+import com.kainos.jobnight.repo.BandRepository;
+import com.kainos.jobnight.repo.CapabilityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.projections.BandAndTrainings;
@@ -10,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.kainos.jobnight.entity.Band;
 import com.kainos.jobnight.projections.band.BandNames;
-
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +52,5 @@ public class BandController {
         return null;
         }
     }
-    
 }
 

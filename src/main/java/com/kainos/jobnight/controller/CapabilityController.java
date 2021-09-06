@@ -28,7 +28,6 @@ public class CapabilityController {
 		return CapabilityRepository.findAll();
 	}
 
-
     @GetMapping("getCapability/{name}")
     public List<CapabilityAndJobFamilies> getCapability(@PathVariable("name") String name){
         if(CapabilityRepository.getCapabilityFamiliesByName(name).isEmpty()){

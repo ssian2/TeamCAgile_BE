@@ -1,13 +1,22 @@
 package com.kainos.jobnight.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
 @Table(name="capability")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Capability {
     @Id
     @GeneratedValue
@@ -15,6 +24,11 @@ public class Capability {
     private short ID;
     @Column(name = "capability_name")
     private String name;
+
+    //@JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "capability", fetch = FetchType.EAGER)
+    private Set<JobFamily> jobFamilies;
+
     @Column(name = "lead_name")
     private String leadName;
     @Column(name = "lead_photo")
@@ -22,15 +36,7 @@ public class Capability {
     @Column(name = "lead_message")
     private String leadMessage;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "capability")
-    private List<JobFamily> jobFamilies;
-
-    public Capability() {
-
-    }
-
-    public Capability(short ID, String name, List<JobFamily> jobFamilies) {
+    public Capability(short ID, String name, Set<JobFamily> jobFamilies) {
         this.ID = ID;
         this.name = name;
         this.jobFamilies = jobFamilies;
@@ -40,6 +46,7 @@ public class Capability {
         this.ID = ID;
         this.name = name;
     }
+
     public long getID() {
         return ID;
     }
@@ -56,6 +63,21 @@ public class Capability {
         this.name = name;
     }
 
+    @JsonGetter("jobroles")
+    public Set<JobRole> getJobRoles() {
+        Set<JobRole> s = new HashSet<>();
+
+        for (JobFamily family : jobFamilies) {
+            s.addAll(family.getJobRoles());
+        }
+
+        return s;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{ID:%d, name:\"%s\", jobFamilies:%s}", ID, name, jobFamilies);
+    }
 
     public String getLeadName() {
         return leadName;
@@ -81,11 +103,11 @@ public class Capability {
         this.leadMessage = leadMessage;
     }
 
-    public List<JobFamily> getJobFamilies() {
+    public Set<JobFamily> getJobFamilies() {
         return jobFamilies;
     }
 
-    public void setJobFamilies(List<JobFamily> jobFamilies) {
+    public void setJobFamilies(Set<JobFamily> jobFamilies) {
         this.jobFamilies = jobFamilies;
     }
 

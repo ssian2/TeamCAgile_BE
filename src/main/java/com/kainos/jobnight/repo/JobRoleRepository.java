@@ -12,14 +12,10 @@ import java.util.Optional;
 
 @Repository
 public interface JobRoleRepository extends CrudRepository<JobRole, Short>
-{/*
-	@Query("SELECT `job_name`, `band_name` FROM `job_role` JOIN `band` USING(`band_id`)")
-	List<JobRole> viewBandLevel();*/
-
+{
 	List<JobRole> findAll();
     
 	Optional<JobRole> findById(Short id);
-
 
 	@Query("Select j from JobRole j JOIN j.responsibilities ")
 	public List<JobRole> testQuery();
@@ -34,9 +30,7 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 	@Query("Select role from JobRole role JOIN role.jobFamily JOIN role.jobFamily.capability where role.jobFamily.capability.name = ?1")
 	List<JobRoleWithBandandFamily> getJobRoleDetailsByCapabilityName(String name);
 
-  
+	<S extends JobRole> S save(S entity);
 	@Query("SELECT j from JobRole j JOIN j.responsibilities where j.id = ?1")
     JobRole getRoleWithRespById(Short id);
-
 }
-

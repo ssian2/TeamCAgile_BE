@@ -1,8 +1,13 @@
 package com.kainos.jobnight;
+
+import com.kainos.jobnight.JobnightApplication;
+import com.kainos.jobnight.entity.Capability;
+import com.kainos.jobnight.repo.CapabilityRepository;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
@@ -11,6 +16,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 import static com.kainos.jobnight.Util.createURLWithPort;
 import static com.kainos.jobnight.Util.loadResourceAsString;
@@ -26,14 +33,22 @@ public class CapabilityAPITests {
 
     private final HttpHeaders headers = new HttpHeaders();
 
+    @Autowired
+    CapabilityRepository capabilityRepository;
+
+    // US003
     // US011
     @Test
-    void whenGetRequestIssuedToApiCapabilityAll_thenReturnCompleteCapabilityDataSet() {
+    void whenGetRequestIssuedToApiCapability_thenReturnCompleteCapabilityDataSet() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+
+        //ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability", port), HttpMethod.GET, entity, String.class);
 
         ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/capability/getCapability/Product", port), HttpMethod.GET, entity, String.class);
 
         String expected = loadResourceAsString("Test_US011_Expected.json");
+
+        System.out.println(response.getBody());
 
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);

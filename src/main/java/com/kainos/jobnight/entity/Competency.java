@@ -1,5 +1,7 @@
 package com.kainos.jobnight.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,12 +12,14 @@ public class Competency {
 	@Column(name = "competency_id")
 	private byte id;
 
-	@ManyToOne(fetch=FetchType.EAGER, optional = false)
-	@JoinColumn(name="competency_type_id", nullable=false)
+	@JsonManagedReference
+	@ManyToOne/*(fetch=FetchType.LAZY)*/
+	@JoinColumn(name="competency_type_id")
 	private CompetencyType competencyType;
 
-	@ManyToOne(fetch=FetchType.EAGER, optional = false)
-	@JoinColumn(name="band_id", nullable=false)
+	@JsonManagedReference
+	@ManyToOne/*(fetch=FetchType.LAZY)*/
+	@JoinColumn(name="band_id")
 	private Band band;
 
 	@Column(name="competency_description", length=300)
