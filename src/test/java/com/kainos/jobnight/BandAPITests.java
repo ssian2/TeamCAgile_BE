@@ -18,13 +18,31 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JobnightApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BandApiTests {
+public class BandAPITests {
     @LocalServerPort
     private int port;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
     private final HttpHeaders headers = new HttpHeaders();
+
+    // US005
+    @Test
+    void whenGetRequestIssuedToApiBandTrainings_thenReturnAllBandsWithCompetencies() {
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/bands/with-competency", port), HttpMethod.GET, entity, String.class);
+
+        String expected = loadResourceAsString("Test_US005_Expected.json");
+
+        System.out.println("dfsfd" + response.getBody());
+
+        try {
+            JSONAssert.assertEquals(expected, response.getBody(), false);
+        } catch (JSONException e) {
+            fail("Invalid JSON object");
+        }
+    }
 
     // US009
     @Test
@@ -59,6 +77,26 @@ public class BandApiTests {
             fail("Invalid JSON object");
         }
     
+    }
+
+
+    //US011 BandInfo
+    @Test
+    void whenGetRequestIssuedToApiBandTrainingsPerID_thenBandsInOrderOfBandLevel() {
+
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/bands/order", port), HttpMethod.GET, entity, String.class);
+
+
+        String expected = loadResourceAsString("Test_US011_Second_Expected.json");
+
+        try {
+            JSONAssert.assertEquals(expected, response.getBody(), false);
+        } catch (JSONException e) {
+            fail("Invalid JSON object");
+        }
+
     }
     
     

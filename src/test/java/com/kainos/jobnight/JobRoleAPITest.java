@@ -1,9 +1,6 @@
 package com.kainos.jobnight;
 
 import org.json.JSONException;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -16,11 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-//import springfox.documentation.oas.mappers.StyleEnumMapper;
-
+import static com.kainos.jobnight.Util.createURLWithPort;
 import static com.kainos.jobnight.Util.loadResourceAsString;
 import static org.junit.jupiter.api.Assertions.fail;
-import static com.kainos.jobnight.Util.createURLWithPort;
+
+//import springfox.documentation.oas.mappers.StyleEnumMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JobnightApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -70,23 +67,6 @@ public class JobRoleAPITest {
 
     }
 
-    //USOO3
-    @Test
-    void whenGetRequestIssuedToApiJobRoleViewJobRolesWithCapabilityInfo_thenReturnRequiredJobRoleInfo() {
-        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-role/jobRolesWithBandAndFamily", port), HttpMethod.GET, entity, String.class);
-
-        String expected = loadResourceAsString("Test_US003_Expected.json");
-
-        try {
-            JSONAssert.assertEquals(expected.toString(), response.getBody(), false);
-        } catch (JSONException e) {
-            fail("Invalid JSON object");
-        }
-
-    }
-
     //US006
     @Test
     void whenGetRequestToViewResponsibilityForRole_thenExpectCorrectResults() {
@@ -110,7 +90,7 @@ public class JobRoleAPITest {
     void whenGetRequestIssuedToApiJobRoleViewJobRoleByCapability_thenReturnRequiredJobRoleInfo() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-role/byCapability/Product", port), HttpMethod.GET, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-role/by-capability/Product", port), HttpMethod.GET, entity, String.class);
 
         
         String expected = loadResourceAsString("Test_US007_Expected.json");

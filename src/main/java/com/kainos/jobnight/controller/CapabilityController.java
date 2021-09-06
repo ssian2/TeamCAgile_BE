@@ -28,7 +28,7 @@ public class CapabilityController {
 		return CapabilityRepository.findAllCapabilities();
 	}
 
-    @GetMapping("getCapability/{name}")
+    @GetMapping("get-capability/{name}")
     public List<CapabilityAndJobFamilies> getCapability(@PathVariable("name") String name){
         if(CapabilityRepository.getCapabilityFamiliesByName(name).isEmpty()){
             throw new ResponseStatusException(NOT_FOUND, "Capability does not exist");
@@ -43,7 +43,7 @@ public class CapabilityController {
         return CapabilityRepository.getCapabilityLeadInfo();
     }
   
-    @GetMapping("/withRoles")
+    @GetMapping("/with-roles")
     public List<CapabilityWithRolesAndID> getAllCapabilitiesWithRoles() {
         return CapabilityRepository.getAllRolesWithCapability();
     }

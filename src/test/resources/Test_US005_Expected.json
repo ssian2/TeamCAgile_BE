@@ -1,15 +1,39 @@
-{
-  "Trainee": {
-    "Communicating & Teamwork": "Placeholder description for Train. C&T",
-    "Customer Focus": "Placeholder description for Train. C.F"
+[
+  {
+    "name": "Apprentice",
+    "competenciesInfo": {
+      "Commercial Awareness": [
+        "Placeholder description for App. C.A"
+      ],
+      "Communicating & Teamwork": [
+        "Placeholder description for App. C&T"
+      ],
+      "Innovation and Continuous Inprovement": [
+        "Placeholder description for App. I&C.I"
+      ],
+      "Job Specific Knowledge": [
+        "Placeholder description for App. J.S.K"
+      ],
+      "Customer Focus": [
+        "Placeholder description for App. C.F"
+      ],
+      "Developing Yourself and Others": [
+        "Placeholder description for App. D.Y&O"
+      ],
+      "Planning and Organising": [
+        "Placeholder description for App. P&O"
+      ]
+    }
   },
-  "Apprentice": {
-    "Planning and Organising": "Placeholder description for App. P&O",
-    "Communicating & Teamwork": "Placeholder description for App. C&T",
-    "Job Specific Knowledge": "Placeholder description for App. J.S.K",
-    "Commercial Awareness": "Placeholder description for App. C.A",
-    "Developing Yourself and Others": "Placeholder description for App. D.Y&O",
-    "Customer Focus": "Placeholder description for App. C.F",
-    "Innovation and Continuous Inprovement": "Placeholder description for App. I&C.I"
+  {
+    "name": "Trainee",
+    "competenciesInfo": {
+      "Communicating & Teamwork": [
+        "Placeholder description for Train. C&T"
+      ],
+      "Customer Focus": [
+        "Placeholder description for Train. C.F"
+      ]
+    }
   }
-}
+]

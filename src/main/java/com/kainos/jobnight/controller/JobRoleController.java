@@ -190,13 +190,13 @@ public class JobRoleController {
 	}
 
 
-	@GetMapping("/jobRolesWithBandAndFamily")
+	@GetMapping("/job-roles-with-band-and-family")
 	public List<JobRoleWithBandandFamily> jobRoleBandAndFamily(){
 		return roleRepo.jobRoleWithBandAndFamily();
 	}
 
 
-	@GetMapping("/byCapability/{name}")
+	@GetMapping("/by-capability/{name}")
 	public List<JobRoleWithBandandFamily> jobRoleBandAndFamilyByCapability(@PathVariable("name") String name) {
 		if (roleRepo.getJobRoleDetailsByCapabilityName(name).isEmpty()) {
 			throw new ResponseStatusException(NOT_FOUND, "No Job roles in this capability");

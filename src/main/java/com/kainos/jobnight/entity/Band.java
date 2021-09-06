@@ -1,5 +1,6 @@
 package com.kainos.jobnight.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 
@@ -19,7 +20,7 @@ public class Band implements Comparable<Band> {
 	@Column(name = "band_name", length = 30)
 	private String name;
 
-	@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "band")
 	private List<Competency> competencyList;
 

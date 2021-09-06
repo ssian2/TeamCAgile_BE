@@ -1,65 +1,72 @@
 [
   {
-    "name": "test role",
+    "name": "test cap name",
     "id": "1",
-    "capability": "test cap name",
-    "bandName": "test band name",
-    "jobFamilyName": "Test Job family"
+    "jobRolesInCapability": [
+      [
+        "test role"
+      ]
+    ]
   },
   {
-    "name": "Test Engineer",
+    "name": "Applied Innovation",
     "id": "2",
-    "capability": "Cyber Security",
-    "bandName": "Associate",
-    "jobFamilyName": "Testing and Quality Assurance"
+    "jobRolesInCapability": []
   },
   {
-    "name": "Software Engineer",
+    "name": "Business Development",
+    "id": "3",
+    "jobRolesInCapability": []
+  },
+  {
+    "name": "Product",
+    "id": "4",
+    "jobRolesInCapability": [
+      [
+        "Digital Advisory Consultant"
+      ],
+      [
+        "Product Specialist"
+      ],
+      [
+        "Specialist Consultant"
+      ]
+    ]
+  },
+  {
+    "name": "Cyber Security",
     "id": "5",
-    "capability": "Engineering",
-    "bandName": "Trainee",
-    "jobFamilyName": "Engineering"
+    "jobRolesInCapability": [
+      [
+        "Software Engineer"
+      ],
+      [
+        "Test Engineer"
+      ]
+    ]
   },
   {
-    "name": "Software Engineer",
+    "name": "Data & Analytics",
     "id": "6",
-    "capability": "Cyber Security",
-    "bandName": "Associate",
-    "jobFamilyName": "Security Strategy and Planning"
+    "jobRolesInCapability": []
   },
   {
-    "name": "Product Specialist",
+    "name": "Engineering",
     "id": "7",
-    "capability": "Product",
-    "bandName": "Principal",
-    "jobFamilyName": "Product Consultancy"
+    "jobRolesInCapability": [
+      [
+        "Software Engineer"
+      ]
+    ]
   },
   {
-    "name": "Digital Advisory Consultant",
+    "name": "Delivery Management",
     "id": "8",
-    "capability": "Product",
-    "bandName": "Principal",
-    "jobFamilyName": "Digital Advisory Consultancy"
+    "jobRolesInCapability": []
   },
   {
-    "name": "Specialist Consultant",
+    "name": "Platforms",
     "id": "9",
-    "capability": "Product",
-    "bandName": "Principal",
-    "jobFamilyName": "Specialist Consultancy"
-  },
-  {
-    "name": "Digital Advisory Consultant",
-    "id": "10",
-    "capability": "Product",
-    "bandName": "Manager",
-    "jobFamilyName": "Digital Advisory Consultancy"
-  },
-  {
-    "name": "Specialist Consultant",
-    "id": "11",
-    "capability": "Product",
-    "bandName": "Manager",
-    "jobFamilyName": "Specialist Consultancy"
+    "jobRolesInCapability": []
   }
 ]

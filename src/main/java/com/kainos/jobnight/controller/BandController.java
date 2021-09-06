@@ -1,24 +1,13 @@
 package com.kainos.jobnight.controller;
 
 import com.kainos.jobnight.entity.Band;
-import com.kainos.jobnight.entity.Capability;
-import com.kainos.jobnight.repo.BandRepository;
-import com.kainos.jobnight.repo.CapabilityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import com.kainos.jobnight.projections.band.BandAndCompetency;
-import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.projections.band.BandAndTrainings;
-
+import com.kainos.jobnight.projections.band.BandNames;
+import com.kainos.jobnight.repo.BandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import com.kainos.jobnight.entity.Band;
-import com.kainos.jobnight.projections.band.BandNames;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +34,7 @@ public class BandController {
         return bandRepo.getBandsAndTrainigs();
     }
 
-    @GetMapping("/withCompetency")
+    @GetMapping("/with-competency")
     public List<BandAndCompetency> getBandsWithC(){
           return bandRepo.findBandsGroupByType();
     }
