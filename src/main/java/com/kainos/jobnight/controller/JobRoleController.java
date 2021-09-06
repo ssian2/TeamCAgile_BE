@@ -22,10 +22,7 @@ import com.kainos.jobnight.projections.JobRole.JobRoleWithBandandFamily;
 import com.kainos.jobnight.projections.JobRole.JobRoleWithBrandFamilyUrlAndSpec;
 import com.kainos.jobnight.repo.JobRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -223,5 +220,16 @@ public class JobRoleController {
 			return null;
 
 		}
+	}
+
+	@DeleteMapping(value = "/delete/{id}")
+	public String deleteJobRoleByObject(@PathVariable("id") Short ID)
+	{
+		if(roleRepo.findById(ID).isPresent()) {
+			roleRepo.deleteById(ID);
+			return "Deleted";
+		}
+		return "Not deleted";
+
 	}
 }

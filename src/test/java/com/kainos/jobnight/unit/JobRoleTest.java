@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -29,6 +30,7 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 
 import static com.kainos.jobnight.Util.createURLWithPort;
@@ -44,7 +46,7 @@ public class JobRoleTest {
     @LocalServerPort
     private int port;
 
-    @Mock
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     private JobRoleRepository jobRoleRepo;
 
     @Mock
@@ -411,4 +413,21 @@ public class JobRoleTest {
             fail("Invalid JSON object");
         }
     }*/
+
+	// US020
+	@Test
+	void whenJobRoleYouWantToDeleteIsPresent_thenExpectSuccesMessage(){
+		Short ID = (short) 1;
+		when(jobRoleRepo.findById(ID)).thenReturn(Optional.of(new JobRole(ID, "name", "spec", "url", (Band) null, null, null)));
+
+		String result= jobRoleController.deleteJobRoleByObject(ID);
+		assertEquals("Deleted", result);
+	}
+	@Test
+	void whenJobRoleYouWantToDeleteIsNotPresent_thenExpectFailureMessage(){
+		Short ID = (short) 1;
+		when(jobRoleRepo.findById(ID)).thenReturn(Optional.empty());
+		String result= jobRoleController.deleteJobRoleByObject(ID);
+		assertEquals("Not deleted", result);
+	}
 }
