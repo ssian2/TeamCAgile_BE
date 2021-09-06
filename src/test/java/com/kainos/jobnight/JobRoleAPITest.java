@@ -1,6 +1,9 @@
 package com.kainos.jobnight;
 
 import org.json.JSONException;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.skyscreamer.jsonassert.JSONAssert;
@@ -119,5 +122,23 @@ public class JobRoleAPITest {
         }
 
     }
+
+    // Commented out because cannot be run in parallel with other tests
+
+//    @Test
+//    void whenDeleteRequestIssuedForJobRole_thenExpectTheJobRoleWithSpecifiedIDDeleted(){
+//        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+//
+//        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-role/delete/1", port), HttpMethod.DELETE, entity, String.class);
+//        try {
+//            ResponseEntity<String> response_to_get = restTemplate.exchange(createURLWithPort("/api/job-role/view-job-spec/1", port), HttpMethod.GET, entity, String.class);
+//        }catch(Exception e)
+//        {
+//            System.out.println(e.getLocalizedMessage());
+//        }
+//
+//        System.out.println(response.getStatusCode());
+//        Assert.assertEquals(response.getStatusCode().toString(),"200 OK");
+//    }
 
 }
