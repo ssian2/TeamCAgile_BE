@@ -35,8 +35,6 @@ public class BandAPITests {
 
         String expected = loadResourceAsString("Test_US005_Expected.json");
 
-        System.out.println("dfsfd" + response.getBody());
-
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
         } catch (JSONException e) {

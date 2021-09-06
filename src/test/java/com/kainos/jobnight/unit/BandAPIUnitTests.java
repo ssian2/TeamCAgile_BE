@@ -1,11 +1,8 @@
-package com.kainos.jobnight;
+package com.kainos.jobnight.unit;
 
-import java.util.Arrays;
-
-import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.controller.BandController;
-import com.kainos.jobnight.entity.*;
-
+import com.kainos.jobnight.entity.Band;
+import com.kainos.jobnight.repo.BandRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -18,7 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.junit.Assert.*;
+
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
 
 
 @RunWith(SpringRunner.class)
