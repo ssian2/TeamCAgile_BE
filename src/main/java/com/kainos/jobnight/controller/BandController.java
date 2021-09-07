@@ -40,7 +40,7 @@ public class BandController {
     }
 
     @GetMapping("/with-competency")
-    public List<BandAndCompetency> getBandsWithC() {
+    public List<BandAndCompetency> getBandsWithCompetency() {
         return bandRepo.findBandsGroupByType();
     }
 

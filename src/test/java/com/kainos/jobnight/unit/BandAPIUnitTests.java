@@ -3,6 +3,7 @@ package com.kainos.jobnight.unit;
 import com.kainos.jobnight.JobnightApplication;
 import com.kainos.jobnight.controller.BandController;
 import com.kainos.jobnight.entity.Band;
+import com.kainos.jobnight.projections.band.BandAndCompetency;
 import com.kainos.jobnight.projections.band.BandNames;
 import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.repo.CapabilityRepository;
@@ -19,10 +20,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
@@ -76,7 +74,7 @@ public class BandAPIUnitTests {
 		assertThat(bandNamesProjection.getName()).isEqualTo("Manager");
 	}
 
-	// US011 - Test BandNames Projection
+	// US011 - Test controller and repo method calling
 	@Test
 	void whenBandControllerGetBandNamesSortedInvoked_thenInvokeBandRepositoryFindAllOrderByBandLevelOnce() {
 		when(bandRepo.findAllOrderByBandLevel()).thenReturn(new ArrayList<>());
@@ -86,5 +84,28 @@ public class BandAPIUnitTests {
 		verify(bandRepo, times(1)).findAllOrderByBandLevel();
 	}
 
+	@Test // US011 - Test BandAndCompetency Projection
+	void whenBandAndCompetencyProjectionInvoked_thenReturnTheBandAndCompetencyInfo() {
+		Map<String, List<String>> competenciesInfo = new HashMap<>();
+		competenciesInfo.put("Commercial Awareness", Collections.singletonList("Competency description"));
 
+		Map<String, Object> backingMap = new HashMap<>();
+		backingMap.put("name", "Manager");
+		backingMap.put("competenciesInfo", competenciesInfo);
+
+		var BandAndCompetencyProjection = factory.createProjection(BandAndCompetency.class, backingMap);
+
+		assertThat(BandAndCompetencyProjection.getName()).isEqualTo("Manager");
+		assertThat(BandAndCompetencyProjection.getCompetenciesInfo().toString()).isEqualTo("{Commercial Awareness=[Competency description]}");
+	}
+
+	//US005 - Test controller and repo method calling
+	@Test
+	void whenBandControllerGetBandsWithCompetencyInvoked_thenInvokeBandRepositoryFindBandsGroupByType() {
+		when(bandRepo.findBandsGroupByType()).thenReturn(new ArrayList<>());
+
+		List<BandAndCompetency> bandNames = bandController.getBandsWithCompetency();
+
+		verify(bandRepo, times(1)).findBandsGroupByType();
+	}
 }
