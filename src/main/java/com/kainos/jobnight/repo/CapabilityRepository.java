@@ -3,6 +3,7 @@ package com.kainos.jobnight.repo;
 
 import com.kainos.jobnight.entity.Capability;
 import com.kainos.jobnight.entity.Competency;
+import com.kainos.jobnight.entity.JobRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.kainos.jobnight.projections.BandAndTrainings;
 import com.kainos.jobnight.projections.capability.CapabilityAndJobFamilies;
@@ -34,4 +35,6 @@ public interface CapabilityRepository extends JpaRepository<Capability, Short> {
   
     @Query("SELECT DISTINCT c from Capability c")
     List<CapabilityWithRolesAndID> getAllRolesWithCapability();
+
+    <S extends Capability> S save(S entity);
 }
