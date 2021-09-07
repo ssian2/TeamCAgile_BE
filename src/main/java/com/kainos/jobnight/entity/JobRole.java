@@ -40,10 +40,10 @@ public class JobRole {
 	@JoinTable(name = "responsibility_employee_role",
 		joinColumns = {
 			@JoinColumn(name = "role_id", referencedColumnName = "role_id",
-				nullable = false, updatable = false)},
+				nullable = false, updatable = true)},
 		inverseJoinColumns = {
 			@JoinColumn(name = "responsibility_id", referencedColumnName = "responsibility_id",
-				nullable = false, updatable = false)})
+				nullable = false, updatable = true)})
 	private Set<Responsibility> responsibilities;
 	
 	@JsonBackReference

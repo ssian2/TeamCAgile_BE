@@ -128,7 +128,8 @@ public class JobRoleAPITest {
 //    @Test
 //    void whenDeleteRequestIssuedForJobRole_thenExpectTheJobRoleWithSpecifiedIDDeleted(){
 //        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-//
+//        ResponseEntity<String> response_to_get_before = restTemplate.exchange(createURLWithPort("/api/job-role/view-job-spec/1", port), HttpMethod.GET, entity, String.class);
+//        System.out.println(response_to_get_before);
 //        ResponseEntity<String> response = restTemplate.exchange(createURLWithPort("/api/job-role/delete/1", port), HttpMethod.DELETE, entity, String.class);
 //        try {
 //            ResponseEntity<String> response_to_get = restTemplate.exchange(createURLWithPort("/api/job-role/view-job-spec/1", port), HttpMethod.GET, entity, String.class);

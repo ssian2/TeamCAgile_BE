@@ -37,6 +37,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public class JobRoleController {
 
 	// Don't use @Autowired on controllers so we can test them better
+
 	private final JobRoleRepository roleRepo;
 	private final BandRepository bandRepo;
 	private final JobFamilyRepository familyRepo;
@@ -226,7 +227,8 @@ public class JobRoleController {
 	public String deleteJobRoleByObject(@PathVariable("id") Short ID)
 	{
 		if(roleRepo.findById(ID).isPresent()) {
-			roleRepo.deleteById(ID);
+			//roleRepo.deleteById(ID);
+			roleRepo.delete(ID);
 			return "Deleted";
 		}
 		return "Not deleted";
