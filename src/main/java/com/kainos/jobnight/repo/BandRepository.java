@@ -10,8 +10,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface BandRepository  extends CrudRepository<Band, Short> {
-	List<Band> findAll();
 
+	List<Band> findAll();
 
 	@Query("Select b from Band b JOIN b.trainings")
 	List<BandAndTrainings> getBandsAndTrainigs();

@@ -28,8 +28,7 @@ public interface JobRoleRepository extends CrudRepository<JobRole, Short>
 	void delete(Short ID);
 
 	@Query("Select j from JobRole j JOIN j.responsibilities ")
-	public List<JobRole> testQuery();
-
+	public List<JobRole> jobRoleResponsibilities();
 
 	@Query("Select j from JobRole j")
 	List<JobRoleWithBandandFamily> jobRoleWithBandAndFamily();

@@ -12,30 +12,22 @@ import com.kainos.jobnight.repo.BandRepository;
 import com.kainos.jobnight.repo.CapabilityRepository;
 import com.kainos.jobnight.repo.JobFamilyRepository;
 import com.kainos.jobnight.repo.JobRoleRepository;
-import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 
-import static com.kainos.jobnight.Util.createURLWithPort;
-import static com.kainos.jobnight.Util.loadResourceAsString;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 //@RunWith(SpringRunner.class)
@@ -63,10 +55,7 @@ public class JobRoleTest {
 
     @BeforeEach
     void init() {
-        jobRoleController = new JobRoleController(
-            jobRoleRepo,
-            bandRepo,
-            jobFamilyRepo);
+        jobRoleController = new JobRoleController(jobRoleRepo, bandRepo, jobFamilyRepo);
     }
 
     @Test // US001
@@ -124,12 +113,12 @@ public class JobRoleTest {
     }*/
 
     @Test // US006
-	void whenJobRoleControllerGetResponsibilitiesPerRoleInvoked_thenInvokeJobRoleRepositoryTestQueryOnce() {
-    	when(jobRoleRepo.testQuery()).thenReturn(List.of());
+	void whenJobRoleControllerGetResponsibilitiesPerRoleInvoked_thenInvokeJobRoleRepositoryTestOnce() {
+    	when(jobRoleRepo.jobRoleResponsibilities()).thenReturn(List.of());
 
     	jobRoleController.getResponsibilitiesPerRole();
 
-    	verify(jobRoleRepo, times(1)).testQuery();
+    	verify(jobRoleRepo, times(1)).jobRoleResponsibilities();
 	}
 
     @Test // US006
@@ -192,7 +181,7 @@ public class JobRoleTest {
 				)
 			)
 		);
-        when(jobRoleRepo.testQuery()).thenReturn(input);
+        when(jobRoleRepo.jobRoleResponsibilities()).thenReturn(input);
 
         List<RoleResponsibility> actual = jobRoleController.getResponsibilitiesPerRole();
 

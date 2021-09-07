@@ -1,34 +1,30 @@
 package com.kainos.jobnight.controller;
 
-import com.kainos.jobnight.entity.*;
-import com.kainos.jobnight.helper_classes.Validator;
+import com.kainos.jobnight.entity.Band;
+import com.kainos.jobnight.entity.JobFamily;
+import com.kainos.jobnight.entity.JobRole;
+import com.kainos.jobnight.entity.Responsibility;
 import com.kainos.jobnight.helper_classes.RoleResponsibility;
+import com.kainos.jobnight.helper_classes.Validator;
+import com.kainos.jobnight.projections.JobRole.JobRoleWithBandandFamily;
+import com.kainos.jobnight.projections.JobRole.JobRoleWithBrandFamilyUrlAndSpec;
 import com.kainos.jobnight.repo.BandRepository;
-import com.kainos.jobnight.repo.CapabilityRepository;
 import com.kainos.jobnight.repo.JobFamilyRepository;
 import com.kainos.jobnight.repo.JobRoleRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static com.kainos.jobnight.helper_classes.Util.safeGetJSONString;
-import com.kainos.jobnight.projections.JobRole.JobRoleWithBandandFamily;
-import com.kainos.jobnight.projections.JobRole.JobRoleWithBrandFamilyUrlAndSpec;
-import com.kainos.jobnight.repo.JobRoleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import static com.kainos.jobnight.helper_classes.Util.safeGetJSONString;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
@@ -67,7 +63,7 @@ public class JobRoleController {
 
 	@GetMapping("/view-responsibilities-per-role")
 	public List<RoleResponsibility> getResponsibilitiesPerRole() {
-		List<JobRole> roles =  roleRepo.testQuery();
+		List<JobRole> roles =  roleRepo.jobRoleResponsibilities();
 		List<RoleResponsibility> joinedData= new ArrayList<RoleResponsibility>();
 
 		for (JobRole j: roles){

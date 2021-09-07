@@ -1,51 +1,90 @@
 package com.kainos.jobnight.unit;
 
+import com.kainos.jobnight.JobnightApplication;
 import com.kainos.jobnight.controller.BandController;
 import com.kainos.jobnight.entity.Band;
+import com.kainos.jobnight.projections.band.BandNames;
 import com.kainos.jobnight.repo.BandRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import com.kainos.jobnight.repo.CapabilityRepository;
+import com.kainos.jobnight.repo.JobFamilyRepository;
+import com.kainos.jobnight.repo.JobRoleRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.projection.ProjectionFactory;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.*;
 
-
-@RunWith(SpringRunner.class)
-@WebMvcTest(value = BandController.class)
-
+@ExtendWith(MockitoExtension.class)
+@SpringBootTest(classes = JobnightApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BandAPIUnitTests {
+	@LocalServerPort
+	private int port;
 
-	@Autowired
-	private MockMvc mockMvc;
-
-	@MockBean
+	@Mock
 	private BandRepository bandRepo;
 
+	@Mock
+	private JobRoleRepository jobRoleRepo;
+
+	@Mock
+	private JobFamilyRepository jobFamilyRepo;
+
+	@Mock
+	private CapabilityRepository capRepo;
+
+	@InjectMocks
+	private BandController bandController;
+
+	private ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
+
+	@BeforeEach
+	void init() {
+		bandController = new BandController(jobRoleRepo, bandRepo, jobFamilyRepo);
+	}
+
 	@Test
-	public void whenRootGetCalledExpectAllTheBands() throws Exception {
+	void whenBandControllerGetAllBandsInvoked_thenInvokeBandRepositoryFindAll() {
+		when(bandRepo.findAll()).thenReturn(new ArrayList<>());
 
-		Mockito.when(
-				bandRepo.findAll()).thenReturn(Arrays.asList(new Band("Test Band 1",Short.parseShort("1")),new Band("Test Band 2",Short.parseShort("2"))));
+		List<Band> jobRoles = bandController.getAllBands();
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				"http://localhost:8080/api/bands/all").accept(
-				MediaType.APPLICATION_JSON);
+		verify(bandRepo, times(1)).findAll();
+	}
 
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
 
-        String expected = "[{\"id\":1,\"name\":\"Test Band 1\",\"trainings\":null,\"band_level\":0},{\"id\":2,\"name\":\"Test Band 2\",\"trainings\":null,\"band_level\":0}]";
-		assertEquals(expected, result.getResponse().getContentAsString());
-		
-    }
+	@Test // US011 - Test BandNames Projection
+	void whenBandNamesProjectionInvoked_thenReturnTheNameOfBand() {
+
+		Map<String, Object> backingMap = new HashMap<>();
+		backingMap.put("name", "Manager");
+
+		var bandNamesProjection = factory.createProjection(BandNames.class, backingMap);
+
+		assertThat(bandNamesProjection.getName()).isEqualTo("Manager");
+	}
+
+	// US011 - Test BandNames Projection
+	@Test
+	void whenBandControllerGetBandNamesSortedInvoked_thenInvokeBandRepositoryFindAllOrderByBandLevelOnce() {
+		when(bandRepo.findAllOrderByBandLevel()).thenReturn(new ArrayList<>());
+
+		List<BandNames> bandNames = bandController.getBandNamesSorted();
+
+		verify(bandRepo, times(1)).findAllOrderByBandLevel();
+	}
+
+
 }

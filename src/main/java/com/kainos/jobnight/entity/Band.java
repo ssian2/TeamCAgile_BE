@@ -1,7 +1,6 @@
 package com.kainos.jobnight.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
@@ -77,6 +76,12 @@ public class Band implements Comparable<Band> {
 		this.name = name;
 		this.id = id;
 		this.competencyList =null;
+	}
+
+	public Band(short id, String name, int band_level) {
+		this.id = id;
+		this.name = name;
+		this.band_level = band_level;
 	}
 
 	public Band(){
