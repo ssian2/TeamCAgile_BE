@@ -9,6 +9,7 @@ import com.kainos.jobnight.projections.capability.CapabilityAndJobFamilies;
 import com.kainos.jobnight.projections.capability.CapabilityLeadInfo;
 import com.kainos.jobnight.projections.capability.CapabilityWithRolesAndID;
 import com.kainos.jobnight.repo.CapabilityRepository;
+import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,10 +26,11 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 @RequestMapping("/api/capability")
+@RequiredArgsConstructor
 public class CapabilityController {
 
-    @Autowired
-    CapabilityRepository CapabilityRepository;
+
+    private final CapabilityRepository CapabilityRepository;
 
     @GetMapping("/")
 	public List<Capability> getAllCapabilities() {

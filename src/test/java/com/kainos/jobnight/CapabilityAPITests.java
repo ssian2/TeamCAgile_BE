@@ -56,4 +56,5 @@ public class CapabilityAPITests {
             fail("Invalid JSON object");
         }
      }
+
 }
